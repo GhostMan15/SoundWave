@@ -40,14 +40,13 @@
                     <!-- Other elements specific to Recently Played -->
                 </StackPanel>
             </Border>
-           
+        
             <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3">
                 <StackPanel VerticalAlignment="Top">
                     <TextBlock Text="Public playlists" Margin="5"/>
                     <ListBox></ListBox>
                 </StackPanel>
             </Border>
-            
         <!-- Search Bar above Recently Played on the right -->
         <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Top">
             <!-- Add Search Bar UI elements here -->
@@ -65,9 +64,9 @@
         </StackPanel>
         </Border>
         <!-- Profile -->
-        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Top">
+        <StackPanel Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Center">
             <!-- Add Profile UI elements here -->
-            <TextBlock Text="User Profile" Margin="5"/>
+        <Button CornerRadius="10">Login/Register</Button>
             <!-- Other elements specific to User Profile -->
         </StackPanel>
         <Border  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
