@@ -21,9 +21,8 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="7" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10"  >
+        <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10"  >
         <!-- User Library on the left -->
         <StackPanel  VerticalAlignment="Top" Width="250">
             <!-- Add User Library UI elements here -->
@@ -53,7 +52,7 @@
             <TextBox Text="Search..." Margin="5" CornerRadius="10"/>
             <!-- Other elements specific to Search Bar -->
         </StackPanel>
-        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
         <!-- My Uploads above Profile -->
         <StackPanel  VerticalAlignment="Top">
             <!-- Add My Uploads UI elements here -->
@@ -69,7 +68,7 @@
         <Button CornerRadius="10">Login/Register</Button>
             <!-- Other elements specific to User Profile -->
         </StackPanel>
-        <Border  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+        <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
         <!-- Player at the bottom -->
         <StackPanel  VerticalAlignment="Top">
             <!-- Add Player UI elements here -->
