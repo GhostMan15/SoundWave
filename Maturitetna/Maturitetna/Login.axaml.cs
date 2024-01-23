@@ -33,6 +33,7 @@ public partial class Login : Window
 
     private void SignIn_OnClick(object? sender, RoutedEventArgs e)
     {
+      
         string username = Username.Text;
         string password = Password.Text;
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
