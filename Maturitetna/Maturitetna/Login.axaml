@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        mc:Ignorable="d" Width="500" Height="450" d:DesignWidth="500" d:DesignHeight="450"
         x:Class="Maturitetna.Login"
         Title="Login"
         Background="CadetBlue"
@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
      <StackPanel>
-         <TextBlock Text="SignIn" TextAlignment="Center" FontSize="36" Margin="10"/>
+         <TextBlock Text="Sign In" TextAlignment="Center" FontSize="36" Margin="10"/>
      </StackPanel>
         <StackPanel Grid.Row="1"  HorizontalAlignment="Center" >
             <TextBlock Text="Username:" Margin="5"/>
@@ -28,7 +28,7 @@
             <TextBox Text="" Width="400" CornerRadius="10"/>           
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-            <Button CornerRadius="10" Content="SignIn" Margin="3"/>
+            <Button CornerRadius="10" Content="Sign In" Margin="3"/>
         </StackPanel>
     <StackPanel Grid.Row="4">
         <TextBlock Text="Niste registrirani?" HorizontalAlignment="Center" Margin="5"/>

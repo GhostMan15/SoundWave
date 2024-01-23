@@ -65,7 +65,8 @@
         <!-- Profile -->
         <StackPanel Grid.Row="0"  Grid.Column="2" Margin="8">
             <!-- Add Profile UI elements here -->
-        <Button Click="Button_OnClick" CornerRadius="10" Content="SignIn" HorizontalAlignment="Right"/>
+        <Button Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right"/>
+            
            
             <!-- Other elements specific to User Profile -->
         </StackPanel>
