@@ -1,25 +1,23 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 
 namespace Maturitetna;
 
-public partial class MainWindow : Window
+public partial class Login : Window
 {
-    public MainWindow()
+    public Login()
     {
         InitializeComponent();
     }
 
-
     private void Button_OnClick(object? sender, RoutedEventArgs e)
-    {
-        var login = new Login();
-        login.Show();
-    }
-
-    private void Register_OnClick(object? sender, RoutedEventArgs e)
     {
         var register = new Register();
         register.Show();
+        this.Close();
     }
+
+   
 }

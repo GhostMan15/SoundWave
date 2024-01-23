@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="Maturitetna.Register"
+        Title="Register"
+        Background="CadetBlue"
+        CornerRadius="10">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Register" TextAlignment="Center" FontSize="36" Margin="10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1"  HorizontalAlignment="Center" >
+            <TextBlock Text="Username:" Margin="5"/>
+            <TextBox Text="" Width="400" CornerRadius="10" />           
+        </StackPanel>
+        <StackPanel Grid.Row="2"  HorizontalAlignment="Center" >
+            <TextBlock Text="E-mail:" Margin="5"/>
+            <TextBox Text="" Width="400" CornerRadius="10"/>           
+        </StackPanel>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center">
+            <TextBlock Text="Password:" Margin="5"/>
+            <TextBox Width="400" CornerRadius="10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center">
+            <TextBlock Text="Re-enter password:" Margin="5"/>
+           <TextBox Width="400" CornerRadius="10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="5">
+            <Button CornerRadius="10" HorizontalAlignment="Center" Content="Register"/>
+        </StackPanel>
+    </Grid>
+</Window>

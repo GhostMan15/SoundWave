@@ -4,7 +4,9 @@
     <option name="projectPerEditor">
       <map>
         <entry key="Maturitetna/App.axaml" value="Maturitetna/Maturitetna.csproj" />
+        <entry key="Maturitetna/Login.axaml" value="Maturitetna/Maturitetna.csproj" />
         <entry key="Maturitetna/MainWindow.axaml" value="Maturitetna/Maturitetna.csproj" />
+        <entry key="Maturitetna/Register.axaml" value="Maturitetna/Maturitetna.csproj" />
       </map>
     </option>
   </component>
