@@ -17,18 +17,18 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
      <StackPanel>
-         <TextBlock Text="Sign In" TextAlignment="Center" FontSize="36" Margin="10"/>
+         <Label Content="Sign In" HorizontalAlignment="Center" FontSize="36" FontWeight="Black" Margin="10"/>
      </StackPanel>
         <StackPanel Grid.Row="1"  HorizontalAlignment="Center" >
             <TextBlock Text="Username:" Margin="5"/>
-            <TextBox Text="" Width="400" CornerRadius="10" />           
+            <TextBox x:Name="Username" Width="400" CornerRadius="10" />           
         </StackPanel>
         <StackPanel Grid.Row="2"  HorizontalAlignment="Center" >
             <TextBlock Text="Password:" Margin="5"/>
-            <TextBox Text="" Width="400" CornerRadius="10"/>           
+            <TextBox x:Name="Password" Width="400" CornerRadius="10"/>           
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-            <Button CornerRadius="10" Content="Sign In" Margin="3"/>
+            <Button CornerRadius="10" Content="Sign In" Margin="3" Click="SignIn_OnClick"/>
         </StackPanel>
     <StackPanel Grid.Row="4">
         <TextBlock Text="Niste registrirani?" HorizontalAlignment="Center" Margin="5"/>

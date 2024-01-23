@@ -6,8 +6,6 @@
         x:Class="Maturitetna.MainWindow"
         Title="Maturitetna"
          Background="CadetBlue">
-    
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -23,64 +21,45 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10"  >
-        <!-- User Library on the left -->
         <StackPanel  VerticalAlignment="Top" Width="250">
-            <!-- Add User Library UI elements here -->
             <TextBlock Text="User Library" Margin="10"/>
-            <!-- Other elements specific to User Library -->
         </StackPanel>
         </Border>
-            <!-- Recently Played in the center -->
             <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" > 
                 <StackPanel  VerticalAlignment="Top" >
-                    <!-- Add Recently Played UI elements here -->
                     <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>
-                    <ListBox></ListBox>
-                    <!-- Other elements specific to Recently Played -->
                 </StackPanel>
             </Border>
-        
             <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3">
                 <StackPanel VerticalAlignment="Top">
                     <TextBlock Text="Public playlists" Margin="5"/>
-                    <ListBox></ListBox>
                 </StackPanel>
             </Border>
-        <!-- Search Bar above Recently Played on the right -->
         <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Top">
-            <!-- Add Search Bar UI elements here -->
             <TextBox Text="Search..." Margin="5" CornerRadius="10"/>
-            <!-- Other elements specific to Search Bar -->
         </StackPanel>
         <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
-        <!-- My Uploads above Profile -->
         <StackPanel  VerticalAlignment="Top">
-            <!-- Add My Uploads UI elements here -->
             <TextBlock Text="My Uploads" Margin="5" />
-            <ListBox>
-            </ListBox>
-            <!-- Other elements specific to My Uploads -->
         </StackPanel>
         </Border>
-        <!-- Profile -->
+        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
+            <DockPanel Margin="3" >
+                <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
+                    <MenuItem Header="_Profile" CornerRadius="10">
+                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3"/>
+                        <MenuItem Header="Sample" CornerRadius="10" Margin="3"/>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+        </StackPanel>
         <StackPanel Grid.Row="0"  Grid.Column="2" Margin="8">
-            <!-- Add Profile UI elements here -->
-        <Button Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right"/>
-            
-           
-            <!-- Other elements specific to User Profile -->
+        <Button Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton"/>
         </StackPanel>
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
-        <!-- Player at the bottom -->
         <StackPanel  VerticalAlignment="Top">
-            <!-- Add Player UI elements here -->
             <TextBlock Text="Player" Margin="5"/>
-            <!-- Other elements specific to Player -->
         </StackPanel>
         </Border>
-            
     </Grid>
-
-    
-
 </Window>

@@ -5,9 +5,11 @@ namespace Maturitetna;
 
 public partial class MainWindow : Window
 {
+    private bool SignedIn = false;
     public MainWindow()
     {
         InitializeComponent();
+        ShowProfile();
     }
 
 
@@ -15,11 +17,13 @@ public partial class MainWindow : Window
     {
         var login = new Login();
         login.Show();
+        SignedIn = true;
+        ShowProfile();
     }
 
-    private void Register_OnClick(object? sender, RoutedEventArgs e)
+    private void ShowProfile()
     {
-        var register = new Register();
-        register.Show();
+        Profile.IsVisible = SignedIn;
+        SigButton.IsVisible = !SignedIn;
     }
 }
