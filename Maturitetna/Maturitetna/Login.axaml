@@ -25,7 +25,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2"  HorizontalAlignment="Center" >
             <TextBlock Text="Password:" Margin="5"/>
-            <TextBox x:Name="Password" Width="400" CornerRadius="10"/>           
+            <TextBox PasswordChar="*" x:Name="Password" Width="400" CornerRadius="10"/>           
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">
             <Button CornerRadius="10" Content="Sign In" Margin="3" Click="SignIn_OnClick"/>

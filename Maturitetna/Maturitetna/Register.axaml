@@ -30,11 +30,11 @@
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">
             <TextBlock Text="Password:" Margin="5"/>
-            <TextBox x:Name="Password" Width="400" CornerRadius="10"/>
+            <TextBox PasswordChar="*" x:Name="Password" Width="400" CornerRadius="10"/>
         </StackPanel>
         <StackPanel Grid.Row="4" HorizontalAlignment="Center">
             <TextBlock Text="Re-enter password:" Margin="5"/>
-           <TextBox  x:Name="Reenter" Width="400"  CornerRadius="10"/>
+           <TextBox PasswordChar="*"  x:Name="Reenter" Width="400"  CornerRadius="10"/>
         </StackPanel>
         <StackPanel Grid.Row="5">
             <Button CornerRadius="10" HorizontalAlignment="Center" Content="Register" Click="Register_OnClick"/>

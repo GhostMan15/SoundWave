@@ -64,6 +64,14 @@
               "target": "Package",
               "version": "[11.0.6, )"
             },
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.104.0-preview2, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.28, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.3.0, )"

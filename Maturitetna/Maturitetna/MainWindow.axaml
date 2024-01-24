@@ -5,7 +5,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Maturitetna.MainWindow"
         Title="Maturitetna"
-         Background="CadetBlue">
+         Background="CadetBlue"
+        Closed="TopLevel_OnClosed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -41,20 +42,28 @@
         <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
         <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5" />
+            <ListBox x:Name="Uploads"  Margin="5" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
         </Border>
         <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
             <DockPanel Margin="3" >
                 <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
-                    <MenuItem Header="_Profile" CornerRadius="10">
-                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3"/>
+                    <MenuItem Header="_Profile" CornerRadius="10" Click="MenuItem_OnClick">
+                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
                         <MenuItem Header="Sample" CornerRadius="10" Margin="3"/>
                     </MenuItem>
                 </Menu>
             </DockPanel>
         </StackPanel>
         <StackPanel Grid.Row="0"  Grid.Column="2" Margin="8">
-        <Button Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton"/>
+        <Button Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
         </StackPanel>
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
         <StackPanel  VerticalAlignment="Top">

@@ -1,29 +1,131 @@
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using MySqlConnector;
+using Dapper;
+using ClosedXML;
 
 namespace Maturitetna;
 
 public partial class MainWindow : Window
 {
     private bool SignedIn = false;
+    private ObservableCollection<MusicItem> myUploads = new ObservableCollection<MusicItem>();
+    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    
     public MainWindow()
     {
         InitializeComponent();
         ShowProfile();
+        Uploads.ItemsSource = myUploads;
+        NaloizIzDatabaze();
+        Closed += TopLevel_OnClosed;
     }
 
+    public class MusicItem
+    {
+        public int Pesmi_id { get; set; }
+        public string Naslov { get; set; }
+        public string Dolzina { get; set; }
 
+        public MusicItem(){}
+        public MusicItem(int pesmi_id, string naslov, string dolzina)
+        {
+            Pesmi_id = pesmi_id;
+            Naslov = naslov;
+            Dolzina = dolzina;
+        }
+
+      
+    }
+ 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
         var login = new Login();
         login.Show();
         SignedIn = true;
         ShowProfile();
+        PobrisiUplode();
     }
 
+    
+    private void Upload_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Prikazi();
+    }
+
+
+    private async void MenuItem_OnClick(object? sender, RoutedEventArgs e)
+    {
+        await Prikazi();
+    }
+
+    private async Task Prikazi()
+    {
+        var fileDialog = new OpenFileDialog();
+        fileDialog.Title = "Izberite file";
+        fileDialog.Filters.Add(new FileDialogFilter{Name = "file", Extensions = {"mp3","wav","ogg"}});
+
+        var izbraniFile = await fileDialog.ShowAsync(this);
+        if (izbraniFile != null && izbraniFile.Length > 0)
+        {
+            foreach (var file in izbraniFile)
+            {
+                var naslov = System.IO.Path.GetFileNameWithoutExtension(file); 
+                var dolzina = "Neznana";
+                var newMusic = new MusicItem( 0, naslov,dolzina);
+                myUploads.Add(newMusic);
+                ShraniVDatabazo(newMusic);
+            }
+        }
+    }
+
+    private void NaloizIzDatabaze()
+    {
+      
+        using (MySqlConnection connection = new MySqlConnection(conn) )
+        {
+            connection.Open();
+            string sql = "SELECT pesmi_id ,naslov_pesmi, dolzina_pesmi FROM  pesmi";
+            var pesmi = connection.Query<MusicItem>(sql);
+            foreach (var pesm in pesmi)
+            {
+                myUploads.Add(pesm);
+            }
+        }
+    }
+
+    private void ShraniVDatabazo(MusicItem musicItem)
+    {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+             connection.Open();
+            string sql = "INSERT INTO pesmi(pesmi_id,naslov_pesmi,dolzina_pesmi) VALUES(@pesmi_id, @naslov_pesmi,@dolzina_pesmi)";
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@pesmi_id", musicItem.Pesmi_id);
+                command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
+                command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
+                command.ExecuteNonQuery();
+            }
+        }
+    }
     private void ShowProfile()
     {
         Profile.IsVisible = SignedIn;
         SigButton.IsVisible = !SignedIn;
+    }
+
+    public void PobrisiUplode()
+    {
+        myUploads.Clear();
+        Uploads.ItemsSource = myUploads;
+    }
+
+    private void TopLevel_OnClosed(object? sender, EventArgs e)
+    {
+        PobrisiUplode();
     }
 }
