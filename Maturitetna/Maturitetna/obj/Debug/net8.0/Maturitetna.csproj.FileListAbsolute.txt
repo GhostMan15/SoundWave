@@ -291,3 +291,9 @@ C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\ne
 C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\RBush.dll
 C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\SixLabors.Fonts.dll
 C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\System.IO.Packaging.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\NAudio.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\NAudio.Asio.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\NAudio.Core.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\NAudio.Midi.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\NAudio.Wasapi.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\NAudio.WinMM.dll

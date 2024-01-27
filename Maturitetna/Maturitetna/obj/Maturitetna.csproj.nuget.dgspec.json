@@ -80,6 +80,10 @@
               "target": "Package",
               "version": "[2.3.5, )"
             },
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
             "ThingLing.Avalonia.Controls.MessageBox": {
               "target": "Package",
               "version": "[2.0.0, )"

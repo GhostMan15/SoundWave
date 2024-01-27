@@ -25,10 +25,10 @@ public partial class Register : Window
 
     private void Register_OnClick(object? sender, RoutedEventArgs e)
     {
-        string? username = Username.Text;
-        string? email = Email.Text;
-        string? password = Password.Text;
-        string? reenter = Reenter.Text;
+        string username = Username.Text;
+        string email = Email.Text;
+        string password = Password.Text;
+        string reenter = Reenter.Text;
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password) || string.IsNullOrEmpty(reenter))
         {
             MessageBox.ShowAsync("Prosim vpišite podatke");
@@ -52,6 +52,7 @@ public partial class Register : Window
                     // Execute the command
                     command.ExecuteNonQuery();
                     this.Close();   
+                    
                 }
                
             }

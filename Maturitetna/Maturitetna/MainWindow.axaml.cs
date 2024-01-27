@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using MySqlConnector;
 using Dapper;
 using ClosedXML;
+using NAudio.Wave;
 
 namespace Maturitetna;
 
@@ -20,7 +21,6 @@ public partial class MainWindow : Window
         InitializeComponent();
         ShowProfile();
         Uploads.ItemsSource = myUploads;
-        NaloizIzDatabaze();
         Closed += TopLevel_OnClosed;
         DataContext = this;
     }
@@ -30,7 +30,8 @@ public partial class MainWindow : Window
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
         
-
+        public long UserId { get; set; }
+ 
     public MusicItem(){}
         public MusicItem( string naslov, string dolzina)
         {
@@ -57,7 +58,27 @@ public partial class MainWindow : Window
 
     private async void MenuItem_OnClick(object? sender, RoutedEventArgs e)
     {
-        await Prikazi();
+        
+    }
+    
+    public class Audio
+    {
+        public static async Task<string> GetAudioFileLength(string filePath)
+        {
+            try
+            {
+                using (var audioFile = new AudioFileReader(filePath))
+                {
+                    TimeSpan duration = audioFile.TotalTime;
+                    return duration.TotalSeconds.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading audio file: {ex.Message}");
+                return "Unknown";
+            }
+        }
     }
 
     private async Task Prikazi()
@@ -71,9 +92,10 @@ public partial class MainWindow : Window
         {
             foreach (var file in izbraniFile)
             {
-                var naslov = System.IO.Path.GetFileNameWithoutExtension(file); 
-                var dolzina = "Neznana";
+                var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
+                var dolzina = await Audio.GetAudioFileLength(file);
                 var newMusic = new MusicItem(naslov,dolzina);
+               // newMusic.UserId = userId;
                 myUploads.Add(newMusic);
                 ShraniVDatabazo(newMusic);
             }
@@ -100,9 +122,10 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
              connection.Open();
-            string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi) VALUES(@naslov_pesmi,@dolzina_pesmi)";
+            string sql = "INSERT INTO pesmi(pesmi_fk_avtor,naslov_pesmi,dolzina_pesmi) VALUES(@pesmi_fk_avtor,@naslov_pesmi,@dolzina_pesmi)";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
+                command.Parameters.AddWithValue("@pesmi_fk_avtor", musicItem.UserId);
                 command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                 command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                 command.ExecuteNonQuery();

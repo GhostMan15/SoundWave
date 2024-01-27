@@ -47,6 +47,12 @@ C:\Users\faruk\.nuget\packages\microsoft.win32.systemevents\6.0.0\lib\net6.0\Mic
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\mscorlib.dll
 C:\Users\faruk\.nuget\packages\mysql.data\8.3.0\lib\net8.0\MySql.Data.dll
 C:\Users\faruk\.nuget\packages\mysqlconnector\2.3.5\lib\net8.0\MySqlConnector.dll
+C:\Users\faruk\.nuget\packages\naudio.asio\2.2.1\lib\netstandard2.0\NAudio.Asio.dll
+C:\Users\faruk\.nuget\packages\naudio.core\2.2.1\lib\netstandard2.0\NAudio.Core.dll
+C:\Users\faruk\.nuget\packages\naudio\2.2.1\lib\net6.0\NAudio.dll
+C:\Users\faruk\.nuget\packages\naudio.midi\2.2.1\lib\netstandard2.0\NAudio.Midi.dll
+C:\Users\faruk\.nuget\packages\naudio.wasapi\2.2.1\lib\netstandard2.0\NAudio.Wasapi.dll
+C:\Users\faruk\.nuget\packages\naudio.winmm\2.2.1\lib\netstandard2.0\NAudio.WinMM.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\netstandard.dll
 C:\Users\faruk\.nuget\packages\rbush\3.2.0\lib\net6.0\RBush.dll
 C:\Users\faruk\.nuget\packages\sixlabors.fonts\1.0.0\lib\netcoreapp3.1\SixLabors.Fonts.dll

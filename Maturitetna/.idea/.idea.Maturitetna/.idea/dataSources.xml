@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306/Maturitetna</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="maturitetna@localhost [2]" uuid="f0ce9eea-4c99-418d-906a-93435c3e87f8">
+    <data-source source="LOCAL" name="maturitetna@localhost" uuid="ec3158d2-20f0-42f9-a5b9-cd24813a4980">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

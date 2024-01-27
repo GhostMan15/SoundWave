@@ -18,6 +18,7 @@ namespace Maturitetna;
 public partial class Login : Window
 {
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private long userId;
     public Login()
     {
         InitializeComponent();
@@ -47,7 +48,7 @@ public partial class Login : Window
             try
             {
             
-                string sql = "SELECT * FROM user  WHERE username = @username AND password = @password";
+                string sql = "SELECT user_id FROM user  WHERE username = @username AND password = @password";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
@@ -57,6 +58,7 @@ public partial class Login : Window
                     {
                         if (reader.Read())
                         {
+                            userId = reader.GetInt64("user_id");
                             MessageBox.ShowAsync("Dobro došli");
                             this.Close();
                         }
@@ -76,5 +78,11 @@ public partial class Login : Window
             }
         }
       
+        
+    }
+
+    public long GetUserId()
+    {
+        return userId;
     }
 }
