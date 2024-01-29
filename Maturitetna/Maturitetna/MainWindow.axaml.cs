@@ -21,7 +21,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         ShowProfile();
         Uploads.ItemsSource = myUploads;
-        Closed += TopLevel_OnClosed;
+     //   Closed += TopLevel_OnClosed;
         DataContext = this;
     }
 
@@ -29,7 +29,6 @@ public partial class MainWindow : Window
     {
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
-        
         public long UserId { get; set; }
  
     public MusicItem(){}
