@@ -12,7 +12,7 @@ namespace Maturitetna;
 
 public partial class MainWindow : Window
 {
-    private bool SignedIn = false;
+    private static bool SignedIn;
     private ObservableCollection<MusicItem> myUploads { get; } = new ObservableCollection<MusicItem>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     
@@ -30,7 +30,7 @@ public partial class MainWindow : Window
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
         public long UserId { get; set; }
- 
+        
     public MusicItem(){}
         public MusicItem( string naslov, string dolzina)
         {
@@ -44,7 +44,6 @@ public partial class MainWindow : Window
         var login = new Login();
         login.Show();
         SignedIn = true;
-        ShowProfile();
         PobrisiUplode();
     }
 
@@ -131,7 +130,7 @@ public partial class MainWindow : Window
             }
         }
     }
-    private void ShowProfile()
+    public static void ShowProfile()
     {
         Profile.IsVisible = SignedIn;
         SigButton.IsVisible = !SignedIn;

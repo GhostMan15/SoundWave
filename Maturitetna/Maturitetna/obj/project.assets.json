@@ -7672,24 +7672,31 @@
     ]
   },
   "packageFolders": {
-    "/home/Faruk/.nuget/packages/": {}
+    "C:\\Users\\faruk\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+      "projectUniqueName": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
       "projectName": "Maturitetna",
-      "projectPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
-      "packagesPath": "/home/Faruk/.nuget/packages/",
-      "outputPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
+      "projectPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
+      "packagesPath": "C:\\Users\\faruk\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/Faruk/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\faruk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7764,18 +7771,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.1, 8.0.1]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

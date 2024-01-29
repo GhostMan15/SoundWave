@@ -56,7 +56,7 @@
         <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
             <DockPanel Margin="3" >
                 <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
-                    <MenuItem Header="_Profile" CornerRadius="10" Click="MenuItem_OnClick">
+                    <MenuItem Header="_Profile" CornerRadius="10" Click="MenuItem_OnClick" >
                         <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
                         <MenuItem Header="Sample" CornerRadius="10" Margin="3"/>
                     </MenuItem>
@@ -64,7 +64,7 @@
             </DockPanel>
         </StackPanel>
         <StackPanel Grid.Row="0"  Grid.Column="2" Margin="8">
-        <Button Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
+        <Button  Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
         </StackPanel>
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
         <StackPanel  VerticalAlignment="Top">

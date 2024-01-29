@@ -10,6 +10,7 @@ using ThingLing.Controls;
 using MySqlConnection1 = MySql.Data.MySqlClient.MySqlConnection; 
 using MySqlCommand1 = MySql.Data.MySqlClient.MySqlCommand; 
 using MySqlDataReader1 = MySql.Data.MySqlClient.MySqlDataReader;
+using  static Maturitetna.MainWindow;
 
 
 namespace Maturitetna;
@@ -30,6 +31,7 @@ public partial class Login : Window
         var register = new Register();
         register.Show();
         this.Close();
+       
     }
 
 
@@ -62,6 +64,7 @@ public partial class Login : Window
                             userId = reader.GetInt64("user_id");
                             MessageBox.ShowAsync("Dobro došli");
                             this.Close();
+                            MainWindow.ShowProfile();
                         }
                         else
                         {
