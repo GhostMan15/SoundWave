@@ -41,7 +41,7 @@ public partial class MainWindow : Window
  
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        var login = new Login();
+        var login = new Login(this);
         login.Show();
         SignedIn = true;
         PobrisiUplode();
@@ -93,7 +93,6 @@ public partial class MainWindow : Window
                 var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
                 var dolzina = await Audio.GetAudioFileLength(file);
                 var newMusic = new MusicItem(naslov,dolzina);
-               // newMusic.UserId = userId;
                 myUploads.Add(newMusic);
                 ShraniVDatabazo(newMusic);
             }
@@ -106,7 +105,7 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
-            string sql = "SELECT pesmi_fk_avtor FROM  pesmi ";
+            string sql = "SELECT pesmi.pesmi_fk_avtor, user.user_id FROM  pesmi JOIN user ON user.user_id  = pesmi.pesmi_fk_avtor ";
             var pesmi = connection.Query<MusicItem>(sql);
             foreach (var pesm in pesmi)
             {
@@ -120,17 +119,17 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
              connection.Open();
-            string sql = "INSERT INTO pesmi(pesmi_fk_avtor,naslov_pesmi,dolzina_pesmi) VALUES(@pesmi_fk_avtor,@naslov_pesmi,@dolzina_pesmi)";
+            string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi) VALUES(@naslov_pesmi,@dolzina_pesmi)";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@pesmi_fk_avtor", musicItem.UserId);
+               // command.Parameters.AddWithValue("@pesmi_fk_avtor", musicItem.UserId);
                 command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                 command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                 command.ExecuteNonQuery();
             }
         }
     }
-    public static void ShowProfile()
+    public void ShowProfile()
     {
         Profile.IsVisible = SignedIn;
         SigButton.IsVisible = !SignedIn;

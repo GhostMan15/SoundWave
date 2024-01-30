@@ -20,10 +20,11 @@ public partial class Login : Window
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private long userId;
-
-    public Login()
+    private MainWindow _mainWindow;
+    public Login(MainWindow mainWindow)
     {
         InitializeComponent();
+        _mainWindow = mainWindow;
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -64,7 +65,7 @@ public partial class Login : Window
                             userId = reader.GetInt64("user_id");
                             MessageBox.ShowAsync("Dobro došli");
                             this.Close();
-                            MainWindow.ShowProfile();
+                            _mainWindow.ShowProfile();
                         }
                         else
                         {
