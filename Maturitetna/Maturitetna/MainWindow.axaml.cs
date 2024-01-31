@@ -14,7 +14,7 @@ public partial class MainWindow : Window
 {
     private static bool SignedIn;
     private ObservableCollection<MusicItem> myUploads { get; } = new ObservableCollection<MusicItem>();
-    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private string  conn = "Server=localhost;Database=Maturitetna;Uid=root;Pwd=root;";
     
     public MainWindow()
     {
@@ -73,7 +73,7 @@ public partial class MainWindow : Window
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error reading audio file: {ex.Message}");
+                
                 return "Unknown";
             }
         }

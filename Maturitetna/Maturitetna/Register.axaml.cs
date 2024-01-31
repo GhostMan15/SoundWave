@@ -16,7 +16,7 @@ namespace Maturitetna;
 
 public partial class Register : Window
 {
-    private string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private string conn = "Server=localhost;Database=Maturitetna;Uid=root;Pwd=root;";
    
     public Register()
     {
@@ -42,7 +42,7 @@ public partial class Register : Window
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
                 connection.Open();
-                var sql = "INSERT INTO user(username,email,password) VALUES (@username, @email, @password)";
+                var sql = "INSERT INTO User(username,email,password) VALUES (@username, @email, @password)";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);

@@ -18,7 +18,7 @@ namespace Maturitetna;
 
 public partial class Login : Window
 {
-    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private const string conn = "Server=localhost;Database=Maturitetna;Uid=root;Pwd=root;";
     private long userId;
     private MainWindow _mainWindow;
     public Login(MainWindow mainWindow)
@@ -52,7 +52,7 @@ public partial class Login : Window
             try
             {
 
-                string sql = "SELECT user_id FROM user  WHERE username = @username AND password = @password";
+                string sql = "SELECT user_id FROM User  WHERE username = @username AND password = @password";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
