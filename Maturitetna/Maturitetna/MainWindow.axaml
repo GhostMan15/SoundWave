@@ -46,7 +46,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                          <Label>Naslov</Label>
+                           <Label Content="Naslov" />
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
@@ -58,6 +58,7 @@
                 <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
                     <MenuItem Header="_Profile" CornerRadius="10" Click="MenuItem_OnClick" >
                         <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
+                        <MenuItem Header="_Logout" CornerRadius="10" Margin="3" x:Name="Logout" Click="Logout_OnClick"  />
                         <MenuItem Header="Sample" CornerRadius="10" Margin="3"/>
                     </MenuItem>
                 </Menu>

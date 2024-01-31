@@ -10,7 +10,7 @@ using ThingLing.Controls;
 using MySqlConnection1 = MySql.Data.MySqlClient.MySqlConnection; 
 using MySqlCommand1 = MySql.Data.MySqlClient.MySqlCommand; 
 using MySqlDataReader1 = MySql.Data.MySqlClient.MySqlDataReader;
-using  static Maturitetna.MainWindow;
+
 
 
 namespace Maturitetna;
@@ -18,13 +18,16 @@ namespace Maturitetna;
 
 public partial class Login : Window
 {
-    private const string conn = "Server=localhost;Database=Maturitetna;Uid=root;Pwd=root;";
+    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private long userId;
     private MainWindow _mainWindow;
+    
     public Login(MainWindow mainWindow)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
+        _mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
+        _mainWindow.NaloizIzDatabaze();
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -69,6 +72,7 @@ public partial class Login : Window
                         }
                         else
                         {
+                            
                             MessageBox.ShowAsync("Nepravilno ime ali geslo \n Poskusite še enkrat");
                         }
 

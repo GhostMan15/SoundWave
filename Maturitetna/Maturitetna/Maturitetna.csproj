@@ -18,6 +18,7 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.6"/>
         <PackageReference Include="ClosedXML" Version="0.104.0-preview2" />
         <PackageReference Include="Dapper" Version="2.1.28" />
+        <PackageReference Include="MessageShow" Version="2.0.0" />
         <PackageReference Include="MySql.Data" Version="8.3.0" />
         <PackageReference Include="MySqlConnector" Version="2.3.5" />
         <PackageReference Include="NAudio" Version="2.2.1" />

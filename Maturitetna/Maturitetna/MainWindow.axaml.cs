@@ -7,22 +7,21 @@ using MySqlConnector;
 using Dapper;
 using ClosedXML;
 using NAudio.Wave;
+using NAudio;
 
 namespace Maturitetna;
 
 public partial class MainWindow : Window
 {
-    private static bool SignedIn;
-    private ObservableCollection<MusicItem> myUploads { get; } = new ObservableCollection<MusicItem>();
-    private string  conn = "Server=localhost;Database=Maturitetna;Uid=root;Pwd=root;";
+    private  bool SignedIn;
+    public ObservableCollection<MusicItem> myUploads { get; } = new ObservableCollection<MusicItem>();
+    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     
     public MainWindow()
     {
         InitializeComponent();
-        ShowProfile();
-        Uploads.ItemsSource = myUploads;
-     //   Closed += TopLevel_OnClosed;
-        DataContext = this;
+        PobrisiUplode();
+     //  Closed += TopLevel_OnClosed;
     }
 
     public class MusicItem
@@ -30,6 +29,7 @@ public partial class MainWindow : Window
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
         public long UserId { get; set; }
+        
         
     public MusicItem(){}
         public MusicItem( string naslov, string dolzina)
@@ -99,13 +99,13 @@ public partial class MainWindow : Window
         }
     }
 
-    private void NaloizIzDatabaze()
+    public void NaloizIzDatabaze()
     {
       
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
-            string sql = "SELECT pesmi.pesmi_fk_avtor, user.user_id FROM  pesmi JOIN user ON user.user_id  = pesmi.pesmi_fk_avtor ";
+            string sql = "SELECT * FROM  pesmi  ";
             var pesmi = connection.Query<MusicItem>(sql);
             foreach (var pesm in pesmi)
             {
@@ -118,21 +118,56 @@ public partial class MainWindow : Window
     {
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
-             connection.Open();
-            string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi) VALUES(@naslov_pesmi,@dolzina_pesmi)";
+            connection.Open();
+            string sql = "INSERT INTO pesmi(user_fk_id,naslov_pesmi,dolzina_pesmi) VALUES(@user_fk_id,@naslov_pesmi,@dolzina_pesmi)";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
-               // command.Parameters.AddWithValue("@pesmi_fk_avtor", musicItem.UserId);
+                command.Parameters.AddWithValue("@user_fk_id", musicItem.UserId);
                 command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                 command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                 command.ExecuteNonQuery();
+                connection.Close();
             }
         }
     }
+/* private async Task Spili(string? filePath) Za predvajanje glasbe
+    {
+        try
+        {
+            using (var audioFile = new AudioFileReader(filePath))
+            using (var outputDevice = new WaveOutEvent())
+            {
+                outputDevice.Init(audioFile);
+                outputDevice.Play();
+
+
+                while (outputDevice.PlaybackState == PlaybackState.Playing)
+                {
+                    await Task.Delay(500);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error playing audio: {ex.Message}");
+        }
+    }
+
+   private void PlayButton_Click(object? sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var duration = (string)button.Tag;
+        var filePath = (string)button.Tag;
+
+         Spili(filePath);
+    }
+    */
+
     public void ShowProfile()
     {
         Profile.IsVisible = SignedIn;
         SigButton.IsVisible = !SignedIn;
+        Logout.IsVisible = SignedIn;
     }
 
     public void PobrisiUplode()
@@ -145,4 +180,14 @@ public partial class MainWindow : Window
     {
         PobrisiUplode();
     }
+
+    private void Logout_OnClick(object? sender, RoutedEventArgs e)
+    {
+        
+        SignedIn = false;
+        ShowProfile();
+        PobrisiUplode();
+        
+    }
+    
 }

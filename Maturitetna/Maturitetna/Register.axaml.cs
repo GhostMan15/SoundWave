@@ -16,7 +16,7 @@ namespace Maturitetna;
 
 public partial class Register : Window
 {
-    private string conn = "Server=localhost;Database=Maturitetna;Uid=root;Pwd=root;";
+    private string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
    
     public Register()
     {
