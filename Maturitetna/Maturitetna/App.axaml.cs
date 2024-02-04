@@ -6,16 +6,18 @@ namespace Maturitetna;
 
 public partial class App : Application
 {
+    private Login _login;
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow();
+            desktop.MainWindow = new MainWindow(_login);
         }
 
         base.OnFrameworkInitializationCompleted();

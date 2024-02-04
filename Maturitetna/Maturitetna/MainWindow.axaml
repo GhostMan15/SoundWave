@@ -46,7 +46,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                           <Label Content="Naslov" />
+                           <Label Content="" />
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>

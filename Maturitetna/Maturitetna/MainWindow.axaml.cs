@@ -16,12 +16,12 @@ public partial class MainWindow : Window
     private  bool SignedIn;
     public ObservableCollection<MusicItem> myUploads { get; } = new ObservableCollection<MusicItem>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    
-    public MainWindow()
+    private static Login? _login;
+    public MainWindow(Login login)
     {
         InitializeComponent();
-        PobrisiUplode();
-     //  Closed += TopLevel_OnClosed;
+       // PobrisiUplode();
+        _login = login;
     }
 
     public class MusicItem
@@ -31,11 +31,13 @@ public partial class MainWindow : Window
         public long UserId { get; set; }
         
         
-    public MusicItem(){}
+        
+        public MusicItem(){}
         public MusicItem( string naslov, string dolzina)
         {
             Naslov = naslov;
             Dolzina = dolzina;
+            //UserId = userId;
         }
     }
  
@@ -92,6 +94,7 @@ public partial class MainWindow : Window
             {
                 var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
                 var dolzina = await Audio.GetAudioFileLength(file);
+                var userId = _login.GetUserId();
                 var newMusic = new MusicItem(naslov,dolzina);
                 myUploads.Add(newMusic);
                 ShraniVDatabazo(newMusic);
@@ -105,7 +108,7 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
-            string sql = "SELECT * FROM  pesmi  ";
+            string sql = "SELECT naslov_pesmi,dolzina_pesmi,user_fk_id FROM  pesmi JOIN user ON pesmi.user_fk_id = user.user_id   ";
             var pesmi = connection.Query<MusicItem>(sql);
             foreach (var pesm in pesmi)
             {
@@ -119,14 +122,13 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "INSERT INTO pesmi(user_fk_id,naslov_pesmi,dolzina_pesmi) VALUES(@user_fk_id,@naslov_pesmi,@dolzina_pesmi)";
+            string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi) VALUES(@naslov_pesmi,@dolzina_pesmi)";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@user_fk_id", musicItem.UserId);
+                //command.Parameters.AddWithValue("@user_fk_id", musicItem.UserId);
                 command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                 command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                 command.ExecuteNonQuery();
-                connection.Close();
             }
         }
     }

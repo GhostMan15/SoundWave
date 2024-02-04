@@ -20,7 +20,7 @@ public partial class Login : Window
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private long userId;
-    private MainWindow _mainWindow;
+    private readonly MainWindow _mainWindow;
     
     public Login(MainWindow mainWindow)
     {
