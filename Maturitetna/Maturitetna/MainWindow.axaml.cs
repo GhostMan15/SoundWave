@@ -33,11 +33,11 @@ public partial class MainWindow : Window
         
         
         public MusicItem(){}
-        public MusicItem( string naslov, string dolzina)
+        public MusicItem( string naslov, string dolzina, long userId)
         {
             Naslov = naslov;
             Dolzina = dolzina;
-            //UserId = userId;
+            UserId = userId;
         }
     }
  
@@ -95,7 +95,7 @@ public partial class MainWindow : Window
                 var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
                 var dolzina = await Audio.GetAudioFileLength(file);
                 var userId = _login.GetUserId();
-                var newMusic = new MusicItem(naslov,dolzina);
+                var newMusic = new MusicItem(naslov,dolzina,userId);
                 myUploads.Add(newMusic);
                 ShraniVDatabazo(newMusic);
             }
@@ -108,7 +108,7 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
-            string sql = "SELECT naslov_pesmi,dolzina_pesmi,user_fk_id FROM  pesmi JOIN user ON pesmi.user_fk_id = user.user_id   ";
+            string sql = "SELECT naslov_pesmi,dolzina_pesmi,fk_user_id FROM  Pesmi JOIN User ON Pesmi.fk_user_id = User.user_id  WHERE  user_id =  " +_login.GetUserId();
             var pesmi = connection.Query<MusicItem>(sql);
             foreach (var pesm in pesmi)
             {
@@ -122,10 +122,10 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi) VALUES(@naslov_pesmi,@dolzina_pesmi)";
+            string sql = "INSERT INTO Pesmi(fk_user_id,naslov_pesmi,dolzina_pesmi) VALUES(@fk_user_id,@naslov_pesmi,@dolzina_pesmi)";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
-                //command.Parameters.AddWithValue("@user_fk_id", musicItem.UserId);
+                command.Parameters.AddWithValue("@fk_user_id", musicItem.UserId);
                 command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                 command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                 command.ExecuteNonQuery();

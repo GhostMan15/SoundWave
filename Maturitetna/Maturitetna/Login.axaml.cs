@@ -27,7 +27,7 @@ public partial class Login : Window
         InitializeComponent();
         _mainWindow = mainWindow;
         _mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
-        _mainWindow.NaloizIzDatabaze();
+        //_mainWindow.NaloizIzDatabaze();
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -56,6 +56,7 @@ public partial class Login : Window
             {
 
                 string sql = "SELECT user_id FROM User  WHERE username = @username AND password = @password";
+              
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
@@ -65,10 +66,17 @@ public partial class Login : Window
                     {
                         if (reader.Read())
                         {
-                            userId = reader.GetInt64("user_id");
-                            MessageBox.ShowAsync("Dobro došli");
-                            this.Close();
-                            _mainWindow.ShowProfile();
+                            if (Username.Text != @username && Password.Text != @password)
+                            {
+                                Username.Text = "";
+                                Password.Text = "";
+                            }
+                            else
+                            {
+                                userId = reader.GetInt64("user_id");
+                                this.Close();
+                                _mainWindow.ShowProfile();
+                            }
                         }
                         else
                         {
