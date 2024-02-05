@@ -2,11 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local ="clr-namespace:Maturitetna"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Maturitetna.MainWindow"
         Title="Maturitetna"
-         Background="CadetBlue"
-        Closed="TopLevel_OnClosed">
+        Background="CadetBlue"
+        Closed="TopLevel_OnClosed"
+        x:DataType="local:MainWindow"
+        x:CompileBindings="True">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -42,11 +45,12 @@
         <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
         <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5" />
-            <ListBox x:Name="Uploads"  Margin="5" >
+            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" Margin="5" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                           <Label Content="" />
+                           <TextBlock Text="{Binding Naslov}"/>
+                           <TextBlock Text="{Binding Dolzina}"/>
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>

@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -19,7 +20,7 @@ namespace Maturitetna;
 public partial class Login : Window
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private long userId;
+    private  long userId;
     private readonly MainWindow _mainWindow;
     
     public Login(MainWindow mainWindow)
@@ -27,7 +28,6 @@ public partial class Login : Window
         InitializeComponent();
         _mainWindow = mainWindow;
         _mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
-        //_mainWindow.NaloizIzDatabaze();
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -55,7 +55,7 @@ public partial class Login : Window
             try
             {
 
-                string sql = "SELECT user_id FROM User  WHERE username = @username AND password = @password";
+                string sql = "SELECT user_id FROM user  WHERE username = @username AND password = @password";
               
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -66,21 +66,15 @@ public partial class Login : Window
                     {
                         if (reader.Read())
                         {
-                            if (Username.Text != @username && Password.Text != @password)
-                            {
-                                Username.Text = "";
-                                Password.Text = "";
-                            }
-                            else
-                            {
-                                userId = reader.GetInt64("user_id");
-                                this.Close();
-                                _mainWindow.ShowProfile();
-                            }
+                            userId = reader.GetInt64("user_id");
+                            this.Close();
+                            _mainWindow.ShowProfile();
+                            _mainWindow.NaloizIzDatabaze();
                         }
                         else
                         {
-                            
+                            Username.Text = "";
+                            Password.Text = "";
                             MessageBox.ShowAsync("Nepravilno ime ali geslo \n Poskusite še enkrat");
                         }
 
