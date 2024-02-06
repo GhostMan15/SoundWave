@@ -37,8 +37,6 @@ public partial class Login : Window
         this.Close();
        
     }
-
-
     private void SignIn_OnClick(object? sender, RoutedEventArgs e)
     {
         string username = Username.Text;
@@ -59,6 +57,7 @@ public partial class Login : Window
               
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
+                    
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", password);
 

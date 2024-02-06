@@ -26,30 +26,25 @@ public partial class Register : Window
     private void Register_OnClick(object? sender, RoutedEventArgs e)
     {
         string username = Username.Text;
-        string email = Email.Text;
         string password = Password.Text;
         string reenter = Reenter.Text;
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password) || string.IsNullOrEmpty(reenter))
+        if (string.IsNullOrEmpty(username) ||   string.IsNullOrEmpty(password) || string.IsNullOrEmpty(reenter))
         {
-            MessageBox.ShowAsync("Prosim vpišite podatke");
+            Console.WriteLine("Prosim vpišite podatke");
             return;
-            
         }
 
         try
         {
-           
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
                 connection.Open();
-                var sql = "INSERT INTO User(username,email,password) VALUES (@username, @email, @password)";
+                var sql = "INSERT INTO user(username,password) VALUES (@username, @password)";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@email", email);
                     command.Parameters.AddWithValue("@password", password);
-
-                    // Execute the command
+                    
                     command.ExecuteNonQuery();
                     this.Close();   
                     
@@ -59,22 +54,17 @@ public partial class Register : Window
         }
         catch (Exception exception)
         {
-            Console.WriteLine(exception);
-            throw;
+            if (reenter != password)
+            {
+                Password.Text = "";
+                Reenter.Text = "";
+            }
+            else
+            {
+                Console.WriteLine(exception);
+                throw;   
+            }
+           
         }
     }
-    private void ShowMessage(string message)
-    {
-        MessageText.Text = message;
-        MessageWindow.IsVisible = true;
-
-        
-        Task.Run(async () =>
-        {
-            await Task.Delay(3000); 
-            MessageWindow.IsVisible = false;
-        });
-    }
-
- 
 }

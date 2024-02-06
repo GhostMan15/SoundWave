@@ -15,7 +15,6 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBlock Text="Register" TextAlignment="Center" FontSize="36" Margin="10" FontWeight="Black"/>
@@ -24,19 +23,15 @@
             <TextBlock Text="Username:" Margin="5"/>
             <TextBox  x:Name="Username" Width="400" CornerRadius="10" />           
         </StackPanel>
-        <StackPanel Grid.Row="2"  HorizontalAlignment="Center" >
-            <TextBlock Text="E-mail:" Margin="5"/>
-            <TextBox x:Name="Email" Width="400" CornerRadius="10"/>           
-        </StackPanel>
-        <StackPanel Grid.Row="3" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
             <TextBlock Text="Password:" Margin="5"/>
             <TextBox PasswordChar="*" x:Name="Password" Width="400" CornerRadius="10"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center">
             <TextBlock Text="Re-enter password:" Margin="5"/>
            <TextBox PasswordChar="*"  x:Name="Reenter" Width="400"  CornerRadius="10"/>
         </StackPanel>
-        <StackPanel Grid.Row="5">
+        <StackPanel Grid.Row="4">
             <Button CornerRadius="10" HorizontalAlignment="Center" Content="Register" Click="Register_OnClick"/>
         </StackPanel>
     

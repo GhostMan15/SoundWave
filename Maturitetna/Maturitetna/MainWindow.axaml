@@ -25,7 +25,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10"  >
-        <StackPanel  VerticalAlignment="Top" Width="250">
+        <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="User Library" Margin="10"/>
         </StackPanel>
         </Border>
@@ -42,14 +42,14 @@
         <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Top">
             <TextBox Text="Search..." Margin="5" CornerRadius="10"/>
         </StackPanel>
-        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3" >
         <StackPanel  VerticalAlignment="Top">
-            <TextBlock Text="My Uploads" Margin="5" />
-            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" Margin="5" >
+            <TextBlock Text="My Uploads" Margin="5"  />
+            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" Margin="5" Background="LightBlue" CornerRadius="10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                           <TextBlock Text="{Binding Naslov}"/>
+                           <TextBlock  Text="{Binding Naslov}"/>
                            <TextBlock Text="{Binding Dolzina}"/>
                         </StackPanel>
                     </DataTemplate> 

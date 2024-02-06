@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -17,7 +18,7 @@ public partial class MainWindow : Window
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
     public string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private static Login? _login;
-    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Muska";
+    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     public MainWindow()
     {
         InitializeComponent();
@@ -36,8 +37,9 @@ public partial class MainWindow : Window
     {
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
-        public string Destinacija { get; set; }
-     
+        public string Destinacija { get; }
+        
+        public long UserId { get; }
         
         public MusicItem(){}
         public MusicItem( string naslov, string dolzina, string destinacija)
@@ -45,6 +47,8 @@ public partial class MainWindow : Window
             Naslov = naslov;
             Dolzina = dolzina;
             Destinacija = destinacija;
+           // UserId = userId;
+
         }
     }
  
@@ -103,7 +107,7 @@ public partial class MainWindow : Window
                     //Dodajanje file v databazo in v file kjer ga hrani
                     var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
                     var dolzina = await Audio.GetAudioFileLength(file);
-                    //var userId = _login.GetUserId();
+                   // var userId = _login.GetUserId();
                     //=================================================================================
                     var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file);
                     var destinacija = System.IO.Path.Combine(uploadFolder, fileName);
@@ -124,7 +128,7 @@ public partial class MainWindow : Window
         {
             connection.Open();
             long userId = _login.GetUserId();
-            string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @userId ";
+            string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id =  "+userId;
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.AddWithValue("@userId", userId);
@@ -133,9 +137,10 @@ public partial class MainWindow : Window
                     while (await reader.ReadAsync())
                     {
                         var musicItem = new MusicItem(
-                        reader.GetString("naslov_pesmi"),
-                        reader.GetString("dolzina_pesmi"), 
-                        reader.GetString("file_ext"));
+                            reader.GetString("naslov_pesmi"),
+                            reader.GetString("dolzina_pesmi"),
+                            reader.GetString("file_ext"));
+                                
                         myUploads.Add(musicItem);
                     }
                 }
@@ -157,15 +162,14 @@ public partial class MainWindow : Window
            using (MySqlConnection connection = new MySqlConnection(conn))
            {
                connection.Open();
-               long userId = _login.GetUserId();
-               string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi,file_ext,user_id) VALUES(@naslov_pesmi,@dolzina_pesmi,@file_ex,@userId)";
+               string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi,file_ext) VALUES(@naslov_pesmi,@dolzina_pesmi,@file_ex)";
                using (MySqlCommand command = new MySqlCommand(sql, connection))
                {
 
                    command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                    command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                    command.Parameters.AddWithValue("@file_ext", musicItem.Destinacija );
-                   command.Parameters.AddWithValue("userId", userId);
+                   //command.Parameters.AddWithValue("user_id", musicItem.UserId);
                     command.ExecuteNonQuery();
 
                }
