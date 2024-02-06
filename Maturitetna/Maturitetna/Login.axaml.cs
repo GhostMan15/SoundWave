@@ -66,6 +66,7 @@ public partial class Login : Window
                         if (reader.Read())
                         {
                             userId = reader.GetInt64("user_id");
+                            MainWindow.userId = reader.GetInt64("user_id");
                             this.Close();
                             _mainWindow.ShowProfile();
                             _mainWindow.NaloizIzDatabaze();

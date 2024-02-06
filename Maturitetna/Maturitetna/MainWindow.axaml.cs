@@ -18,11 +18,12 @@ public partial class MainWindow : Window
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
     public string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private static Login? _login;
-    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
+    public  static long userId;
+    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Muska";
     public MainWindow()
     {
         InitializeComponent();
-        
+        _login = new Login(this);
     }
 
     public MainWindow(Login login) : this()
@@ -39,15 +40,19 @@ public partial class MainWindow : Window
         public string Dolzina { get; set; }
         public string Destinacija { get; }
         
-        public long UserId { get; }
+        public long UserId
+        {
+            get { return userId;  }
+            set { userId = value; }
+        }
         
         public MusicItem(){}
-        public MusicItem( string naslov, string dolzina, string destinacija)
+        public MusicItem( string naslov, string dolzina, string destinacija, long userId)
         {
             Naslov = naslov;
             Dolzina = dolzina;
             Destinacija = destinacija;
-           // UserId = userId;
+            UserId = userId; 
 
         }
     }
@@ -107,13 +112,13 @@ public partial class MainWindow : Window
                     //Dodajanje file v databazo in v file kjer ga hrani
                     var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
                     var dolzina = await Audio.GetAudioFileLength(file);
-                   // var userId = _login.GetUserId();
+                    var userID = MainWindow.userId;
                     //=================================================================================
                     var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file);
                     var destinacija = System.IO.Path.Combine(uploadFolder, fileName);
                     System.IO.File.Copy(file, destinacija, true);
                     //================================================================================
-                    var newMusic = new MusicItem(naslov, dolzina, destinacija);
+                    var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
                     myUploads.Add(newMusic);
                     ShraniVDatabazo(newMusic);
                 }
@@ -127,24 +132,35 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
-            long userId = _login.GetUserId();
-            string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id =  "+userId;
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            long userID = MainWindow.userId;
+            string userIdString = userID.ToString();
+            string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
+            try
             {
-                command.Parameters.AddWithValue("@userId", userId);
-                using (MySqlDataReader reader = await command.ExecuteReaderAsync())
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    while (await reader.ReadAsync())
+                    command.Parameters.AddWithValue("@user_id", userID);
+                    await using (MySqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        var musicItem = new MusicItem(
-                            reader.GetString("naslov_pesmi"),
-                            reader.GetString("dolzina_pesmi"),
-                            reader.GetString("file_ext"));
+                        while (reader.Read())
+                        {
+                            var musicItem = new MusicItem(
+                                reader.GetString("naslov_pesmi"),
+                                reader.GetString("dolzina_pesmi"),
+                                reader.GetString("file_ext"),
+                                reader.GetInt64("user_id"));
                                 
-                        myUploads.Add(musicItem);
+                            myUploads.Add(musicItem);
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Problem sef:{e}");
+                throw;
+            }
+           
         }
     }
 
@@ -153,7 +169,7 @@ public partial class MainWindow : Window
    {
        try
        {
-           if (_login == null)
+           if (userId == null)
            {
                // Handle the case where a user is not logged in (informative error message)
                Console.WriteLine("Please log in to save uploads.");
@@ -162,14 +178,13 @@ public partial class MainWindow : Window
            using (MySqlConnection connection = new MySqlConnection(conn))
            {
                connection.Open();
-               string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi,file_ext) VALUES(@naslov_pesmi,@dolzina_pesmi,@file_ex)";
+               string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi,file_ext,user_id) VALUES(@naslov_pesmi,@dolzina_pesmi,@file_ext,@user_id)";
                using (MySqlCommand command = new MySqlCommand(sql, connection))
                {
-
                    command.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                    command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                    command.Parameters.AddWithValue("@file_ext", musicItem.Destinacija );
-                   //command.Parameters.AddWithValue("user_id", musicItem.UserId);
+                   command.Parameters.AddWithValue("user_id", musicItem.UserId);
                     command.ExecuteNonQuery();
 
                }
