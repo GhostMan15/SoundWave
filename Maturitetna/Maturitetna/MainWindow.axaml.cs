@@ -135,8 +135,6 @@ public partial class MainWindow : Window
             int userID = MainWindow.userId;
             string neki = userID.ToString();
             string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
-            try
-            {
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", neki);
@@ -155,12 +153,6 @@ public partial class MainWindow : Window
                         }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Problem sef:{e}");
-                throw;
-            }
            
         }
     }
