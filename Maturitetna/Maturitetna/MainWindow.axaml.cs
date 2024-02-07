@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MySqlConnector;
@@ -16,9 +17,9 @@ public partial class MainWindow : Window
 {
     private  bool SignedIn;
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
-    public string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private static Login? _login;
-    public  static long userId;
+    public  static int userId;
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Muska";
     public MainWindow()
     {
@@ -40,20 +41,19 @@ public partial class MainWindow : Window
         public string Dolzina { get; set; }
         public string Destinacija { get; }
         
-        public long UserId
+        public int UserId
         {
             get { return userId;  }
             set { userId = value; }
         }
         
         public MusicItem(){}
-        public MusicItem( string naslov, string dolzina, string destinacija, long userId)
+        public MusicItem( string naslov, string dolzina, string destinacija, int userId)
         {
             Naslov = naslov;
             Dolzina = dolzina;
             Destinacija = destinacija;
             UserId = userId; 
-
         }
     }
  
@@ -132,23 +132,24 @@ public partial class MainWindow : Window
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
-            long userID = MainWindow.userId;
-            string userIdString = userID.ToString();
+            int userID = MainWindow.userId;
+            string neki = userID.ToString();
             string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
             try
             {
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@user_id", userID);
+                    command.Parameters.AddWithValue("@user_id", neki);
                     await using (MySqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
                             var musicItem = new MusicItem(
                                 reader.GetString("naslov_pesmi"),
-                                reader.GetString("dolzina_pesmi"),
-                                reader.GetString("file_ext"),
-                                reader.GetInt64("user_id"));
+                                reader.GetString("dolzina_pesmi"), 
+                                reader.GetString("file_ext"), 
+                                    reader.GetInt32("user_id")
+                                );
                                 
                             myUploads.Add(musicItem);
                         }
@@ -164,7 +165,7 @@ public partial class MainWindow : Window
         }
     }
 
-
+  
    private void ShraniVDatabazo(MusicItem musicItem)
    {
        try

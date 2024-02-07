@@ -20,7 +20,7 @@ namespace Maturitetna;
 public partial class Login : Window
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private  long userId;
+    private  int userId;
     private readonly MainWindow _mainWindow;
     
     public Login(MainWindow mainWindow)
@@ -65,8 +65,8 @@ public partial class Login : Window
                     {
                         if (reader.Read())
                         {
-                            userId = reader.GetInt64("user_id");
-                            MainWindow.userId = reader.GetInt64("user_id");
+                            userId = reader.GetInt32("user_id");
+                            MainWindow.userId = reader.GetInt32("user_id");
                             this.Close();
                             _mainWindow.ShowProfile();
                             _mainWindow.NaloizIzDatabaze();
@@ -92,7 +92,7 @@ public partial class Login : Window
 
     }
 
-    public long GetUserId()
+    public int GetUserId()
     {
         return userId;
     }
