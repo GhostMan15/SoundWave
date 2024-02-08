@@ -24,9 +24,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10"  >
-        <StackPanel  VerticalAlignment="Top">
-            <TextBlock Text="User Library" Margin="10"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel  VerticalAlignment="Top">
+            <TextBlock x:Name="UserLibrary" Text="User Library" Margin="10"/>
         </StackPanel>
+            </ScrollViewer>
         </Border>
             <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" > 
                 <StackPanel  VerticalAlignment="Top" >
@@ -50,9 +52,8 @@
                     <DataTemplate>
                         <StackPanel>
                             <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Right" Content="m" Background="White" Foreground="Black" CornerRadius="100"/>
-                            <TextBlock Text="{Binding Naslov}"/>
+                            <TextBlock Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Text="{Binding Dolzina}"/>
-                            <TextBlock Text="{Binding Destinacija}" IsVisible="False"/>
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
@@ -75,8 +76,18 @@
         <Button  Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
         </StackPanel>
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
-        <StackPanel x:Name="Player"  VerticalAlignment="Top">
+        <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal">
             <TextBlock Text="Player" Margin="5"/>
+            <TextBlock Text="{Binding TrenutniCas, StringFormat='{}{0:mm\\:ss} / {1:mm\\:ss}'}" Margin="5"/>
+            <Button Content="Next" CornerRadius="10" Margin="5" Click="Next_OnClick"/>
+            <Button Content="Previous" CornerRadius="10" Margin="5" Click="Previous_OnClick"/>
+            <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Value="{Binding VolumeLevel}"/>
+            <ProgressBar x:Name="ProgressBar" 
+                         Value="{Binding PlayProgress}" 
+                         Maximum="{Binding PlayDolzina}" 
+                         DataContext="{Binding RelativeSource={RelativeSource AncestorType=local:MainWindow}}" 
+                         Margin="5" 
+                         VerticalAlignment="Bottom"/>
         </StackPanel>
         </Border>
     </Grid>

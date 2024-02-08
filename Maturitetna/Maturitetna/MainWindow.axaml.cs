@@ -1,21 +1,17 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Data;
+using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using MySqlConnector;
-using Dapper;
-using ClosedXML;
 using NAudio.Wave;
-using NAudio;
+
 
 namespace Maturitetna;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private  bool SignedIn;
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
@@ -214,18 +210,164 @@ public partial class MainWindow : Window
         PobrisiUplode();
     }
     //==============================================================================================================================================   
-// Za predavjanje glasbe
-  
-    public void PlayAudio(string filePath)
+    //Za prikazovanje na playerju
+    private double _playProgress;
+    public double PlayProgress
+    {
+        get { return _playProgress; }
+        set
+        {
+            _playProgress = value; 
+            RaisePropertyChanged(nameof(PlayProgress));
+        }
+    }
+    private double _playDolzina;
+    public double PlayDolzina
+    {
+        get { return _playDolzina; }
+        set
+        {
+            _playDolzina = value;
+            RaisePropertyChanged(nameof(PlayDolzina));
+        }
+    }
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void RaisePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));   
+    }
+//==============================================================================================================================================
+//Naprej nazaj start stop player
+    private TimeSpan _trenutniCas;
+
+    public TimeSpan TrenutniCas
+    {
+        get { return _trenutniCas; }
+        set
+        {
+            _trenutniCas = value;
+            RaisePropertyChanged(nameof(TrenutniCas));
+        }
+    }
+
+    private int _trenutniTrack = -1;
+
+    private void PlayNext()
+    {
+        if (_trenutniTrack < myUploads.Count - 1)
+        {
+            if (outputDevice!=null && outputDevice.PlaybackState == PlaybackState.Playing)
+            {
+                outputDevice.Stop();
+                outputDevice.Dispose();
+            }
+            _trenutniTrack++;
+            PlaySelectedTrack();
+        }
+    }
+
+    private void PlayPrevious()
+    {
+        if (_trenutniTrack > 0)
+        {
+            if (outputDevice.PlaybackState == PlaybackState.Playing)
+            {
+                outputDevice.Stop();
+                outputDevice.Dispose();
+            }
+            _trenutniTrack--;
+            PlaySelectedTrack();
+        }
+    }
+
+    private async Task PlaySelectedTrack()
+    {
+        if (_trenutniTrack >= 0 && _trenutniTrack < myUploads.Count)
+        {
+            var filePath = Path.Combine(uploadFolder, myUploads[_trenutniTrack].Destinacija);
+            if (File.Exists(filePath))
+            {
+                if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+                {
+                    outputDevice.Stop();
+                    outputDevice.Dispose();
+                }
+                await  PlayAudio(filePath);
+            }
+           
+            else
+            {
+                Console.WriteLine("Ne spila");
+            }
+        }
+    }
+
+    private WaveOutEvent outputDevice;
+    private async Task UpdateTime()
+    {
+        while (true)
+        {
+            if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+            {
+                TrenutniCas = TimeSpan.FromSeconds(PlayProgress);
+            }
+
+            await Task.Delay(1000);
+        }
+    }
+    private void Next_OnClick(object? sender, RoutedEventArgs e)
+    {
+        PlayNext();
+    }
+    private void Previous_OnClick(object? sender, RoutedEventArgs e)
+    {
+       PlayPrevious();
+    }
+//=========================================================================================================================================================
+//Vloume Up and Down
+    private float _volumeLevel = 0.5f;
+
+    public float VolumeLevel
+    {
+        get { return _volumeLevel; }
+        set
+        {
+            _volumeLevel = value;
+            RaisePropertyChanged(nameof(VolumeLevel));
+            UpdateVolume();
+        }
+    }
+
+    private void UpdateVolume()
+    {
+        if (outputDevice != null)
+        {
+            outputDevice.Volume = VolumeLevel;
+        }
+    }
+//=========================================================================================================================================================    
+// Za predavjanje glasbe 
+    public async Task PlayAudio(string filePath)
     {
         try
         {
-            using var audioFile = new AudioFileReader(filePath);
-            using (var outputDevice = new WaveOutEvent())
+            using (var audioFile = new AudioFileReader(filePath))
             {
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
+                    outputDevice = new WaveOutEvent();
+                    outputDevice.Volume = VolumeLevel;
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
 
+                    PlayDolzina = audioFile.TotalTime.TotalSeconds;
+                    _ = UpdateTime();
+                
+                    while (outputDevice.PlaybackState == PlaybackState.Playing)
+                    {
+                        PlayProgress = audioFile.CurrentTime.TotalSeconds;
+                        await Task.Delay(200); 
+                    }
+                
             }
         }
         catch (Exception e)
@@ -234,15 +376,15 @@ public partial class MainWindow : Window
             throw;
         }
     }
+ 
     private void Play_OnClick(object? sender, RoutedEventArgs e)
     {
         var button = sender as Button;
-        var musicItem = button?.DataContext as MusicItem;
-        var fileName = musicItem?.Destinacija;
+        var musicItem = button.DataContext as MusicItem;
+        var fileName = musicItem.Destinacija;
         if (!string.IsNullOrEmpty(fileName))
         {
             var filePath = Path.Combine(uploadFolder, fileName);
-            Console.WriteLine(filePath);
             if (File.Exists(filePath))
             {
                 PlayAudio(filePath);
@@ -253,4 +395,7 @@ public partial class MainWindow : Window
             }
         }
     }
+
+
+
 }

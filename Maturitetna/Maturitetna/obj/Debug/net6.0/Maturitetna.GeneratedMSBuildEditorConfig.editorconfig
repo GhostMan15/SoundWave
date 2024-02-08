@@ -26,5 +26,8 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Playlist.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Register.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
