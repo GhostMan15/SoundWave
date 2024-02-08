@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj": {}
+    "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {}
   },
   "projects": {
-    "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj": {
+    "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
+        "projectUniqueName": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
         "projectName": "Maturitetna",
-        "projectPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
-        "packagesPath": "C:\\Users\\faruk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\obj\\",
+        "projectPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+        "packagesPath": "/home/Faruk/.nuget/packages/",
+        "outputPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\faruk\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/Faruk/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -101,19 +101,11 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
+              "version": "[6.0.26, 6.0.26]"
             },
             {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[6.0.26, 6.0.26]"
             }
           ],
           "frameworkReferences": {
@@ -121,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\faruk\\.dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.101/RuntimeIdentifierGraph.json"
         }
       }
     }

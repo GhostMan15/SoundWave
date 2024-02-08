@@ -18,7 +18,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private static Login? _login;
     public  static int userId;
-    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Muska";
+    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     public MainWindow()
     {
         InitializeComponent();
