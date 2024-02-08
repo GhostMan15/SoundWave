@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {}
+    "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj": {}
   },
   "projects": {
-    "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {
+    "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+        "projectUniqueName": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
         "projectName": "Maturitetna",
-        "projectPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
-        "packagesPath": "/home/Faruk/.nuget/packages/",
-        "outputPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
+        "projectPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
+        "packagesPath": "C:\\Users\\faruk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "/home/Faruk/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\faruk\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0",
+          "net6.0",
           "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           },
           "net8.0": {
@@ -41,8 +41,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Avalonia": {
               "target": "Package",
@@ -64,18 +64,6 @@
               "target": "Package",
               "version": "[11.0.7, )"
             },
-            "ClosedXML": {
-              "target": "Package",
-              "version": "[0.104.0-preview2, )"
-            },
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.1.28, )"
-            },
-            "MessageShow": {
-              "target": "Package",
-              "version": "[2.0.0, )"
-            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.3.0, )"
@@ -91,18 +79,6 @@
             "NAudio.WinMM": {
               "target": "Package",
               "version": "[2.2.1, )"
-            },
-            "OpenAL-Soft": {
-              "target": "Package",
-              "version": "[1.16.0, )"
-            },
-            "OpenTK": {
-              "target": "Package",
-              "version": "[5.0.0-pre.9, )"
-            },
-            "ThingLing.Avalonia.Controls.MessageBox": {
-              "target": "Package",
-              "version": "[2.0.0, )"
             }
           },
           "imports": [
@@ -119,11 +95,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
+              "version": "[6.0.25, 6.0.25]"
             },
             {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[7.0.15, 7.0.15]"
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
             }
           ],
           "frameworkReferences": {
@@ -131,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\faruk\\.dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         },
         "net8.0": {
           "targetAlias": "net8.0",
@@ -156,18 +140,6 @@
               "target": "Package",
               "version": "[11.0.7, )"
             },
-            "ClosedXML": {
-              "target": "Package",
-              "version": "[0.104.0-preview2, )"
-            },
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.1.28, )"
-            },
-            "MessageShow": {
-              "target": "Package",
-              "version": "[2.0.0, )"
-            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.3.0, )"
@@ -184,13 +156,9 @@
               "target": "Package",
               "version": "[2.2.1, )"
             },
-            "OpenAL-Soft": {
+            "OpenTK": {
               "target": "Package",
-              "version": "[1.16.0, )"
-            },
-            "ThingLing.Avalonia.Controls.MessageBox": {
-              "target": "Package",
-              "version": "[2.0.0, )"
+              "version": "[5.0.0-pre.9, )"
             }
           },
           "imports": [
@@ -204,18 +172,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.1, 8.0.1]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\faruk\\.dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

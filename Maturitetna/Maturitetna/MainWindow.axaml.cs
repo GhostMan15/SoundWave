@@ -7,8 +7,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-using OpenTK.Audio.OpenAL;
-
 
 
 namespace Maturitetna;
@@ -20,7 +18,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private static Login? _login;
     public  static int userId;
-    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
+    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
     public MainWindow()
     {
         InitializeComponent();
@@ -199,11 +197,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         myUploads.Clear();
         Uploads.ItemsSource = myUploads;
     }
-
-    private void TopLevel_OnClosed(object? sender, EventArgs e)
-    {
-        PobrisiUplode();
-    }
+    
 
     private void Logout_OnClick(object? sender, RoutedEventArgs e)
     {
