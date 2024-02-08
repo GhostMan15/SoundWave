@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Maturitetna;
 
-public partial class App : Application
+public class App : Application
 {
-    private Login _login;
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -17,7 +17,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow(_login);
+            desktop.MainWindow = new MainWindow();
         }
 
         base.OnFrameworkInitializationCompleted();

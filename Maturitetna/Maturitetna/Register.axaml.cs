@@ -30,7 +30,10 @@ public partial class Register : Window
         string reenter = Reenter.Text;
         if (string.IsNullOrEmpty(username) ||   string.IsNullOrEmpty(password) || string.IsNullOrEmpty(reenter))
         {
-            Console.WriteLine("Prosim vpišite podatke");
+            Username.Text = "";
+            Password.Text = "";
+            Reenter.Text = ""; 
+            error.IsVisible = true;
             return;
         }
 

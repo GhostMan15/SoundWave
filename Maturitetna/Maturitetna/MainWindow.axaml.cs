@@ -1,9 +1,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using Dapper;
@@ -29,10 +31,8 @@ public partial class MainWindow : Window
 
     public MainWindow(Login login) : this()
     {
-         //PobrisiUplode();
         _login = login;
         DataContext = _login;
-        
     }
 
     public class MusicItem
@@ -72,11 +72,11 @@ public partial class MainWindow : Window
     }
 
 
-    private async void MenuItem_OnClick(object? sender, RoutedEventArgs e)
+    private void MenuItem_OnClick(object? sender, RoutedEventArgs e)
     {
         
     }
-
+//Za pridobivanje in shrabmo glasbe
     public class Audio
     {
         public static async Task<string> GetAudioFileLength(string filePath)
@@ -133,11 +133,10 @@ public partial class MainWindow : Window
         {
             connection.Open();
             int userID = MainWindow.userId;
-            string neki = userID.ToString();
             string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@user_id", neki);
+                    command.Parameters.AddWithValue("@user_id", userID);
                     await using (MySqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
@@ -164,8 +163,7 @@ public partial class MainWindow : Window
        {
            if (userId == null)
            {
-               // Handle the case where a user is not logged in (informative error message)
-               Console.WriteLine("Please log in to save uploads.");
+               Console.WriteLine("Prvo login");
                return;
            }
            using (MySqlConnection connection = new MySqlConnection(conn))
@@ -189,39 +187,8 @@ public partial class MainWindow : Window
            throw;
        }
    } 
-/* private async Task Spili(string? filePath) Za predvajanje glasbe
-    {
-        try
-        {
-            using (var audioFile = new AudioFileReader(filePath))
-            using (var outputDevice = new WaveOutEvent())
-            {
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
 
-
-                while (outputDevice.PlaybackState == PlaybackState.Playing)
-                {
-                    await Task.Delay(500);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error playing audio: {ex.Message}");
-        }
-    }
-
-   private void PlayButton_Click(object? sender, EventArgs e)
-    {
-        var button = (Button)sender;
-        var duration = (string)button.Tag;
-        var filePath = (string)button.Tag;
-
-         Spili(filePath);
-    }
-    */
-
+//=============================================================================================================================
     public void ShowProfile()
     {
         Profile.IsVisible = SignedIn;
@@ -229,7 +196,7 @@ public partial class MainWindow : Window
         Logout.IsVisible = SignedIn;
     }
 
-    public void PobrisiUplode()
+    private void PobrisiUplode()
     {
         myUploads.Clear();
         Uploads.ItemsSource = myUploads;
@@ -242,11 +209,48 @@ public partial class MainWindow : Window
 
     private void Logout_OnClick(object? sender, RoutedEventArgs e)
     {
-        
         SignedIn = false;
         ShowProfile();
         PobrisiUplode();
-        
     }
-    
+    //==============================================================================================================================================   
+// Za predavjanje glasbe
+  
+    public void PlayAudio(string filePath)
+    {
+        try
+        {
+            using var audioFile = new AudioFileReader(filePath);
+            using (var outputDevice = new WaveOutEvent())
+            {
+                outputDevice.Init(audioFile);
+                outputDevice.Play();
+
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Problem sef: {e}");
+            throw;
+        }
+    }
+    private void Play_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var musicItem = button?.DataContext as MusicItem;
+        var fileName = musicItem?.Destinacija;
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            var filePath = Path.Combine(uploadFolder, fileName);
+            Console.WriteLine(filePath);
+            if (File.Exists(filePath))
+            {
+                PlayAudio(filePath);
+            }
+            else
+            {
+                Console.WriteLine("File ne obstaja");
+            }
+        }
+    }
 }
