@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1/g3Tv3srdvqdPC0d6680Yo2njCFQT2EIcAj7tnNranea4vnQPNbqi8lBH2kLiztLMfCziMQAw81544dbhXKMg==",
+  "dgSpecHash": "o2pkNC5JkyMgJxvkiYh5jCqbLB0HGXjFBgXV+sMm+08cGP1hly7Rc6z7Jr0gIIcQuKlrBgK827hqbW0XvA2kYA==",
   "success": true,
   "projectFilePath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,19 @@
     "/home/Faruk/.nuget/packages/naudio.midi/2.2.1/naudio.midi.2.2.1.nupkg.sha512",
     "/home/Faruk/.nuget/packages/naudio.wasapi/2.2.1/naudio.wasapi.2.2.1.nupkg.sha512",
     "/home/Faruk/.nuget/packages/naudio.winmm/2.2.1/naudio.winmm.2.2.1.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/openal-soft/1.16.0/openal-soft.1.16.0.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk/5.0.0-pre.9/opentk.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.audio.openal/5.0.0-pre.9/opentk.audio.openal.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.compute/5.0.0-pre.9/opentk.compute.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.core/5.0.0-pre.9/opentk.core.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.graphics/5.0.0-pre.9/opentk.graphics.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.input/5.0.0-pre.9/opentk.input.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.mathematics/5.0.0-pre.9/opentk.mathematics.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.platform.native/5.0.0-pre.9/opentk.platform.native.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.redist.glfw/3.3.8.39/opentk.redist.glfw.3.3.8.39.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.windowing.common/5.0.0-pre.9/opentk.windowing.common.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.windowing.desktop/5.0.0-pre.9/opentk.windowing.desktop.5.0.0-pre.9.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/opentk.windowing.graphicslibraryframework/5.0.0-pre.9/opentk.windowing.graphicslibraryframework.5.0.0-pre.9.nupkg.sha512",
     "/home/Faruk/.nuget/packages/rbush/3.2.0/rbush.3.2.0.nupkg.sha512",
     "/home/Faruk/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "/home/Faruk/.nuget/packages/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
@@ -143,8 +156,9 @@
     "/home/Faruk/.nuget/packages/thingling.avalonia.controls.messagebox/2.0.0/thingling.avalonia.controls.messagebox.2.0.0.nupkg.sha512",
     "/home/Faruk/.nuget/packages/tmds.dbus.protocol/0.15.0/tmds.dbus.protocol.0.15.0.nupkg.sha512",
     "/home/Faruk/.nuget/packages/zstdsharp.port/0.7.1/zstdsharp.port.0.7.1.nupkg.sha512",
-    "/home/Faruk/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.26/microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
-    "/home/Faruk/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.26/microsoft.netcore.app.host.linux-x64.6.0.26.nupkg.sha512"
+    "/home/Faruk/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.15/microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/microsoft.netcore.app.host.linux-x64/7.0.15/microsoft.netcore.app.host.linux-x64.7.0.15.nupkg.sha512",
+    "/home/Faruk/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.1/microsoft.aspnetcore.app.ref.8.0.1.nupkg.sha512"
   ],
   "logs": []
 }

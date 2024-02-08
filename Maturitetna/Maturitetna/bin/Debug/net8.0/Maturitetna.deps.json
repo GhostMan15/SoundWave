@@ -19,6 +19,9 @@
           "MySql.Data": "8.3.0",
           "MySqlConnector": "2.3.5",
           "NAudio": "2.2.1",
+          "NAudio.WinMM": "2.2.1",
+          "OpenAL-Soft": "1.16.0",
+          "OpenTK": "5.0.0-pre.9",
           "ThingLing.Avalonia.Controls.MessageBox": "2.0.0"
         },
         "runtime": {
@@ -80,17 +83,17 @@
           "runtimes/win-arm64/native/av_libglesv2.dll": {
             "rid": "win-arm64",
             "assetType": "native",
-            "fileVersion": "2.1.0.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/av_libglesv2.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "2.1.0.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x86/native/av_libglesv2.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "2.1.0.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -736,27 +739,27 @@
           "runtimes/win-x64/native/comerr64.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "4.1.0.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/gssapi64.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "4.1.0.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/k5sprt64.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "4.1.0.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/krb5_64.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "4.1.0.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/krbcc64.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "4.1.0.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -837,6 +840,160 @@
           "lib/netstandard2.0/NAudio.WinMM.dll": {
             "assemblyVersion": "2.2.1.0",
             "fileVersion": "2.2.1.0"
+          }
+        }
+      },
+      "OpenAL-Soft/1.16.0": {},
+      "OpenTK/5.0.0-pre.9": {
+        "dependencies": {
+          "OpenTK.Audio.OpenAL": "5.0.0-pre.9",
+          "OpenTK.Compute": "5.0.0-pre.9",
+          "OpenTK.Core": "5.0.0-pre.9",
+          "OpenTK.Graphics": "5.0.0-pre.9",
+          "OpenTK.Input": "5.0.0-pre.9",
+          "OpenTK.Mathematics": "5.0.0-pre.9",
+          "OpenTK.Platform.Native": "5.0.0-pre.9",
+          "OpenTK.Windowing.Common": "5.0.0-pre.9",
+          "OpenTK.Windowing.Desktop": "5.0.0-pre.9",
+          "OpenTK.Windowing.GraphicsLibraryFramework": "5.0.0-pre.9"
+        }
+      },
+      "OpenTK.Audio.OpenAL/5.0.0-pre.9": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.9",
+          "OpenTK.Mathematics": "5.0.0-pre.9"
+        },
+        "runtime": {
+          "lib/net7.0/OpenTK.Audio.OpenAL.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Compute/5.0.0-pre.9": {
+        "runtime": {
+          "lib/net7.0/OpenTK.Compute.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Core/5.0.0-pre.9": {
+        "runtime": {
+          "lib/net7.0/OpenTK.Core.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Graphics/5.0.0-pre.9": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.9",
+          "OpenTK.Mathematics": "5.0.0-pre.9"
+        },
+        "runtime": {
+          "lib/net7.0/OpenTK.Graphics.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Input/5.0.0-pre.9": {
+        "runtime": {
+          "lib/net7.0/OpenTK.Input.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Mathematics/5.0.0-pre.9": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/OpenTK.Mathematics.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Platform.Native/5.0.0-pre.9": {
+        "runtime": {
+          "lib/net7.0/OpenTK.Platform.Native.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "OpenTK.redist.glfw/3.3.8.39": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libglfw-wayland.so.3.3": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libglfw.so.3.3": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-arm64/native/libglfw.3.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libglfw.3.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/glfw3.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/glfw3.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.Common/5.0.0-pre.9": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.9",
+          "OpenTK.Mathematics": "5.0.0-pre.9"
+        },
+        "runtime": {
+          "lib/net7.0/OpenTK.Windowing.Common.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.Desktop/5.0.0-pre.9": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.9",
+          "OpenTK.Mathematics": "5.0.0-pre.9",
+          "OpenTK.Windowing.Common": "5.0.0-pre.9",
+          "OpenTK.Windowing.GraphicsLibraryFramework": "5.0.0-pre.9"
+        },
+        "runtime": {
+          "lib/net7.0/OpenTK.Windowing.Desktop.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.GraphicsLibraryFramework/5.0.0-pre.9": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.9",
+          "OpenTK.redist.glfw": "3.3.8.39"
+        },
+        "runtime": {
+          "lib/net7.0/OpenTK.Windowing.GraphicsLibraryFramework.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
           }
         }
       },
@@ -1931,6 +2088,97 @@
       "sha512": "sha512-xFHRFwH4x6aq3IxRbewvO33ugJRvZFEOfO62i7uQJRUNW2cnu6BeBTHUS0JD5KBucZbHZaYqxQG8dwZ47ezQuQ==",
       "path": "naudio.winmm/2.2.1",
       "hashPath": "naudio.winmm.2.2.1.nupkg.sha512"
+    },
+    "OpenAL-Soft/1.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sRNk8L2C/ILzvTuzkHX8YLrp1oIALpp734yBQK4qredvKfnc6W5vQrCMT8svaWyqm5I93r2T/Zrf/KCH/GV2lg==",
+      "path": "openal-soft/1.16.0",
+      "hashPath": "openal-soft.1.16.0.nupkg.sha512"
+    },
+    "OpenTK/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WqyTT6NfpLgSy0FeYQ+EDPyW9dBtCCPAaDstTUMmuW/6hWqVMAM6vq9vXboBb8zCMVvQUXY/JeJknQSuS9TDxA==",
+      "path": "opentk/5.0.0-pre.9",
+      "hashPath": "opentk.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Audio.OpenAL/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6rnJ92STwr6s76PB+uyKHiO7T3sR8dntd+rMdZp01H5qxxhSElAV1qt02j66lOnUhQZRG6wWDlBWuPrjPoGixw==",
+      "path": "opentk.audio.openal/5.0.0-pre.9",
+      "hashPath": "opentk.audio.openal.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Compute/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-er+tG6Q1GCXKolsQT3s70D0S/k9rujPkibKdwmDOLYV6SHHSWRZViOc0v5J+V9CtL8py6r8JcLvflWTtvnE84Q==",
+      "path": "opentk.compute/5.0.0-pre.9",
+      "hashPath": "opentk.compute.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Core/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TQ+5rIbBQW+3cinpxbCOIijgBBovhEGeNk9BSjlB8xLyHdmCdVUdf9yPGACh4onbUEQhCEpoO1mUvkUhZl1knA==",
+      "path": "opentk.core/5.0.0-pre.9",
+      "hashPath": "opentk.core.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Graphics/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-j7GZnTBSkZ5czEGESK3Rk8q2XwSgq+TCnaB78LS2/i/0qDD5mw4dI8qsR3bopQw9Cg/+CHtWPHgh4Ynd8tVu6Q==",
+      "path": "opentk.graphics/5.0.0-pre.9",
+      "hashPath": "opentk.graphics.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Input/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PFpBvMwgyZo/T2f0CJ8i7/qmmVb9TXJEVGN2gutJynR3f98rOdGAX7E4Br//T7f4CGwVpnj6jiV+y0UsgFdx/w==",
+      "path": "opentk.input/5.0.0-pre.9",
+      "hashPath": "opentk.input.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Mathematics/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TpJPGOwquyjkz40bhGeL6sXSn3x3wMvCQe+ohgju4QCh1/gFaR+wQR8cV65SbdsfJ2T2aFm9RnGrXZ14DxlaBA==",
+      "path": "opentk.mathematics/5.0.0-pre.9",
+      "hashPath": "opentk.mathematics.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Platform.Native/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Uy9OWhABqh3cu1C8OeyPtb223ooz9c6SaNthZ3oeF3ogESFgy4DdUq8Pfq3PV/kNA94Ncp415XYtAieLPQmNXQ==",
+      "path": "opentk.platform.native/5.0.0-pre.9",
+      "hashPath": "opentk.platform.native.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.redist.glfw/3.3.8.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JzjaBzHTyKenUk9CXOYIqA/v7VMnjFnqmd3SKR3I1YpuOTu/H3ohyy3o+ZfMCQ6IRKs7CLfSPXMarKLvwD0WgQ==",
+      "path": "opentk.redist.glfw/3.3.8.39",
+      "hashPath": "opentk.redist.glfw.3.3.8.39.nupkg.sha512"
+    },
+    "OpenTK.Windowing.Common/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RdBDo0oA3dSyT5k4DUiBSTt7DMCRtAiGRcm6wtjmGW1JHi1VZQDMXkT8KZTSSOQ0F51M17JlfjJUQKXQRRPWSw==",
+      "path": "opentk.windowing.common/5.0.0-pre.9",
+      "hashPath": "opentk.windowing.common.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Windowing.Desktop/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zADns84MVPCPe++dHbjz5cOiWyMC9yyQoQztkQu5560sjPGdRvLKdW1YUpsZ1DkX2Ma7D5lkO9WGu5ZVwdYO7g==",
+      "path": "opentk.windowing.desktop/5.0.0-pre.9",
+      "hashPath": "opentk.windowing.desktop.5.0.0-pre.9.nupkg.sha512"
+    },
+    "OpenTK.Windowing.GraphicsLibraryFramework/5.0.0-pre.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ro+4OfrDJslQBM0XWt+2BdWRqG7/k2ew0iRT7HycYWvROQvDqjwpHKlbkzhQL62rhPI2Bc8GSLxWxrAwPIsm4Q==",
+      "path": "opentk.windowing.graphicslibraryframework/5.0.0-pre.9",
+      "hashPath": "opentk.windowing.graphicslibraryframework.5.0.0-pre.9.nupkg.sha512"
     },
     "RBush/3.2.0": {
       "type": "package",

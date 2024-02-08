@@ -19,6 +19,8 @@
           "MySql.Data": "8.3.0",
           "MySqlConnector": "2.3.5",
           "NAudio": "2.2.1",
+          "NAudio.WinMM": "2.2.1",
+          "OpenAL-Soft": "1.16.0",
           "ThingLing.Avalonia.Controls.MessageBox": "2.0.0"
         },
         "runtime": {
@@ -841,6 +843,7 @@
           }
         }
       },
+      "OpenAL-Soft/1.16.0": {},
       "RBush/3.2.0": {
         "runtime": {
           "lib/net6.0/RBush.dll": {
@@ -1967,6 +1970,13 @@
       "sha512": "sha512-xFHRFwH4x6aq3IxRbewvO33ugJRvZFEOfO62i7uQJRUNW2cnu6BeBTHUS0JD5KBucZbHZaYqxQG8dwZ47ezQuQ==",
       "path": "naudio.winmm/2.2.1",
       "hashPath": "naudio.winmm.2.2.1.nupkg.sha512"
+    },
+    "OpenAL-Soft/1.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sRNk8L2C/ILzvTuzkHX8YLrp1oIALpp734yBQK4qredvKfnc6W5vQrCMT8svaWyqm5I93r2T/Zrf/KCH/GV2lg==",
+      "path": "openal-soft/1.16.0",
+      "hashPath": "openal-soft.1.16.0.nupkg.sha512"
     },
     "RBush/3.2.0": {
       "type": "package",
