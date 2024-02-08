@@ -7,7 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-
+using OpenTK.Audio.OpenAL;
 
 
 
