@@ -3,9 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MySqlConnector;
 
-
-
-
 namespace Maturitetna;
 
 public partial class Register : Window

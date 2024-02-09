@@ -22,11 +22,6 @@ C:\Users\faruk\.nuget\packages\avalonia.themes.simple\11.0.7\lib\net6.0\Avalonia
 C:\Users\faruk\.nuget\packages\avalonia.win32\11.0.7\lib\net6.0\Avalonia.Win32.dll
 C:\Users\faruk\.nuget\packages\avalonia.x11\11.0.7\lib\net6.0\Avalonia.X11.dll
 C:\Users\faruk\.nuget\packages\bouncycastle.cryptography\2.2.1\lib\net6.0\BouncyCastle.Cryptography.dll
-C:\Users\faruk\.nuget\packages\closedxml\0.104.0-preview2\lib\netstandard2.1\ClosedXML.dll
-C:\Users\faruk\.nuget\packages\closedxml.parser\1.0.0-beta4\lib\netstandard2.1\ClosedXML.Parser.dll
-C:\Users\faruk\.nuget\packages\dapper\2.1.28\lib\net7.0\Dapper.dll
-C:\Users\faruk\.nuget\packages\documentformat.openxml\2.16.0\lib\netstandard2.0\DocumentFormat.OpenXml.dll
-C:\Users\faruk\.nuget\packages\excelnumberformat\1.1.0\lib\netstandard2.0\ExcelNumberFormat.dll
 C:\Users\faruk\.nuget\packages\google.protobuf\3.25.1\lib\net5.0\Google.Protobuf.dll
 C:\Users\faruk\.nuget\packages\harfbuzzsharp\7.3.0\lib\net6.0\HarfBuzzSharp.dll
 C:\Users\faruk\.nuget\packages\k4os.compression.lz4\1.3.5\lib\net6.0\K4os.Compression.LZ4.dll
@@ -54,8 +49,16 @@ C:\Users\faruk\.nuget\packages\naudio.midi\2.2.1\lib\netstandard2.0\NAudio.Midi.
 C:\Users\faruk\.nuget\packages\naudio.wasapi\2.2.1\lib\netstandard2.0\NAudio.Wasapi.dll
 C:\Users\faruk\.nuget\packages\naudio.winmm\2.2.1\lib\netstandard2.0\NAudio.WinMM.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\netstandard.dll
-C:\Users\faruk\.nuget\packages\rbush\3.2.0\lib\net6.0\RBush.dll
-C:\Users\faruk\.nuget\packages\sixlabors.fonts\1.0.0\lib\netcoreapp3.1\SixLabors.Fonts.dll
+C:\Users\faruk\.nuget\packages\opentk.audio.openal\5.0.0-pre.9\lib\net7.0\OpenTK.Audio.OpenAL.dll
+C:\Users\faruk\.nuget\packages\opentk.compute\5.0.0-pre.9\lib\net7.0\OpenTK.Compute.dll
+C:\Users\faruk\.nuget\packages\opentk.core\5.0.0-pre.9\lib\net7.0\OpenTK.Core.dll
+C:\Users\faruk\.nuget\packages\opentk.graphics\5.0.0-pre.9\lib\net7.0\OpenTK.Graphics.dll
+C:\Users\faruk\.nuget\packages\opentk.input\5.0.0-pre.9\lib\net7.0\OpenTK.Input.dll
+C:\Users\faruk\.nuget\packages\opentk.mathematics\5.0.0-pre.9\lib\net7.0\OpenTK.Mathematics.dll
+C:\Users\faruk\.nuget\packages\opentk.platform.native\5.0.0-pre.9\lib\net7.0\OpenTK.Platform.Native.dll
+C:\Users\faruk\.nuget\packages\opentk.windowing.common\5.0.0-pre.9\lib\net7.0\OpenTK.Windowing.Common.dll
+C:\Users\faruk\.nuget\packages\opentk.windowing.desktop\5.0.0-pre.9\lib\net7.0\OpenTK.Windowing.Desktop.dll
+C:\Users\faruk\.nuget\packages\opentk.windowing.graphicslibraryframework\5.0.0-pre.9\lib\net7.0\OpenTK.Windowing.GraphicsLibraryFramework.dll
 C:\Users\faruk\.nuget\packages\skiasharp\2.88.7\lib\net6.0\SkiaSharp.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.AppContext.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.Buffers.dll
@@ -109,7 +112,6 @@ C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.I
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.IO.FileSystem.Watcher.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.IO.IsolatedStorage.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.IO.MemoryMappedFiles.dll
-C:\Users\faruk\.nuget\packages\system.io.packaging\6.0.0\lib\net6.0\System.IO.Packaging.dll
 C:\Users\faruk\.nuget\packages\system.io.pipelines\6.0.3\lib\net6.0\System.IO.Pipelines.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.IO.Pipes.AccessControl.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.IO.Pipes.dll
@@ -218,7 +220,6 @@ C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.X
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.Xml.XmlSerializer.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.Xml.XPath.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\System.Xml.XPath.XDocument.dll
-C:\Users\faruk\.nuget\packages\thingling.avalonia.controls.messagebox\2.0.0\lib\net6.0\ThingLing.Controls.MessageBox.dll
 C:\Users\faruk\.nuget\packages\tmds.dbus.protocol\0.15.0\lib\net6.0\Tmds.DBus.Protocol.dll
 C:\Users\faruk\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.0\ref\net8.0\WindowsBase.dll
 C:\Users\faruk\.nuget\packages\zstdsharp.port\0.7.1\lib\net7.0\ZstdSharp.dll

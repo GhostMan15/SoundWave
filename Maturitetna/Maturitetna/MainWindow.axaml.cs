@@ -7,16 +7,15 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-
-
 namespace Maturitetna;
 
 public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private  bool SignedIn;
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
+    public ObservableCollection<PlayListItem> myPlaylist { get; } = new ObservableCollection<PlayListItem>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private static Login? _login;
+    private static  Login? _login;
     public  static int userId;
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
     public MainWindow()
@@ -30,7 +29,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         _login = login;
         DataContext = _login;
     }
-
+//======================================================================================================================
+// My Uploads
     public class MusicItem
     {
         public string Naslov { get; set; }
@@ -52,7 +52,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             UserId = userId; 
         }
     }
- 
+ //=======================================================================================================================
+ //Login/Upload buttons
+
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
         var login = new Login(this);
@@ -66,12 +68,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         Prikazi();
     }
-
-
-    private void MenuItem_OnClick(object? sender, RoutedEventArgs e)
-    {
-        
-    }
+//======================================================================================================================    
 //Za pridobivanje in shrabmo glasbe
     public class Audio
     {
@@ -249,7 +246,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private int _trenutniTrack = -1;
 
-    private void PlayNext()
+    private async Task PlayNext()
     {
         if (_trenutniTrack < myUploads.Count - 1)
         {
@@ -259,11 +256,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 outputDevice.Dispose();
             }
             _trenutniTrack++;
-            PlaySelectedTrack();
+          await PlaySelectedTrack();
         }
     }
 
-    private void PlayPrevious()
+    private async Task PlayPrevious()
     {
         if (_trenutniTrack > 0)
         {
@@ -273,10 +270,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 outputDevice.Dispose();
             }
             _trenutniTrack--;
-            PlaySelectedTrack();
+           await PlaySelectedTrack();
         }
     }
-
+    private void Next_OnClick(object? sender, RoutedEventArgs e)
+    {
+       PlayNext();
+    }
+    private void Previous_OnClick(object? sender, RoutedEventArgs e)
+    {
+        PlayPrevious();
+    }
     private async Task PlaySelectedTrack()
     {
         if (_trenutniTrack >= 0 && _trenutniTrack < myUploads.Count)
@@ -312,14 +316,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             await Task.Delay(1000);
         }
     }
-    private void Next_OnClick(object? sender, RoutedEventArgs e)
-    {
-        PlayNext();
-    }
-    private void Previous_OnClick(object? sender, RoutedEventArgs e)
-    {
-       PlayPrevious();
-    }
+    
 //=========================================================================================================================================================
 //Vloume Up and Down
     private float _volumeLevel = 0.5f;
@@ -391,7 +388,19 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
         }
     }
+//==================================================================================================================================
+//Kreiraj playlisto
+    public void CreatePlaylist()
+    {
+        
+    }
+//==================================================================================================================================
+// Dodaj pesm v playlist
 
 
-
+    private void AddToPlaylist_OnClick(object? sender, RoutedEventArgs e)
+    {
+    
+    }
 }
+

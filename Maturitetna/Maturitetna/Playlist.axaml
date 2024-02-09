@@ -2,8 +2,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local ="clr-namespace:Maturitetna"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Maturitetna.Playlist"
-        Title="Playlist">
-
+        x:DataType="local:Playlist"
+        Title="Playlist"
+        Background="BlanchedAlmond">
+        <Grid>
+                <ListBox x:Name="PlaylistListBox" Margin="10" Background="LightGray">
+                        <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                        <StackPanel>
+                                                <TextBlock Text="" FontWeight="Bold"/>
+                                                <TextBlock Text=""/>
+                                                <TextBlock Text=""/>
+                                        </StackPanel>
+                                </DataTemplate>
+                        </ListBox.ItemTemplate>
+                </ListBox>
+        </Grid>
 </Window>
