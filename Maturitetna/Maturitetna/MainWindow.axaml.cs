@@ -281,6 +281,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         PlayPrevious();
     }
+    private void Stop_OnClick(object? sender, RoutedEventArgs e)
+    {
+        outputDevice.Stop();
+        outputDevice.Dispose();
+    }
     private async Task PlaySelectedTrack()
     {
         if (_trenutniTrack >= 0 && _trenutniTrack < myUploads.Count)
@@ -402,5 +407,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
     
     }
+
+   
 }
 

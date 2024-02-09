@@ -59,7 +59,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3"/>
+                            <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3" />
+                            <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3"/>
                             <TextBlock Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Text="{Binding Dolzina}"/>
                             <Button x:Name="AddToPlaylist" HorizontalAlignment="Right" Foreground="Black" Background="White" Content="j" Click="AddToPlaylist_OnClick" Margin="3"/>
