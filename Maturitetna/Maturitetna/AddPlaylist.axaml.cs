@@ -45,10 +45,9 @@ public partial class AddPlaylist : Window
                     Ustvarjeno = datum_ustvarjanja
                 };
                 _mainWindow.myPlaylist.Add(playlist);
-                foreach (var item in _mainWindow.myPlaylist)
-                {
-                    Console.WriteLine($"ImePlaylista: {item.ImePlaylista}, Privacy: {item.Privacy}, UserId: {item.UserId}, Ustvarjeno: {item.Ustvarjeno}");
-                }
+               
+                    Console.WriteLine(_mainWindow.myPlaylist);
+                 
             this.Close();
         
      
@@ -85,6 +84,10 @@ public partial class AddPlaylist : Window
                 }
             }
         }
+        foreach (var item in _mainWindow.myPlaylist)
+        {
+            Console.WriteLine($"ImePlaylista: {item.ImePlaylista}, Privacy: {item.Privacy}, UserId: {item.UserId}, Ustvarjeno: {item.Ustvarjeno}");
+        } 
     }
 
     private void ToggleButton_OnChecked(object? sender, RoutedEventArgs e)
@@ -107,4 +110,13 @@ public class PlayList
     public int Privacy {get; set; }
     public int UserId { get; set; }
     public string? Ustvarjeno { get; set; }
+
+    public PlayList(){}
+    public PlayList(string imePlaylista, int privacy, int userId, string ustvarjeno)
+    {
+        ImePlaylista = imePlaylista;
+        Privacy = privacy;
+        UserId = userId;
+        Ustvarjeno = ustvarjeno;
+    }
 }

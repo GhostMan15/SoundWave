@@ -12,18 +12,18 @@
         >
     <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
         <!-- MyLibrary -->
-        <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10" >
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel  VerticalAlignment="Top">
-            <TextBlock x:Name="UserLibrary" Text="User Library" Margin="10"/>
-            <Button x:Name="CreatePlaylistButton" Click="CreatePlaylistButton_OnClick" IsVisible="False"  CornerRadius="100" Background="White" Foreground="Black" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-            <ListBox x:Name="PlaylListBox" ItemsSource="{Binding myPlaylist}">
+            <StackPanel>
+            <TextBlock Text="My Library" Margin="5"  />
+            <Button Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" />
+            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist}"  Margin="5" Background="LightBlue" CornerRadius="10">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding ImePlaylista}" Tag="{Binding UserId}"/> 
-                        </StackPanel>
-                    </DataTemplate>
+                   <DataTemplate>
+                       <StackPanel>
+                           <TextBlock  Text="{Binding ImePlaylista }"/>
+                       </StackPanel>
+                   </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
@@ -58,7 +58,6 @@
                             <TextBlock Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Text="{Binding Dolzina}"/>
                             <Button x:Name="AddToPlaylist" HorizontalAlignment="Right" Foreground="Black" Background="White" Content="j" Click="AddToPlaylist_OnClick" Margin="3"/>
-                         
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
