@@ -21,15 +21,15 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding ImePlaylista}" /> 
+                            <TextBlock Text="{Binding ImePlaylista}" Tag="{Binding UserId}"/> 
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
             </ScrollViewer>
-            <!-- Recently Played -->
         </Border>
+            <!-- Recently Played -->
             <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" > 
                 <StackPanel  VerticalAlignment="Top" >
                     <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>

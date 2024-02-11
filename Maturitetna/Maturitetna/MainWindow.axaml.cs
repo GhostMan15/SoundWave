@@ -34,6 +34,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         _login = login;
         _addPlaylist = addplaylist;
         DataContext = new MainViewModel(_login, _addPlaylist);
+        
 
     }
 //======================================================================================================================
@@ -122,6 +123,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                     //================================================================================
                     var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
                     myUploads.Add(newMusic);
+                    Console.WriteLine(myUploads);
                     ShraniVDatabazo(newMusic);
                 }
             }
@@ -153,7 +155,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                         }
                     }
                 }
-           
         }
     }
 
@@ -426,6 +427,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
 public class MainViewModel
 {
+   
     public Login Login { get; }
     public AddPlaylist AddPlaylist { get; }
 
@@ -433,5 +435,6 @@ public class MainViewModel
     {
         Login = login;
         AddPlaylist = addPlaylist;
+      
     }
 }
