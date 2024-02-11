@@ -6,7 +6,8 @@
         x:Class="Maturitetna.Register"
         Title="Register"
         Background="CadetBlue"
-        CornerRadius="10">
+        CornerRadius="10"
+        CanResize="False">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -18,6 +19,7 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBlock Text="Register" TextAlignment="Center" FontSize="36" Margin="10" FontWeight="Black"/>
+            <Label x:Name="error" Content="Prosim vpišite podatke" Foreground="Red" HorizontalAlignment="Center"  CornerRadius="10" IsVisible="False" FontSize="24"/>
         </StackPanel>
         <StackPanel Grid.Row="1"  HorizontalAlignment="Center" >
             <TextBlock Text="Username:" Margin="5"/>
@@ -33,7 +35,6 @@
         </StackPanel>
         <StackPanel Grid.Row="4">
             <Button CornerRadius="10" HorizontalAlignment="Center" Content="Register" Click="Register_OnClick"/>
-            <Label x:Name="error" Content="Prosim vpišite podatke" Foreground="Red" HorizontalAlignment="Center"  CornerRadius="10" IsVisible="False" />
          </StackPanel>
         
       

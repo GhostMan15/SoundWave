@@ -8,29 +8,23 @@
         Title="Maturitetna"
         Background="CadetBlue"
         x:DataType="local:MainWindow"
-        x:CompileBindings="True">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        x:CompileBindings="True"
+        >
+    <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
         <!-- MyLibrary -->
         <Border Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" Margin="5" CornerRadius="10" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock x:Name="UserLibrary" Text="User Library" Margin="10"/>
-            <Button x:Name="CreatePlaylistButton" CornerRadius="100" Background="White" Foreground="Black" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Button x:Name="CreatePlaylistButton" Click="CreatePlaylistButton_OnClick" IsVisible="False"  CornerRadius="100" Background="White" Foreground="Black" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top"/>
             <ListBox x:Name="PlaylListBox" ItemsSource="{Binding myPlaylist}">
-                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding ImePlaylista}" /> 
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
             </ScrollViewer>

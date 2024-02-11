@@ -17,7 +17,8 @@
           "MySqlConnector": "2.3.5",
           "NAudio": "2.2.1",
           "NAudio.WinMM": "2.2.1",
-          "OpenTK": "5.0.0-pre.9"
+          "OpenTK": "5.0.0-pre.9",
+          "DB_povezava": "1.0.0.0"
         },
         "runtime": {
           "Maturitetna.dll": {}
@@ -1349,6 +1350,14 @@
             "fileVersion": "0.7.1.0"
           }
         }
+      },
+      "DB_povezava/1.0.0.0": {
+        "runtime": {
+          "DB_povezava.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -2120,6 +2129,11 @@
       "sha512": "sha512-Idgg+mJEyAujqDPzA3APy9dNoyw0YQcNA65GgYjktDRtJ+nvx/hv+J+m6Eax3JJMGEYGy04oc5YNP6ZvQ3Y1vQ==",
       "path": "zstdsharp.port/0.7.1",
       "hashPath": "zstdsharp.port.0.7.1.nupkg.sha512"
+    },
+    "DB_povezava/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

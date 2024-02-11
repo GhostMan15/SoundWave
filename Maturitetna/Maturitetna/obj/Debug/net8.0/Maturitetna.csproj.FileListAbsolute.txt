@@ -513,3 +513,5 @@ C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\ne
 C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\runtimes\osx-x64\native\libglfw.3.dylib
 C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\runtimes\win-x64\native\glfw3.dll
 C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\runtimes\win-x86\native\glfw3.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\DB_povezava.dll
+C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\bin\Debug\net8.0\DB_povezava.pdb

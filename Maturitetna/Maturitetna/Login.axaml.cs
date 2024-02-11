@@ -11,12 +11,14 @@ public partial class Login : Window
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private  int userId;
     private readonly MainWindow _mainWindow;
+    private readonly AddPlaylist _addPlaylist;
     
-    public Login(MainWindow mainWindow)
+    public Login(MainWindow mainWindow, AddPlaylist _addPlaylist)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
         _mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
+        this._addPlaylist = _addPlaylist;
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -58,6 +60,8 @@ public partial class Login : Window
                 this.Close();
                 _mainWindow.ShowProfile();
                 _mainWindow.NaloizIzDatabaze();
+                _mainWindow.CreatePlaylistButton.IsVisible=true;
+                _addPlaylist.IzpisiPlayliste();
             }
             else
             {

@@ -7,27 +7,34 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
+using DB_povezava;
 namespace Maturitetna;
+
 
 public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private  bool SignedIn;
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
-    public ObservableCollection<PlayListItem> myPlaylist { get; } = new ObservableCollection<PlayListItem>();
+    public ObservableCollection<PlayList> myPlaylist { get; } = new ObservableCollection<PlayList>();
+    public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private static  Login? _login;
     public  static int userId;
+    private AddPlaylist _addPlaylist;
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
     public MainWindow()
     {
         InitializeComponent();
-        _login = new Login(this);
+        _addPlaylist = new AddPlaylist(this);
+        _login = new Login(this, _addPlaylist);
     }
 
-    public MainWindow(Login login) : this()
+    public MainWindow(Login login, AddPlaylist addplaylist) : this()
     {
         _login = login;
-        DataContext = _login;
+        _addPlaylist = addplaylist;
+        DataContext = new MainViewModel(_login, _addPlaylist);
+
     }
 //======================================================================================================================
 // My Uploads
@@ -57,7 +64,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        var login = new Login(this);
+        var login = new Login(this, _addPlaylist);
         login.Show();
         SignedIn = true;
        // PobrisiUplode();
@@ -123,7 +130,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     public void NaloizIzDatabaze()
     {
-        using (MySqlConnection connection = new MySqlConnection(conn) )
+        using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
             int userID = MainWindow.userId;
@@ -220,14 +227,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             RaisePropertyChanged(nameof(PlayDolzina));
         }
     }
-    public event PropertyChangedEventHandler PropertyChanged;
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void RaisePropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));   
     }
 //==============================================================================================================================================
-//Naprej nazaj start stop player
+//Naprej, nazaj, start, stop, player volume up and down
     private TimeSpan _trenutniCas;
 
     public TimeSpan TrenutniCas
@@ -400,6 +407,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         
     }
+    private void CreatePlaylistButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var addPlaylist = new AddPlaylist(this);
+        addPlaylist.Show();
+    }
 //==================================================================================================================================
 // Dodaj pesm v playlist
 
@@ -409,6 +421,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     
     }
 
-   
+    
 }
 
+public class MainViewModel
+{
+    public Login Login { get; }
+    public AddPlaylist AddPlaylist { get; }
+
+    public MainViewModel(Login login, AddPlaylist addPlaylist)
+    {
+        Login = login;
+        AddPlaylist = addPlaylist;
+    }
+}

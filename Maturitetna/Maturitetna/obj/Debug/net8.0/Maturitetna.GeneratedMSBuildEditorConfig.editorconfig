@@ -17,6 +17,9 @@ build_property.ProjectDir = C:\Users\faruk\Documents\GitHub\Maturitetna\Maturite
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
+[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/AddPlaylist.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

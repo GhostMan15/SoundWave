@@ -16,9 +16,9 @@ public partial class Register : Window
 
     private void Register_OnClick(object? sender, RoutedEventArgs e)
     {
-        string username = Username.Text;
-        string password = Password.Text;
-        string reenter = Reenter.Text;
+        string? username = Username.Text;
+        string? password = Password.Text;
+        string? reenter = Reenter.Text;
         if (string.IsNullOrEmpty(username) ||   string.IsNullOrEmpty(password) || string.IsNullOrEmpty(reenter))
         {
             Username.Text = "";
@@ -26,7 +26,7 @@ public partial class Register : Window
             Reenter.Text = ""; 
             error.IsVisible = true;
             return;
-        }
+        } 
 
         try
         {

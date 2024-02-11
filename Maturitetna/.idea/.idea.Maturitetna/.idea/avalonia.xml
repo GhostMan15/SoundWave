@@ -3,6 +3,8 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="Maturitetna/AddPlaylist.axaml" value="Maturitetna/Maturitetna.csproj" />
+        <entry key="Maturitetna/AddPlaylists.axaml" value="Maturitetna/Maturitetna.csproj" />
         <entry key="Maturitetna/App.axaml" value="Maturitetna/Maturitetna.csproj" />
         <entry key="Maturitetna/Login.axaml" value="Maturitetna/Maturitetna.csproj" />
         <entry key="Maturitetna/MainWindow.axaml" value="Maturitetna/Maturitetna.csproj" />
