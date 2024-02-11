@@ -5,7 +5,7 @@
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
 
@@ -22,7 +22,7 @@
         <PackageReference Include="NAudio.WinMM" Version="2.2.1" />
     </ItemGroup>
 
-
+                                                     
     <ItemGroup>
       <Compile Remove="Upload.cs" />
     </ItemGroup>

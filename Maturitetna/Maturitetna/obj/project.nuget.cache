@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qUIYpTLBAVMWbV5Z44TEohxUzl+yJJXgpK6/w0B5QPnWSOSVrvRQ5A8xBUqdgtU2uqXaM9c6VipH3LCzqrqjvQ==",
+  "dgSpecHash": "xGp3zQNT9mVsJpyyEvuauM/qt+BgJWH+HeMDRGiY40x/lnsWAPbYZTK83ggtn+ns+K6uyNbXj4SWHhX62dce1w==",
   "success": true,
   "projectFilePath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
   "expectedPackageFiles": [
@@ -112,11 +112,7 @@
     "C:\\Users\\faruk\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\faruk\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\faruk\\.nuget\\packages\\tmds.dbus.protocol\\0.15.0\\tmds.dbus.protocol.0.15.0.nupkg.sha512",
-    "C:\\Users\\faruk\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512",
-    "C:\\Users\\faruk\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\faruk\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\faruk\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\faruk\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+    "C:\\Users\\faruk\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512"
   ],
   "logs": []
 }

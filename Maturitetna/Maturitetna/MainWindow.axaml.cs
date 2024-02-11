@@ -72,25 +72,27 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 //Za pridobivanje in shrabmo glasbe
     public class Audio
     {
-        public static async Task<string> GetAudioFileLength(string filePath)
+        public static Task<string> GetAudioFileLength(string filePath)
         {
             try
             {
                 using (var audioFile = new AudioFileReader(filePath))
                 {
                     TimeSpan duration = audioFile.TotalTime;
-                    return duration.TotalSeconds.ToString();
+                    return Task.FromResult(duration.TotalSeconds.ToString());
                 }
             }
             catch (Exception ex)
             {
 
-                return "Unknown";
+                Console.WriteLine($"Ne gre žau {ex}");
+                throw;
             }
         }
     }
 
    
+        [Obsolete("Obsolete")]
         private async Task Prikazi()
         {
             var fileDialog = new OpenFileDialog();
@@ -119,9 +121,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
    
 
-    public async Task NaloizIzDatabaze()
+    public void NaloizIzDatabaze()
     {
-      
         using (MySqlConnection connection = new MySqlConnection(conn) )
         {
             connection.Open();
@@ -130,7 +131,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", userID);
-                    await using (MySqlDataReader reader = await command.ExecuteReaderAsync())
+                     using (MySqlDataReader reader =  command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -154,11 +155,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
    {
        try
        {
-           if (userId == null)
-           {
-               Console.WriteLine("Prvo login");
-               return;
-           }
            using (MySqlConnection connection = new MySqlConnection(conn))
            {
                connection.Open();
@@ -304,7 +300,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             else
             {
                 Console.WriteLine("Ne spila");
-            }
+            } 
         }
     }
 
@@ -316,6 +312,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
             {
                 TrenutniCas = TimeSpan.FromSeconds(PlayProgress);
+            }
+            else
+            {
+                throw new Exception("ne dela");
             }
 
             await Task.Delay(1000);
@@ -346,27 +346,27 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
 //=========================================================================================================================================================    
 // Za predavjanje glasbe 
-    public async Task PlayAudio(string filePath)
+    private async Task PlayAudio(string filePath)
     {
         try
         {
-            using (var audioFile = new AudioFileReader(filePath))
-            {
-                    outputDevice = new WaveOutEvent();
-                    outputDevice.Volume = VolumeLevel;
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
+           await using (var audioFile = new AudioFileReader(filePath))
+           {
+               outputDevice = new WaveOutEvent();
+               outputDevice.Volume = VolumeLevel;
+               outputDevice.Init(audioFile);
+               outputDevice.Play();
 
-                    PlayDolzina = audioFile.TotalTime.TotalSeconds;
-                    _ = UpdateTime();
+               PlayDolzina = audioFile.TotalTime.TotalSeconds;
+               _ = UpdateTime();
                 
-                    while (outputDevice.PlaybackState == PlaybackState.Playing)
-                    {
-                        PlayProgress = audioFile.CurrentTime.TotalSeconds;
-                        await Task.Delay(200); 
-                    }
+               while (outputDevice.PlaybackState == PlaybackState.Playing)
+               {
+                   PlayProgress = audioFile.CurrentTime.TotalSeconds;
+                   await Task.Delay(200); 
+               }
                 
-            }
+           }
         }
         catch (Exception e)
         {
@@ -378,8 +378,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private void Play_OnClick(object? sender, RoutedEventArgs e)
     {
         var button = sender as Button;
-        var musicItem = button.DataContext as MusicItem;
-        var fileName = musicItem.Destinacija;
+        var musicItem = button!.DataContext as MusicItem;
+        var fileName = musicItem!.Destinacija;
         if (!string.IsNullOrEmpty(fileName))
         {
             var filePath = Path.Combine(uploadFolder, fileName);
@@ -389,10 +389,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
             else
             {
-                Console.WriteLine("File ne obstaja");
+                Console.WriteLine($"File ne obstaja{filePath}");
             }
         }
     }
+    
 //==================================================================================================================================
 //Kreiraj playlisto
     public void CreatePlaylist()
