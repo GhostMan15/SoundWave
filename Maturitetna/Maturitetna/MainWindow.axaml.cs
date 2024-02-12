@@ -206,6 +206,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         SignedIn = false;
         ShowProfile();
         PobrisiUplode();
+        _addPlaylist.PobrisiPlaylist();
+        CreatePlaylistButton.IsVisible = false;
     }
     //==============================================================================================================================================   
     //Za prikazovanje na playerju

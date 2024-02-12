@@ -75,6 +75,11 @@ public partial class AddPlaylist : Window
         }
     }
 
+    public void PobrisiPlaylist()
+    {
+        _mainWindow.myPlaylist.Clear();
+        _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
+    }
     private void ToggleButton_OnChecked(object? sender, RoutedEventArgs e)
     {
         if (sender is ToggleButton toggleButton && toggleButton.IsChecked == true)
