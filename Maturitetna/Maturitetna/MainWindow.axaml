@@ -21,7 +21,7 @@
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>
-                           <TextBlock  Text="{Binding ImePlaylista }"/>
+                           <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick"/>
                        </StackPanel>
                    </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -53,11 +53,24 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3" />
-                            <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3"/>
-                            <TextBlock Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
-                            <TextBlock Text="{Binding Dolzina}"/>
-                            <Button x:Name="AddToPlaylist" HorizontalAlignment="Right" Foreground="Black" Background="White" Content="j" Click="AddToPlaylist_OnClick" Margin="3"/>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3" Grid.Row="0"/>
+                            <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Right" Content="p" Background="White" Foreground="Black" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
+                            <TextBlock Grid.Row="2" Text="{Binding Dolzina}"/>
+                            <Button Grid.Column="2" x:Name="AddToPlaylist" HorizontalAlignment="Right" Foreground="Black" Background="White" Content="j" Click="AddToPlaylist_OnClick" Margin="3" Grid.Row="2"/>
+                                
+                            </Grid>
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
@@ -83,18 +96,20 @@
         </StackPanel>
         <!-- Player -->
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
-        <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal">
-            <TextBlock Text="Player" Margin="5"/>
-            <TextBlock Text="{Binding TrenutniCas, StringFormat='{}{0:mm\\:ss} / {1:mm\\:ss}'}" Margin="5"/>
-            <Button Content="Next" CornerRadius="10" Margin="5" Click="Next_OnClick"/>
-            <Button Content="Previous" CornerRadius="10" Margin="5" Click="Previous_OnClick"/>
-            <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Value="{Binding VolumeLevel}"/>
+                <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal">
+                    <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
+                    <TextBlock Text="Player" Margin="5"/>
+            <TextBlock Text="{Binding TrenutniCas, StringFormat='{}{0:mm\\:ss} / {1:mm\\:ss}'}" Margin="5" Grid.Row="1" Grid.Column="1"/>
+            <Button Content="Next" CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="1"/>
+            <Button Content="Previous" CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2"/>
+            <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Value="{Binding VolumeLevel}" Width="100" Grid.Row="3" Grid.Column="2"/>
             <ProgressBar x:Name="ProgressBar" 
                          Value="{Binding PlayProgress}" 
                          Maximum="{Binding PlayDolzina}" 
                          DataContext="{Binding RelativeSource={RelativeSource AncestorType=local:MainWindow}}" 
                          Margin="5" 
-                         VerticalAlignment="Bottom"/>
+                         VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="2"/>
+                    </Grid>
         </StackPanel>
         </Border>
     </Grid>

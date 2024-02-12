@@ -13,24 +13,24 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Maturitetna
-build_property.ProjectDir = C:\Users\faruk\Documents\GitHub\Maturitetna\Maturitetna\Maturitetna\
+build_property.ProjectDir = /home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/AddPlaylist.axaml]
+[/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/AddPlaylist.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/App.axaml]
+[/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Login.axaml]
+[/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Login.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/MainWindow.axaml]
+[/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Playlist.axaml]
+[/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Playlist.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Register.axaml]
+[/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Register.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

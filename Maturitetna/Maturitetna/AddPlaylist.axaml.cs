@@ -28,26 +28,13 @@ public partial class AddPlaylist : Window
         
             using MySqlConnection connection = new MySqlConnection(conn);
             connection.Open();
-            string sql = "INSERT INTO playlist(playlist_ime,privacy,playlist_fk_user,datum_ustvarjanja) VALUES(@playlist_ime,@privacy,@playlist_fk_user,@datum_ustvarjanja);SELECT  LAST_INSERT_ID();";
+            string sql = "INSERT INTO playlist(playlist_ime,privacy,playlist_fk_user,datum_ustvarjanja) VALUES(@playlist_ime,@privacy,@playlist_fk_user,@datum_ustvarjanja);";
             using MySqlCommand command = new MySqlCommand(sql,connection);
             command.Parameters.AddWithValue("@playlist_ime", addplaylist);
             command.Parameters.AddWithValue("@privacy", privacy);
             command.Parameters.AddWithValue("@playlist_fk_user", fk_user);
             command.Parameters.AddWithValue("@datum_ustvarjanja", datum_ustvarjanja);
             command.ExecuteNonQuery();
-
-            int playlistId = Convert.ToInt32(command.ExecuteScalar());
-                PlayList playlist = new PlayList
-                {
-                    ImePlaylista = addplaylist,
-                    Privacy = privacy,
-                    UserId = fk_user,
-                    Ustvarjeno = datum_ustvarjanja
-                };
-                _mainWindow.myPlaylist.Add(playlist);
-               
-                    Console.WriteLine(_mainWindow.myPlaylist);
-                 
             this.Close();
         
      
@@ -55,7 +42,7 @@ public partial class AddPlaylist : Window
 
     public void IzpisiPlayliste()
     {
-        // _mainWindow.myPlaylist.Clear();
+        _mainWindow.myPlaylist.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
@@ -83,11 +70,9 @@ public partial class AddPlaylist : Window
                     }
                 }
             }
+
+            _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
         }
-        foreach (var item in _mainWindow.myPlaylist)
-        {
-            Console.WriteLine($"ImePlaylista: {item.ImePlaylista}, Privacy: {item.Privacy}, UserId: {item.UserId}, Ustvarjeno: {item.Ustvarjeno}");
-        } 
     }
 
     private void ToggleButton_OnChecked(object? sender, RoutedEventArgs e)
@@ -112,11 +97,5 @@ public class PlayList
     public string? Ustvarjeno { get; set; }
 
     public PlayList(){}
-    public PlayList(string imePlaylista, int privacy, int userId, string ustvarjeno)
-    {
-        ImePlaylista = imePlaylista;
-        Privacy = privacy;
-        UserId = userId;
-        Ustvarjeno = ustvarjeno;
-    }
+
 }

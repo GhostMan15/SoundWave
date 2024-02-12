@@ -9,7 +9,7 @@
         Background="CadetBlue"
         CanResize="False"
         WindowStartupLocation="CenterOwner"
-        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaChromeHints="SystemChrome"
         ExtendClientAreaToDecorationsHint="True">
  <Grid RowDefinitions="*,*,*">
      <Border Grid.Row="0" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="1" CornerRadius="10">

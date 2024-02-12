@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
@@ -421,8 +422,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
     
     }
-
     
+
+    private void OpenPlaylist_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var playlist = new Playlist();
+        playlist.Show();
+    }
 }
 
 public class MainViewModel
