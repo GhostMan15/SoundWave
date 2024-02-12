@@ -429,6 +429,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         var playlist = new Playlist();
         playlist.Show();
     }
+    
 }
 
 public class MainViewModel

@@ -1,0 +1,94 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Maturitetna.Testing"
+        Title="Testing"
+        Background="CadetBlue">
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
+                   <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+            <TextBlock Text="My Library" Margin="5"  />
+            <Button  x:Name="CreatePlaylistButton" />
+            <ListBox x:Name="PlaylistBox"   Margin="5" Background="LightBlue" CornerRadius="10">
+                <ListBox.ItemTemplate>
+                   <DataTemplate>
+                       <StackPanel>
+                           <Button Content="njauu" />
+                       </StackPanel>
+                   </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+            </ScrollViewer>
+        </Border>
+            <!-- Recently Played -->
+            <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" > 
+                <StackPanel  VerticalAlignment="Top" >
+                    <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>
+                    <TextBlock Text="Neki" Background="CadetBlue"/>
+                </StackPanel>
+            </Border>
+        <!-- Public Playlists -->
+            <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3">
+                <StackPanel VerticalAlignment="Top">
+                    <TextBlock Text="Public playlists" Margin="5"/>
+                </StackPanel>
+            </Border>
+        <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Top">
+            <TextBox Text="Search..." Margin="5" CornerRadius="10"/>
+        </StackPanel>
+        <!-- myUploads -->
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel  VerticalAlignment="Top">
+            <TextBlock Text="My Uploads" Margin="5"  />
+                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
+                                <TextBlock Text="blalbalba" Grid.Row="1" />
+                                <TextBlock Text="blbalbalba" Grid.Row="2" Grid.Column="0"/>
+                                <Button x:Name="Play" HorizontalAlignment="Left" Content="m" Background="White" Foreground="Black" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
+                            <Button x:Name="Stop" HorizontalAlignment="Center" Content="p" Background="White" Foreground="Black" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0" />
+                            <Button Grid.Column="2" x:Name="AddToPlaylist" HorizontalAlignment="Right" Foreground="Black" Background="White" Content="j"  Margin="3" Grid.Row="0"/>
+                            </Grid>
+                        </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <!-- Profil -->
+        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
+            <DockPanel Margin="3" >
+                <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
+                    <MenuItem Header="_Profile" CornerRadius="10" >
+                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" />
+                        <MenuItem Header="_Logout" CornerRadius="10" Margin="3" x:Name="Logout"   />
+                        <MenuItem Header="Sample" CornerRadius="10" Margin="3"/>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+        </StackPanel>
+        <!-- SignIN -->
+        <StackPanel Grid.Row="0"  Grid.Column="2" Margin="8">
+        <Button   CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
+        </StackPanel>
+        <!-- Player -->
+            <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+                <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal">
+                    <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*,*">
+                        <TextBlock Text="Player" Margin="5"/>
+                        <TextBlock Text="Cas" Margin="5" Grid.Row="2" Grid.Column="0"/>
+                        <Button Content="Next" CornerRadius="100" Margin="5"  Grid.Row="1"  Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right" />
+                        <Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
+                        <Button Content="Previous" CornerRadius="100" Margin="5" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Left"/>
+                        <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Tag="mewo"  Width="100" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right" />
+                        <ProgressBar x:Name="ProgressBar"
+                                     Tag="Progress"
+                                     Margin="5" 
+                                     VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="3"
+                                     Height="10"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+   
+</Window>
