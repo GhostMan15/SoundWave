@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using MySqlConnector;
 
 namespace Maturitetna;
 
@@ -24,14 +25,30 @@ public partial class Playlist : Window
 
 public class PlayListItem : PlayList
 {
-    public PlayListItem(){}
-  
+    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    public PlayListItem()
+    {
+    }
+
     public int PesmId { get; set; }
 
-    public PlayListItem( int pesmId, string imePlaylist, int privacy,int userId, string ustvarjeno)
-        : base(imePlaylist,privacy,userId,ustvarjeno)
+    public PlayListItem(int pesmId, string imePlaylist, int privacy, int userId, string ustvarjeno)
+        : base(imePlaylist, privacy, userId, ustvarjeno)
     {
-      
+
         PesmId = pesmId;
     }
+
+    public void DodajvPlaylisto()
+    {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            using (MySqlCommand command = new MySqlCommand(conn))
+            {
+                
+            }
+        }
+    }
+
 }

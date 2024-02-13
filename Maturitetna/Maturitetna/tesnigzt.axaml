@@ -1,26 +1,23 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local ="clr-namespace:Maturitetna"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Maturitetna.MainWindow"
-        Title="Maturitetna"
-        Background="#262626"
-        x:DataType="local:MainWindow"
-        x:CompileBindings="True">
-    <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
+        x:Class="Maturitetna.tesnigzt"
+        Title="tesnigzt"
+        Background="#262626">
+     <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
         <!-- MyLibrary -->
         <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
             <TextBlock Text="My Library" Margin="5"  />
-            <Button Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" IsVisible="False"/>
-            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist}"  Margin="5" BorderBrush="Black" CornerRadius="10">
+            <Button  x:Name="CreatePlaylistButton" IsVisible="False"/>
+            <ListBox x:Name="PlaylistBox"  Margin="5" BorderBrush="Black" CornerRadius="10">
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>
-                           <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick"/>
+                           <Button />
                        </StackPanel>
                    </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -29,13 +26,13 @@
             </ScrollViewer>
         </Border>
             <!-- Recently Played -->
-            <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="played" IsVisible="True"> 
+            <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" > 
                 <StackPanel  VerticalAlignment="Top" >
                     <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>
                 </StackPanel>
             </Border>
         <!-- Public Playlists -->
-            <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="mewo" IsVisible="True">
+            <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3">
                 <StackPanel VerticalAlignment="Top">
                     <TextBlock Text="Public playlists" Margin="5"/>
                 </StackPanel>
@@ -48,16 +45,27 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5"  />
-            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" Margin="5"  CornerRadius="10">
+            <ListBox x:Name="Uploads" Margin="5"  CornerRadius="10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
-                                <Button  x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" Content="s"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
-                            <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center" Content="p"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"/>
-                            <Button Grid.Column="2" x:Name="AddToPlaylist" HorizontalAlignment="Right"  Content="j" Click="AddToPlaylist_OnClick" Margin="3" Grid.Row="0"/>
+                        <StackPanel >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button  x:Name="Play"  HorizontalAlignment="Left" Content="s"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
+                            <Button x:Name="Stop"  HorizontalAlignment="Center" Content="p"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" />
+                            <TextBlock Grid.Column="0" Grid.Row="2" />
+                            <Button Grid.Column="2" x:Name="AddToPlaylist" HorizontalAlignment="Right"  Content="j"  Margin="3" Grid.Row="0"/>
+                                
                             </Grid>
                         </StackPanel>
                     </DataTemplate> 
@@ -71,8 +79,8 @@
             <DockPanel Margin="3" >
                 <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
                     <MenuItem Header="_Profile" CornerRadius="10" >
-                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
-                        <MenuItem Header="_Logout" CornerRadius="10" Margin="3" x:Name="Logout" Click="Logout_OnClick"  />
+                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" />
+                        <MenuItem Header="_Logout" CornerRadius="10" Margin="3" x:Name="Logout"  />
                         <MenuItem Header="Sample" CornerRadius="10" Margin="3"/>
                     </MenuItem>
                 </Menu>
@@ -80,24 +88,21 @@
         </StackPanel>
         <!-- SignIN -->
         <StackPanel Grid.Row="0"  Grid.Column="2" Margin="8">
-        <Button  Click="Button_OnClick" CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
+        <Button   CornerRadius="10" Content="Sign In" HorizontalAlignment="Right" x:Name="SigButton" />
         </StackPanel>
         <!-- Player -->
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
                 <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal">
                     <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*,*">
                     <TextBlock Text="Player" Margin="5"/>
-            <TextBlock Text="{Binding TrenutniCas, StringFormat='{}{0:mm\\:ss} / {1:mm\\:ss}'}" Margin="5" Grid.Row="2" Grid.Column="0"/>
-            <Button Content="Next"  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right"/><Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
-            <Button CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
+            <TextBlock  Margin="5" Grid.Row="2" Grid.Column="0"/>
+            <Button Content="Next"  CornerRadius="10" Margin="5"  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right"/><Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
+            <Button CornerRadius="10" Margin="5"  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
                     HorizontalAlignment="Left">
                 <Image  Source=""  />
             </Button>
-            <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Value="{Binding VolumeLevel}" Width="100" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right"/>
+            <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Width="100" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right"/>
             <ProgressBar x:Name="ProgressBar" 
-                         Value="{Binding PlayProgress}" 
-                         Maximum="{Binding PlayDolzina}" 
-                         DataContext="{Binding RelativeSource={RelativeSource AncestorType=local:MainWindow}}" 
                          Margin="5" 
                          VerticalAlignment="Bottom" 
                          Grid.Column="2" Grid.Row="3"
@@ -105,8 +110,10 @@
                     </Grid>
         </StackPanel>
         </Border>
-       <Grid Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="False" x:Name="playlist" >
-            <TextBlock Text="je je" Background="White" />
-        </Grid> 
+        <Grid Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="False">
+            <TextBlock Text="je je" />
+        </Grid>
+        
     </Grid>
 </Window>
+

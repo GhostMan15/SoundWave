@@ -2,5 +2,12 @@
 
 public class Db
 {
-    public static string  Conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    public void Povezava()
+    { 
+        string  Conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    } 
+  
+    
+
+
 }

@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Maturitetna;
 
-public partial class Testing : Window
+public partial class tesnigzt : Window
 {
-    public Testing()
+    public tesnigzt()
     {
         InitializeComponent();
     }

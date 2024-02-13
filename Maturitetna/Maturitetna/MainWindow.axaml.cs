@@ -429,8 +429,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void OpenPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-        var playlist = new Playlist();
-        playlist.Show();
+        /*var playlist = new Playlist();
+        playlist.Show();*/
+        mewo.IsVisible = false;
+        played.IsVisible = false;
+        playlist.IsVisible = true;
+
     }
     
 }
