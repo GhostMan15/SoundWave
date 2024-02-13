@@ -5,7 +5,7 @@
         mc:Ignorable="d"  Width="500" Height="450" d:DesignWidth="500" d:DesignHeight="450"
         x:Class="Maturitetna.Register"
         Title="Register"
-        Background="CadetBlue"
+        Background="#262626"
         CornerRadius="10"
         CanResize="False">
     

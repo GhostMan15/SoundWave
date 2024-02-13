@@ -97,10 +97,18 @@ public partial class AddPlaylist : Window
 public class PlayList
 {
     public string? ImePlaylista { get; set; }
-    public int Privacy {get; set; }
+    public int Privacy { get;set; }
     public int UserId { get; set; }
     public string? Ustvarjeno { get; set; }
 
     public PlayList(){}
+
+    public PlayList(string imePlaylista, int privacy, int userId, string ustvarjeno)
+    {
+        ImePlaylista = imePlaylista;
+        Privacy = privacy;
+        UserId = userId;
+        Ustvarjeno = ustvarjeno;
+    }
 
 }

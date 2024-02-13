@@ -39,6 +39,7 @@ public partial class Login : Window
             prazno.IsVisible = true;
             wrong.IsVisible = false;
             return;
+            
         }
 
         using MySqlConnection connection = new MySqlConnection(conn);

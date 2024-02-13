@@ -6,7 +6,7 @@
         x:Class="Maturitetna.AddPlaylist"
         Width="250"
         Height="180"
-        Background="CadetBlue"
+        Background="#262626"
         CanResize="False"
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaChromeHints="SystemChrome"

@@ -5,8 +5,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Maturitetna.Testing"
         Title="Testing"
-        Background="CadetBlue">
-        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
+        Background="#262626">
+    <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
                    <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
@@ -77,9 +77,9 @@
                     <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*,*">
                         <TextBlock Text="Player" Margin="5"/>
                         <TextBlock Text="Cas" Margin="5" Grid.Row="2" Grid.Column="0"/>
-                        <Button Content="Next" CornerRadius="100" Margin="5"  Grid.Row="1"  Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right" />
+                        <Button Content="Next"  CornerRadius="100" Margin="5"  Grid.Row="1"  Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right" />
                         <Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
-                        <Button Content="Previous" CornerRadius="100" Margin="5" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Left"/>
+                        <Button   CornerRadius="100" Margin="5" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Left"> <Image  Source="Slike/previous.png"/> </Button>
                         <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Tag="mewo"  Width="100" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right" />
                         <ProgressBar x:Name="ProgressBar"
                                      Tag="Progress"
