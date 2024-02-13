@@ -23,7 +23,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     public  static int userId;
     private AddPlaylist _addPlaylist;
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
-    private string prevois = "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Slike/prevois.png";
+
+    
     public MainWindow()
     {
         InitializeComponent();
