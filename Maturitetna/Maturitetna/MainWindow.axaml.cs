@@ -4,11 +4,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-using DB_povezava;
 namespace Maturitetna;
 
 
@@ -19,10 +17,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     public ObservableCollection<PlayList> myPlaylist { get; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private static  Login? _login;
-    public  static int userId;
-    private AddPlaylist _addPlaylist;
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
+    private static  Login? _login;
+    public static int userId;
+    private readonly AddPlaylist _addPlaylist;
+    private readonly PlayListItem _playlist;
+    
 
     
     public MainWindow()
@@ -32,10 +32,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         _login = new Login(this, _addPlaylist);
     }
 
-    public MainWindow(Login login, AddPlaylist addplaylist) : this()
+    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist) : this()
     {
         _login = login;
         _addPlaylist = addplaylist;
+        _playlist = playlist;
         DataContext = new MainViewModel(_login, _addPlaylist);
         
 
@@ -424,7 +425,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void AddToPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-    
+        _playlist.DodajvPlaylisto();
     }
     
 

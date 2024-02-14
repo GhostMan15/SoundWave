@@ -38,15 +38,4 @@
         <HintPath>..\..\DB_povezava\DB_povezava\bin\Release\net8.0\DB_povezava.dll</HintPath>
       </Reference>
     </ItemGroup>
-    <ItemGroup>
-        <AvaloniaResource Include="Slike"/> 
-        <None Remove="Slike\next.png" />
-        <AvaloniaResource Include="Slike\next.png" /> 
-        <None Remove="Slike\previous.png" />
-        <AvaloniaResource Include="Slike\previous.png" /> 
-        <None Remove="Slike\start.png" />
-        <AvaloniaResource Include="Slike\start.png" /> 
-        <None Remove="Slike\stop.png" />
-        <AvaloniaResource Include="Slike\stop.png" /> 
-    </ItemGroup>
 </Project>

@@ -91,7 +91,7 @@
             <Button Content="Next"  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right"/><Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
             <Button CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
                     HorizontalAlignment="Left">
-                <Image  Source="Slike/previous.png"  />
+                <Image  Source=""  />
             </Button>
             <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Value="{Binding VolumeLevel}" Width="100" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right"/>
             <ProgressBar x:Name="ProgressBar" 
@@ -106,7 +106,7 @@
         </StackPanel>
         </Border>
        <Grid Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="False" x:Name="playlist" >
-            <TextBlock Text="je je" Background="White" />
+            <TextBlock Text="je je" Background="#262626" />
         </Grid> 
     </Grid>
 </Window>
