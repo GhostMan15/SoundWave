@@ -37,8 +37,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         _login = login;
         _addPlaylist = addplaylist;
         _playlist = playlist;
-        DataContext = new MainViewModel(_login, _addPlaylist);
-        
+        DataContext = _login; 
+        DataContext = _addPlaylist;
+        DataContext = _playlist;
 
     }
 //======================================================================================================================
@@ -104,7 +105,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
 
    
-        [Obsolete("Obsolete")]
+        [Obsolete("Prikaz za upload file-ov")]
         private async Task Prikazi()
         {
             var fileDialog = new OpenFileDialog();
@@ -392,8 +393,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private void Play_OnClick(object? sender, RoutedEventArgs e)
     {
         var button = sender as Button;
-        var musicItem = button!.DataContext as MusicItem;
-        var fileName = musicItem!.Destinacija;
+        var musicItem = button?.DataContext as MusicItem;
+        var fileName = musicItem?.Destinacija;
         if (!string.IsNullOrEmpty(fileName))
         {
             var filePath = Path.Combine(uploadFolder, fileName);
@@ -441,16 +442,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     
 }
 
-public class MainViewModel
+public class MainViewModel(Login login, AddPlaylist addPlaylist)
 {
    
-    public Login Login { get; }
-    public AddPlaylist AddPlaylist { get; }
-
-    public MainViewModel(Login login, AddPlaylist addPlaylist)
-    {
-        Login = login;
-        AddPlaylist = addPlaylist;
-      
-    }
+    public Login Login { get; } = login;
+    public AddPlaylist AddPlaylist { get; } = addPlaylist;
 }
