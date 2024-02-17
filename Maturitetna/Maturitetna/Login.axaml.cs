@@ -9,7 +9,6 @@ namespace Maturitetna;
 public partial class Login : Window
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private  int userId;
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
     
@@ -46,9 +45,7 @@ public partial class Login : Window
         connection.Open();
         try
         {
-
-            string sql = "SELECT user_id FROM user  WHERE username = @username AND password = @password";
-
+            const string sql = "SELECT user_id FROM user  WHERE username = @username AND password = @password";
             using MySqlCommand command = new MySqlCommand(sql, connection);
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@password", password);
@@ -56,7 +53,6 @@ public partial class Login : Window
             using MySqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                userId = reader.GetInt32("user_id");
                 MainWindow.userId = reader.GetInt32("user_id");
                 this.Close();
                 _mainWindow.ShowProfile();
@@ -78,10 +74,5 @@ public partial class Login : Window
             throw;
         }
     }
-
-    public int GetUserId()
-    {
-        return userId;
-    }
-
+    
 }

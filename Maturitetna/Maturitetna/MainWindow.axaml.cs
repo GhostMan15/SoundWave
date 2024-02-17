@@ -74,6 +74,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         login.Show();
         SignedIn = true;
        // PobrisiUplode();
+       
     }
 
     
