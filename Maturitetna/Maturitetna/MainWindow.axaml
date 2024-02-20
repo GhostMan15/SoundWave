@@ -57,12 +57,26 @@
                             <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center" Content="p"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"/>
-                            <Button Grid.Column="2" x:Name="AddToPlaylist" HorizontalAlignment="Right"  Content="j" Click="AddToPlaylist_OnClick" Margin="3" Grid.Row="0"/>
+                            <Button Grid.Column="2" HorizontalAlignment="Right"  Content="j" Click="AddToPlaylist_OnClick" Margin="3" Grid.Row="0" IsVisible="False"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
             </ListBox>
+            <StackPanel Grid.Row="0" Grid.Column="2">
+                <Menu Grid.Row="0" Grid.Column="2" DockPanel.Dock="Right" CornerRadius="10" Margin="3"  x:Name="AddToPlaylist">
+                    <MenuItem Header="..." CornerRadius="10" Margin="3">
+                        <MenuItem Header="_AddToPlaylist" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
+                        <ListBox ItemsSource="{Binding myPlaylist}" CornerRadius="10" Margin="5">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding ImePlaylista}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
         </StackPanel>
             </ScrollViewer>
         </Border>

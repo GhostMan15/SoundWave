@@ -20,12 +20,11 @@ public partial class Playlist : Window
 public class PlayListItem : PlayList
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    
     public PlayListItem()
     {
     }
 
-    protected int PesmId { get; set; }
+    public static int PesmId;
     protected string Dodano { get; set; }
     private static MainWindow _mainWindow;
     private string DodaoAgo
@@ -60,7 +59,7 @@ public class PlayListItem : PlayList
                 {
                     command.Parameters.AddWithValue("@user_id", UserId);
                     command.Parameters.AddWithValue("@pesmi_id", PesmId);
-                    command.Parameters.AddWithValue("@dodano", DodaoAgo);
+                    command.Parameters.AddWithValue("@dodano", dodano);
                     command.ExecuteNonQuery();
                 }
             }

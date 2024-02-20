@@ -23,7 +23,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     
-
     
     public MainWindow()
     {
@@ -73,8 +72,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         var login = new Login(this, _addPlaylist);
         login.Show();
         SignedIn = true;
+<<<<<<< Updated upstream
        // PobrisiUplode();
        
+=======
+>>>>>>> Stashed changes
     }
 
     
@@ -142,7 +144,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             connection.Open();
             int userID = MainWindow.userId;
-            string sql = "SELECT naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
+            string sql = "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", userID);
@@ -150,11 +152,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                     {
                         while (reader.Read())
                         {
+                            PlayListItem.PesmId = reader.GetInt32("pesmi_id");
                             var musicItem = new MusicItem(
                                 reader.GetString("naslov_pesmi"),
                                 reader.GetString("dolzina_pesmi"), 
                                 reader.GetString("file_ext"), 
-                                    reader.GetInt32("user_id")
+                                reader.GetInt32("user_id")
                                 );
                                 
                             myUploads.Add(musicItem);
