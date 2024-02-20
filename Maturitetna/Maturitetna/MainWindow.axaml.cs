@@ -72,11 +72,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         var login = new Login(this, _addPlaylist);
         login.Show();
         SignedIn = true;
-<<<<<<< Updated upstream
-       // PobrisiUplode();
-       
-=======
->>>>>>> Stashed changes
     }
 
     
