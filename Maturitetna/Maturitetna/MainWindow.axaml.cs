@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
@@ -24,7 +26,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayList _onlyplaylist;
     public PlayList SelectedPlayList { get; set; }
 
-    private MainWindow()
+    public MainWindow()
     {
         InitializeComponent();
         _login = new Login(this, _addPlaylist);
@@ -40,7 +42,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = playlist;
         _onlyplaylist = onlyplaylist;
         DataContext = this; 
-
     }
 //======================================================================================================================
 // My Uploads
@@ -91,7 +92,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                 using (var audioFile = new AudioFileReader(filePath))
                 {
                     TimeSpan duration = audioFile.TotalTime;
-                    return Task.FromResult(duration.TotalSeconds.ToString());
+                    string formattedDuration = $"{(int)duration.TotalMinutes}:{duration.Seconds:D2}";
+                    return Task.FromResult(formattedDuration);
                 }
             }
             catch (Exception ex)
@@ -234,6 +236,11 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             RaisePropertyChanged(nameof(PlayDolzina));
         }
     }
+    private void UpdatePlayProgressAndLength(double currentProgress, double totalLength)
+    {
+        PlayProgress = currentProgress;
+        PlayDolzina = totalLength;
+    }
     public new event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void RaisePropertyChanged(string propertyName)
@@ -295,6 +302,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         outputDevice.Stop();
         outputDevice.Dispose();
+        IsProgressBarEnabled = false;
     }
     private async Task PlaySelectedTrack()
     {
@@ -317,6 +325,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             } 
         }
     }
+
 
     private WaveOutEvent outputDevice;
     private async Task UpdateTime()
@@ -350,7 +359,21 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             UpdateVolume();
         }
     }
-
+    private bool _isProgressBarEnabled = true;
+    public bool IsProgressBarEnabled
+    {
+        get { return _isProgressBarEnabled; }
+        set
+        {
+            _isProgressBarEnabled = value;
+            RaisePropertyChanged(nameof(IsProgressBarEnabled));
+        }
+    }
+  
+    private void VolumeSlider_OnValueChanged(object? sender, RangeBaseValueChangedEventArgs e)
+    {
+        VolumeLevel = (float)VolumeSlider.Value;
+    }
     private void UpdateVolume()
     {
         if (outputDevice != null)
@@ -373,10 +396,11 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 
                PlayDolzina = audioFile.TotalTime.TotalSeconds;
                _ = UpdateTime();
-                
+                UpdatePlayProgressAndLength(0,PlayDolzina);
                while (outputDevice.PlaybackState == PlaybackState.Playing)
                {
                    PlayProgress = audioFile.CurrentTime.TotalSeconds;
+                   UpdatePlayProgressAndLength(PlayProgress,PlayDolzina);
                    await Task.Delay(200); 
                }
                 
@@ -410,10 +434,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     
 //==================================================================================================================================
 //Kreiraj playlisto
-    public void CreatePlaylist()
-    {
-        
-    }
+  
     private void CreatePlaylistButton_OnClick(object? sender, RoutedEventArgs e)
     {
         var addPlaylist = new AddPlaylist(this, _playlist);
@@ -430,17 +451,13 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         var musicItem = button?.DataContext as MusicItem;
         
         if (musicItem != null)
-        {
-           
+        { 
             AllPlaylists.Clear();
-
-         
+            
             foreach (var playlist in myPlaylist)
             {
                 AllPlaylists.Add(playlist);
             }
-
-            
         }
     }
     
@@ -465,4 +482,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         throw new NotImplementedException();
     }
+
+   
 }
