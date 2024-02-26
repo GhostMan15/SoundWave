@@ -8,37 +8,38 @@ using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
 namespace Maturitetna;
-
-
-public partial class MainWindow : Window, INotifyPropertyChanged
+public partial class  MainWindow:Window,INotifyPropertyChanged
 {
     private  bool SignedIn;
     public ObservableCollection<MusicItem> myUploads { get; }= new ObservableCollection<MusicItem>();
-    public ObservableCollection<PlayList> myPlaylist { get; } = new ObservableCollection<PlayList>();
+    public ObservableCollection<PlayList> myPlaylist { get; set; } = new ObservableCollection<PlayList>();
+    public ObservableCollection<PlayList> AllPlaylists { get; set; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
-    private static  Login? _login;
+    private static  Login _login;
     public static int userId;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
-    
-    
-    public MainWindow()
+    private readonly PlayList _onlyplaylist;
+    public PlayList SelectedPlayList { get; set; }
+
+    private MainWindow()
     {
         InitializeComponent();
-        _addPlaylist = new AddPlaylist(this);
         _login = new Login(this, _addPlaylist);
+        _addPlaylist = new AddPlaylist(this, _playlist);
+        _playlist = new PlayListItem();
+        _onlyplaylist = new PlayList();
     }
 
-    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist) : this()
+    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist) : this()
     {
         _login = login;
         _addPlaylist = addplaylist;
         _playlist = playlist;
-        DataContext = _login; 
-        DataContext = _addPlaylist;
-        DataContext = _playlist;
+        _onlyplaylist = onlyplaylist;
+        DataContext = this; 
 
     }
 //======================================================================================================================
@@ -126,7 +127,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                     //================================================================================
                     var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
                     myUploads.Add(newMusic);
-                    Console.WriteLine(myUploads);
                     ShraniVDatabazo(newMusic);
                 }
             }
@@ -416,7 +416,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
     private void CreatePlaylistButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        var addPlaylist = new AddPlaylist(this);
+        var addPlaylist = new AddPlaylist(this, _playlist);
         addPlaylist.Show();
     }
 //==================================================================================================================================
@@ -425,7 +425,23 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void AddToPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-        _playlist.DodajvPlaylisto();
+        _addPlaylist.IzpisiPlayliste();
+        var button = sender as Button;
+        var musicItem = button?.DataContext as MusicItem;
+        
+        if (musicItem != null)
+        {
+           
+            AllPlaylists.Clear();
+
+         
+            foreach (var playlist in myPlaylist)
+            {
+                AllPlaylists.Add(playlist);
+            }
+
+            
+        }
     }
     
 
@@ -436,14 +452,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         mewo.IsVisible = false;
         played.IsVisible = false;
         playlist.IsVisible = true;
-
+        
     }
-    
-}
 
-public class MainViewModel(Login login, AddPlaylist addPlaylist)
-{
-   
-    public Login Login { get; } = login;
-    public AddPlaylist AddPlaylist { get; } = addPlaylist;
+    
+    private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
+    {
+       _playlist.DodajvPlaylisto();
+    }
+
+    private void CancelAddToPlaylist_OnClick(object? sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

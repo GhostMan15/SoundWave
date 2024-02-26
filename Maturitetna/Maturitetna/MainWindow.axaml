@@ -15,12 +15,12 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
             <TextBlock Text="My Library" Margin="5"  />
-            <Button Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" IsVisible="False"/>
-            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist}"  Margin="5" BorderBrush="Black" CornerRadius="10">
+            <Button Content="Ustvari playlisto" Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" CornerRadius="10" Margin="3" IsVisible="False"/>
+            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"  Margin="5" BorderBrush="Black" CornerRadius="10">
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>
-                           <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick"/>
+                           <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick" CornerRadius="10" Margin="3"/>
                        </StackPanel>
                    </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -48,7 +48,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5"  />
-            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" Margin="5"  CornerRadius="10">
+            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}"  Margin="5"  CornerRadius="10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -57,26 +57,20 @@
                             <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center" Content="p"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"/>
-                            <Button Grid.Column="2" HorizontalAlignment="Right"  Content="j" Click="AddToPlaylist_OnClick" Margin="3" Grid.Row="0" IsVisible="False"/>
+                            <Button Grid.Row="0" Grid.Column="2" x:Name="AddTOPlaylist" Content="..." Click="AddToPlaylist_OnClick" CornerRadius="10" Margin="3" HorizontalAlignment="Right" />
+                               <Popup Grid.Column="2" Grid.Row="0" x:Name="playListPopUp" Placement="Center">
+                                   <Border Padding="10" CornerRadius="10" >
+                                       <ListBox x:Name="playListListBox" x:DataType="local:MainWindow" ItemsSource="{Binding AllPlaylists}" SelectedItems="{Binding SelectedPlayList}">
+                                       <Button  Content="Add" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
+                                       <Button  Content="Cancel" CornerRadius="10" Margin="3" Click="CancelAddToPlaylist_OnClick"/>
+                                       </ListBox>
+                                   </Border>
+                               </Popup>
                             </Grid>
                         </StackPanel>
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
             </ListBox>
-            <StackPanel Grid.Row="0" Grid.Column="2">
-                <Menu Grid.Row="0" Grid.Column="2" DockPanel.Dock="Right" CornerRadius="10" Margin="3"  x:Name="AddToPlaylist">
-                    <MenuItem Header="..." CornerRadius="10" Margin="3">
-                        <MenuItem Header="_AddToPlaylist" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
-                        <ListBox ItemsSource="{Binding myPlaylist}" CornerRadius="10" Margin="5">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock  Text="{Binding ImePlaylista}"/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </MenuItem>
-                </Menu>
-            </StackPanel>
         </StackPanel>
             </ScrollViewer>
         </Border>

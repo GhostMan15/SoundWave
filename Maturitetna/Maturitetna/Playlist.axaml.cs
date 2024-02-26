@@ -17,25 +17,24 @@ public partial class Playlist : Window
     
 }
 
-public class PlayListItem : PlayList
+public class PlayListItem 
 {
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    public PlayListItem()
-    {
-    }
+    public PlayListItem() {}
 
     public static int PesmId;
+    public int PlaylistId { get; set; }
     protected string Dodano { get; set; }
     private static MainWindow _mainWindow;
     private string DodaoAgo
     {
         get { return CalculateDodano(dodano); }
     }
-    public PlayListItem(int pesmId, string imePlaylist, int privacy, int userId, string ustvarjeno, string dodano,MainWindow mainWindow)
-        : base(imePlaylist, privacy, userId, ustvarjeno)
+    public PlayListItem(int pesmId ,string dodano,MainWindow mainWindow, int playlistId)
     {
         PesmId = pesmId;
         Dodano = dodano;
+        PlaylistId = playlistId;
         _mainWindow = mainWindow;
        
     }
@@ -57,7 +56,7 @@ public class PlayListItem : PlayList
                 string sql = "INSERT INTO inplaylist(user_id,pesmi_id,dodano) VALUES (@user_id,@pesmi_id,@dodano);";
                 using (MySqlCommand command = new MySqlCommand(sql,connection))
                 {
-                    command.Parameters.AddWithValue("@user_id", UserId);
+                    command.Parameters.AddWithValue("@user_id", MainWindow.userId);
                     command.Parameters.AddWithValue("@pesmi_id", PesmId);
                     command.Parameters.AddWithValue("@dodano", dodano);
                     command.ExecuteNonQuery();

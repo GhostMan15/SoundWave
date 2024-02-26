@@ -1,0 +1,6 @@
+Ugotoviti kaj je problem z popupom in listboxom upload(sploh ne kaže imen stvari znotri njega)
+Precekirat izpis AllPlaylists ali so enaki podatkom v myPlaylistu
+Urediti desing oz. path za slike
+Uredit prikaz playlistov za dodajanje muske
+Dokoncati query poizvedbe za playlist
+Urediti prikaz songov znotri playlista z prikazom naslova dolzine kdo je uploadu song in kdaj je song bil addan v playlist 
