@@ -45,6 +45,7 @@ public partial class AddPlaylist : Window
   public void IzpisiPlayliste()
     {
         _mainWindow.myPlaylist.Clear();
+        _mainWindow.AllPlaylists.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
@@ -70,7 +71,9 @@ public partial class AddPlaylist : Window
                             Ustvarjeno = ustvarjeno
                         };
                         _mainWindow.myPlaylist.Add(playlist);
+                        _mainWindow.AllPlaylists.Add(playlist);
                         _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
+                        
                     }
                 }
             }
