@@ -1,6 +1,12 @@
-1.Ugotoviti kaj je problem z popupom in listboxom upload(sploh ne kaže imen stvari znotri njega)/ Resitev stvari niso dodane v listbox iz nekega razloga mi ne kaze imena listboxa treba je najdit resitev
+1.Pogruntat dedovanje za listboxa uplods/playListListBox
 2.Urediti desing oz. path za slike
 3.Uredit prikaz playlistov za dodajanje muske | nasu problem beri todo 1.
 4.Dokoncati query poizvedbe za playlist
 5.Prilagoditi prikaz za public playliste da takrat ko kliknes na button na public playlistah da ti lista songe znotri njega(treba je pogledat v kodi da ko klikens na button ti prikaze songe v tem playlistu)
-6.Urediti prikaz songov znotri playlista z prikazom naslova dolzine kdo je uploadu song in kdaj je song bil addan v playlist 
+6.Urediti prikaz songov znotri playlista z prikazom naslova dolzine kdo je uploadu song in kdaj je song bil addan v playlist
+7.Changeat NAudio z FFMpeg
+8.Zrihtat Collaboration
+9.Move-at db na server
+10.Connectat server_db z projektom
+11.Nastimat kafka streaming
+12.Omogočit downlodanje songov
