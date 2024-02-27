@@ -3,12 +3,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using Avalonia;
+using System.Linq;
+using Avalonia.LogicalTree;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
+using Org.BouncyCastle.Crmf;
+
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
 {
@@ -25,7 +28,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
     public PlayList SelectedPlayList { get; set; }
-
     public MainWindow()
     {
         InitializeComponent();
@@ -33,6 +35,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _addPlaylist = new AddPlaylist(this, _playlist);
         _playlist = new PlayListItem();
         _onlyplaylist = new PlayList();
+       
     }
 
     public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist) : this()
@@ -41,7 +44,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _addPlaylist = addplaylist;
         _playlist = playlist;
         _onlyplaylist = onlyplaylist;
-        DataContext = this; 
+        DataContext = this;
+        
     }
 //======================================================================================================================
 // My Uploads
@@ -482,6 +486,28 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         throw new NotImplementedException();
     }
+    
+    
+        public static ListBox FindListBoxByName(string name, ListBox parentListBox)
+        {
+            if (parentListBox.Name == name)
+            {
+                return parentListBox;
+            }
 
-   
+            // Traverse the visual tree
+            foreach (var child in parentListBox.GetLogicalChildren().OfType<Control>())
+            {
+                if (child is ListBox childListBox)
+                {
+                    var foundListBox = FindListBoxByName(name, childListBox);
+                    if (foundListBox != null)
+                    {
+                        return foundListBox;
+                    }
+                }
+            }
+
+            return null;
+        }
 }

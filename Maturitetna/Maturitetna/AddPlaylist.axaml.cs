@@ -13,12 +13,16 @@ public partial class AddPlaylist : Window
     private readonly MainWindow _mainWindow;
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
+    private ListBox _playListListBox;
     private int privacy = 1;
     public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
         _playListItem = playListItem;
+        DataContext = _mainWindow;
+        _playListListBox = MainWindow.FindListBoxByName("playListListBox", _mainWindow.Uploads);
+       
     }
   
     public void DodajPlaylisto()
@@ -46,40 +50,39 @@ public partial class AddPlaylist : Window
     {
         _mainWindow.myPlaylist.Clear();
         _mainWindow.AllPlaylists.Clear();
-        using (MySqlConnection connection = new MySqlConnection(conn))
-        {
-            connection.Open();
-            string sql =
-                "SELECT  playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist JOIN user ON playlist.playlist_fk_user = user.user_id WHERE user.user_id = @userId;";
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
+        
+            using (MySqlConnection connection = new MySqlConnection(conn))
             {
-                command.Parameters.AddWithValue("userId", MainWindow.userId);
-                using (MySqlDataReader reader = command.ExecuteReader())
+                connection.Open();
+                string sql =
+                    "SELECT  playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist JOIN user ON playlist.playlist_fk_user = user.user_id WHERE user.user_id = @userId;";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    while (reader.Read())
-                    {   
-                        //_playListItem.PlaylistId = reader.GetInt32("playlist_id");
-                        string imePlaylista = reader.GetString("playlist_ime");
-                        int privacy = reader.GetInt32("privacy");
-                        int userId = reader.GetInt32("playlist_fk_user");
-                        string ustvarjeno = reader.GetString("datum_ustvarjanja");
-                        PlayList playlist = new PlayList
+                    command.Parameters.AddWithValue("userId", MainWindow.userId);
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            ImePlaylista = imePlaylista,
-                            Privacy = privacy,
-                            UserId = userId,
-                            Ustvarjeno = ustvarjeno
-                        };
-                        _mainWindow.myPlaylist.Add(playlist);
-                        _mainWindow.AllPlaylists.Add(playlist);
-                        _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
-                        
+                            //_playListItem.PlaylistId = reader.GetInt32("playlist_id");
+                            string imePlaylista = reader.GetString("playlist_ime");
+                            int privacy = reader.GetInt32("privacy");
+                            int userId = reader.GetInt32("playlist_fk_user");
+                            string ustvarjeno = reader.GetString("datum_ustvarjanja");
+                            PlayList playlist = new PlayList
+                            {
+                                ImePlaylista = imePlaylista,
+                                Privacy = privacy,
+                                UserId = userId,
+                                Ustvarjeno = ustvarjeno
+                            };
+                            _mainWindow.myPlaylist.Add(playlist);
+                            _mainWindow.AllPlaylists.Add(playlist);
+                            _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
+                            
+                        }
                     }
                 }
             }
-
-            
-        }
     }
 
     public void PobrisiPlaylist()

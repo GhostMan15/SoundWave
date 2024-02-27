@@ -16,7 +16,7 @@
             <StackPanel>
             <TextBlock Text="My Library" Margin="5"  />
             <Button Content="Ustvari playlisto" Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" CornerRadius="10" Margin="3" IsVisible="False"/>
-            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"  Margin="5" BorderBrush="Black" CornerRadius="10">
+            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"   Margin="5" BorderBrush="Black" CornerRadius="10">
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>
@@ -48,7 +48,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5"  />
-            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}"  Margin="5"  CornerRadius="10">
+            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}"  Margin="5"  CornerRadius="10" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -57,13 +57,13 @@
                             <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center" Content="p"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"/>
-                                <Expander Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3" >
+                                <Expander x:Name="Expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3" >
                                     <Expander.Content>
                                         <Border Padding="10" CornerRadius="10" >
-                                            <ListBox x:Name="playListListBox" x:DataType="local:MainWindow" ItemsSource="{Binding AllPlaylists}" SelectedItems="{Binding SelectedPlayList}">
+                                            <ListBox x:Name="palyListListBox" x:DataType="local:MainWindow" ItemsSource="{Binding AllPlaylists}" SelectedItems="{Binding SelectedPlayList}">
                                                 <ListBox.ItemTemplate>
                                                <DataTemplate>
-                                                <Button  Content="{Binding ImePlaylista  }" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
+                                                <Button  Content="{Binding ImePlaylista}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
                                                </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
@@ -102,7 +102,7 @@
             <Button Content="Next"  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right"/><Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
             <Button CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
                     HorizontalAlignment="Left">
-                <Image  Source=""  />
+                <Image  Source=""/>
             </Button>
             <Slider x:Name="VolumeSlider" 
                     Minimum="0" 
