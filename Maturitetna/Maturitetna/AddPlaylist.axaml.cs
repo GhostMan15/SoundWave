@@ -3,7 +3,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-
+using System.Collections.ObjectModel;
 using MySqlConnector;
 namespace Maturitetna;
 
@@ -13,7 +13,9 @@ public partial class AddPlaylist : Window
     private readonly MainWindow _mainWindow;
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
-    private ListBox _playListListBox;
+    private readonly ListBox _playListListBox;
+
+
     private int privacy = 1;
     public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem)
     {
@@ -22,6 +24,12 @@ public partial class AddPlaylist : Window
         _playListItem = playListItem;
         DataContext = _mainWindow;
         _playListListBox = MainWindow.FindListBoxByName("playListListBox", _mainWindow.Uploads);
+        if (_playListListBox == null)
+        {
+            _playListListBox = new ListBox();
+            _playListListBox.Name = "playListListBox";
+          
+        }
        
     }
   
@@ -43,9 +51,10 @@ public partial class AddPlaylist : Window
         command.ExecuteNonQuery();
         this.Close();
         IzpisiPlayliste();
+       // IzpisiPlaylistePublic();
      
     }
-
+    
   public void IzpisiPlayliste()
     {
         _mainWindow.myPlaylist.Clear();
@@ -54,16 +63,19 @@ public partial class AddPlaylist : Window
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
                 connection.Open();
-                string sql =
-                    "SELECT  playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist JOIN user ON playlist.playlist_fk_user = user.user_id WHERE user.user_id = @userId;";
+                const string sql =
+                    "SELECT playlist_id, playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist " +
+                    "JOIN user ON playlist.playlist_fk_user = user.user_id " +
+                    "WHERE user.user_id = @userId AND playlist_id = @playlist_id ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("userId", MainWindow.userId);
+                    command.Parameters.AddWithValue("@userId", MainWindow.userId);
+                    command.Parameters.AddWithValue("@playlist_id", PlayListItem.playlisId);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            //_playListItem.PlaylistId = reader.GetInt32("playlist_id");
+                            PlayListItem.playlisId = reader.GetInt32("playlist_id");
                             string imePlaylista = reader.GetString("playlist_ime");
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
@@ -78,13 +90,54 @@ public partial class AddPlaylist : Window
                             _mainWindow.myPlaylist.Add(playlist);
                             _mainWindow.AllPlaylists.Add(playlist);
                             _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
+                            _playListListBox.ItemsSource = _mainWindow.AllPlaylists;
                             
+                           
+                           
                         }
                     }
                 }
             }
     }
-
+     public void IzpisiPlaylistePublic()
+    {
+        _mainWindow.PublicPlayLists.Clear();
+        
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                string sql =
+                    "SELECT playlist_id, playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist WHERE  privacy =2;";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("userId", MainWindow.userId);
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            _playListItem.PlaylistId = reader.GetInt32("playlist_id");
+                            string imePlaylista = reader.GetString("playlist_ime");
+                            int privacy = reader.GetInt32("privacy");
+                            int userId = reader.GetInt32("playlist_fk_user");
+                            string ustvarjeno = reader.GetString("datum_ustvarjanja");
+                            PlayList playlist = new PlayList
+                            {
+                                ImePlaylista = imePlaylista,
+                                Privacy = privacy,
+                                UserId = userId,
+                                Ustvarjeno = ustvarjeno
+                            };
+                            _mainWindow.PublicPlayLists.Add(playlist);
+                            _mainWindow.Public.ItemsSource = _mainWindow.PublicPlayLists;
+                           
+                            
+                           
+                           
+                        }
+                    }
+                }
+            }
+    }
     public void PobrisiPlaylist()
     {
         _mainWindow.myPlaylist.Clear();

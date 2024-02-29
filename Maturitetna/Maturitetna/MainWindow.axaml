@@ -36,15 +36,26 @@
             </Border>
         <!-- Public Playlists -->
             <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="mewo" IsVisible="True">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel VerticalAlignment="Top">
                     <TextBlock Text="Public playlists" Margin="5"/>
+                    <ListBox x:Name="Public" ItemsSource="{Binding PublicPlayLists }"   Margin="5"  CornerRadius="10">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ImePlaylista}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
+                </ScrollViewer>
             </Border>
-        <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Top">
+        <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Top" x:Name="Serach" IsVisible="True">
             <TextBox Text="Search..." Margin="5" CornerRadius="10"/>
         </StackPanel>
         <!-- myUploads -->
-        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3" IsVisible="True" x:Name="BorderUploads">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5"  />
@@ -60,7 +71,7 @@
                                 <Expander x:Name="Expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3" >
                                     <Expander.Content>
                                         <Border Padding="10" CornerRadius="10" >
-                                            <ListBox x:Name="palyListListBox" x:DataType="local:MainWindow" ItemsSource="{Binding AllPlaylists}" SelectedItems="{Binding SelectedPlayList}">
+                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
                                                 <ListBox.ItemTemplate>
                                                <DataTemplate>
                                                 <Button  Content="{Binding ImePlaylista}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
@@ -109,6 +120,8 @@
                     Maximum="1" 
                     Value="{Binding VolumeLevel}" 
                     Width="100" 
+                    IsDirectionReversed="True"
+                    TickPlacement="BottomRight"
                     Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right"
                     ValueChanged="VolumeSlider_OnValueChanged"/>
             <ProgressBar x:Name="ProgressBar" 
@@ -123,7 +136,36 @@
         </StackPanel>
         </Border>
        <Grid Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="False" x:Name="playlist" >
-            <TextBlock Text="je je" Background="#262626" />
+           <StackPanel>
+               <Button Content="Nazaj" Foreground="White" CornerRadius="10" Margin="5" Click="Nazaj_OnClick"/>
+               <Expander Header="Dodaj uporabnika na seznam" Expanded="Expander_OnExpanded" CornerRadius="10" Margin="5">
+                   <Expander.Content>
+                       <Border Padding="10" CornerRadius="10" >
+                           <ListBox x:Name="Dodajuporabnika"  ItemsSource="{Binding DodajUporabnika }" >
+                               <ListBox.ItemTemplate>
+                                   <DataTemplate>
+                                       <Button  Content="{Binding }" CornerRadius="10" Margin="3" />
+                                   </DataTemplate>
+                               </ListBox.ItemTemplate>
+                           </ListBox>
+                       </Border>
+                   </Expander.Content>
+               </Expander>
+               <ListBox x:Name="PlayListSongs" ItemsSource="{Binding myPlayListsSongs }"   Margin="5"  CornerRadius="10">
+                   <ListBox.ItemTemplate>
+                       <DataTemplate>
+                           <StackPanel>
+                               <Label Content="Avtor"/>
+                               <TextBlock Text="{Binding Username}"/>
+                               <Label Content="Naslov"/>
+                               <TextBlock  Text="{Binding Naslovpesmi}"/>
+                               <TextBlock  Text="{Binding Dolzinapesmi}"/>
+                               <TextBlock Text="{Binding Dodano}" />
+                           </StackPanel>
+                       </DataTemplate>
+                   </ListBox.ItemTemplate>
+               </ListBox>
+           </StackPanel>
         </Grid> 
     </Grid>
 </Window>

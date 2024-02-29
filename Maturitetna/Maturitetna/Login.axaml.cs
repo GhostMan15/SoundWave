@@ -11,7 +11,7 @@ public partial class Login : Window
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
-    
+    private readonly PlayList _playList;
     public Login(MainWindow mainWindow, AddPlaylist _addPlaylist)
     {
         InitializeComponent();
@@ -45,7 +45,7 @@ public partial class Login : Window
         connection.Open();
         try
         {
-            const string sql = "SELECT user_id FROM user  WHERE username = @username AND password = @password";
+            const string sql = "SELECT user_id, username FROM user  WHERE username = @username AND password = @password";
             using MySqlCommand command = new MySqlCommand(sql, connection);
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@password", password);
@@ -54,11 +54,13 @@ public partial class Login : Window
             if (reader.Read())
             {
                 MainWindow.userId = reader.GetInt32("user_id");
+                PlayListItem.username = reader.GetString("username");
                 this.Close();
                 _mainWindow.ShowProfile();
                 _mainWindow.NaloizIzDatabaze();
                 _mainWindow.CreatePlaylistButton.IsVisible=true;
                 _addPlaylist.IzpisiPlayliste();
+                
             }
             else
             {

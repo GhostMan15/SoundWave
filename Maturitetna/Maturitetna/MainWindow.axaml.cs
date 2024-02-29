@@ -4,13 +4,17 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Net;
 using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
+using Avalonia.Controls;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-using Org.BouncyCastle.Crmf;
+
+
 
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
@@ -20,6 +24,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayList> myPlaylist { get; set; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayList> AllPlaylists { get; set; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
+    public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
+    public ObservableCollection<string> DodajUporabnika { get; } = new ObservableCollection<string>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
     private static  Login _login;
@@ -27,14 +33,16 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
-    public PlayList SelectedPlayList { get; set; }
+    
     public MainWindow()
     {
         InitializeComponent();
         _login = new Login(this, _addPlaylist);
-        _addPlaylist = new AddPlaylist(this, _playlist);
-        _playlist = new PlayListItem();
+        _playlist = new PlayListItem(this);
         _onlyplaylist = new PlayList();
+        _addPlaylist = new AddPlaylist(this, _playlist ); 
+         DataContext = this;
+         _addPlaylist.IzpisiPlaylistePublic();
        
     }
 
@@ -45,7 +53,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = playlist;
         _onlyplaylist = onlyplaylist;
         DataContext = this;
-        
     }
 //======================================================================================================================
 // My Uploads
@@ -145,15 +152,21 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             connection.Open();
             int userID = MainWindow.userId;
-            string sql = "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN  user ON pesmi.user_id = user.user_id WHERE  user.user_id = @user_id ";
+            string sql =
+                "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN user ON pesmi.user_id=user.user_id WHERE user.user_id=@user_id ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", userID);
+                   /* command.Parameters.AddWithValue("@pesmi_id", PlayListItem.pesmId);
+                    command.Parameters.AddWithValue("@naslov_pesmi", PlayListItem.naslovPesmi);
+                    command.Parameters.AddWithValue("@dolzina_pesmi", PlayListItem.dolzinaPesmi);*/
                      using (MySqlDataReader reader =  command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            PlayListItem.PesmId = reader.GetInt32("pesmi_id");
+                            PlayListItem.pesmId = reader.GetInt32("pesmi_id");
+                            PlayListItem.naslovPesmi = reader.GetString("naslov_pesmi");
+                            PlayListItem.dolzinaPesmi = reader.GetString("dolzina_pesmi");
                             var musicItem = new MusicItem(
                                 reader.GetString("naslov_pesmi"),
                                 reader.GetString("dolzina_pesmi"), 
@@ -444,6 +457,28 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         var addPlaylist = new AddPlaylist(this, _playlist);
         addPlaylist.Show();
     }
+//=================================================================================================================================
+//V playlistu
+    private void OpenPlaylist_OnClick(object? sender, RoutedEventArgs e)
+    {
+        /*var playlist = new Playlist();
+        playlist.Show();*/
+        BorderUploads.IsVisible = false;
+        Serach.IsVisible = false;
+        mewo.IsVisible = false;
+        played.IsVisible = false;
+        playlist.IsVisible = true;
+        _playlist.NaloziPlaylisto();
+        
+    }
+    private void Nazaj_OnClick(object? sender, RoutedEventArgs e)
+    {
+        BorderUploads.IsVisible = true;
+        Serach.IsVisible = true;
+        mewo.IsVisible = true;
+        played.IsVisible = true;
+        playlist.IsVisible = false;
+    }
 //==================================================================================================================================
 // Dodaj pesm v playlist
 
@@ -466,15 +501,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
     
 
-    private void OpenPlaylist_OnClick(object? sender, RoutedEventArgs e)
-    {
-        /*var playlist = new Playlist();
-        playlist.Show();*/
-        mewo.IsVisible = false;
-        played.IsVisible = false;
-        playlist.IsVisible = true;
-        
-    }
+
 
     
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
@@ -486,8 +513,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         throw new NotImplementedException();
     }
-    
-    
+    //================================================================================================================================
+    //Dostopanje do childa
         public static ListBox FindListBoxByName(string name, ListBox parentListBox)
         {
             if (parentListBox.Name == name)
@@ -495,19 +522,33 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                 return parentListBox;
             }
 
-            // Traverse the visual tree
-            foreach (var child in parentListBox.GetLogicalChildren().OfType<Control>())
+            //Da gre skozi iteme znotri Listboxa Uploads
+            foreach (var item in parentListBox.Items)
             {
-                if (child is ListBox childListBox)
+                if (item is ListBoxItem listBoxItem)
                 {
-                    var foundListBox = FindListBoxByName(name, childListBox);
-                    if (foundListBox != null)
+                    // Da najde listbox playListListBox
+                    var parent = VisualExtensions.GetVisualParent(listBoxItem);
+                    while (parent != null && !(parent is ListBox))
                     {
-                        return foundListBox;
+                        parent = VisualExtensions.GetVisualParent(parent);
+                    }
+
+                    if (parent is ListBox listBox && listBox.Name == name)
+                    {
+                        return listBox;
                     }
                 }
             }
 
+
             return null;
+        }
+
+ //=================================================================================================================
+ //Dodajanje novega uporabnika v playlisto
+        private void Expander_OnExpanded(object? sender, RoutedEventArgs e)
+        {
+            _playlist.DodajUporabnika();
         }
 }
