@@ -60,6 +60,7 @@ public partial class Login : Window
                 _mainWindow.NaloizIzDatabaze();
                 _mainWindow.CreatePlaylistButton.IsVisible=true;
                 _addPlaylist.IzpisiPlayliste();
+               Console.WriteLine(_mainWindow.Username);
                 
             }
             else

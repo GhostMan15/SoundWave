@@ -38,4 +38,6 @@
         <HintPath>..\..\DB_povezava\DB_povezava\bin\Release\net8.0\DB_povezava.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    
 </Project>

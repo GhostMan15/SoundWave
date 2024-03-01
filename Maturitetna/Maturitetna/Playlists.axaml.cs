@@ -48,14 +48,13 @@ public class PlayListItem
         get { return username; }
         set { username = value; }
     }
-    
-    public int PlaylistId
+    public  int PlaylistId
     {
         get { return playlisId;}
         set { playlisId = value; }
     }
     public  int UserId { get; set; }
-    protected DateTime Dodano { get; set; }
+   // protected DateTime Dodano { get; set; }
     private readonly MainWindow _mainWindow;
     private string DodaoAgo
     {
@@ -71,12 +70,12 @@ public class PlayListItem
     {
         _mainWindow = mainWindow;
     }
-    public PlayListItem(int pesmId ,DateTime dodano, int playlisId, int userId, string username, string naslovPesmi, string dolzinaPesmi)
+    public PlayListItem(int pesmId ,string dodaoAgo, int playlisId, int userId, string username, string naslovPesmi, string dolzinaPesmi)
     {
         PesmId = pesmId;
-        Dodano = dodano;
         PlaylistId = playlisId;
         UserId = userId;
+        DodaoAgo = dodaoAgo;
         Username = username;
         Naslovpesmi = naslovPesmi;
         Dolzinapesmi = dolzinaPesmi;
@@ -88,9 +87,10 @@ public class PlayListItem
         TimeSpan neki = DateTime.Now - dodano;
         return neki.ToString();
     }
-    DateTime dodano = DateTime.Now;
 
-  
+
+  DateTime dodano = DateTime.Now;
+
     public void DodajvPlaylisto()
     {
        
@@ -138,8 +138,6 @@ public class PlayListItem
                 command.Parameters.AddWithValue("@playlist_id", PlaylistId);
                 command.Parameters.AddWithValue("@user_id", MainWindow.userId);
                 command.Parameters.AddWithValue("@username", username);
-                command.Parameters.AddWithValue("@naslov_pesmi", naslovPesmi);
-                command.Parameters.AddWithValue("@dolzina_pesmi", dolzinaPesmi);
                // command.Parameters.AddWithValue("@inplaylist_id", inplaylistId);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
@@ -148,18 +146,19 @@ public class PlayListItem
                         int userId = reader.GetInt32("user_id");
                         int pesmiId = reader.GetInt32("pesmi_id");
                         int playlistId = reader.GetInt32("playlist_id");
-                        DateTime dodano = reader.GetDateTime("dodano");
+                        string dodano = reader.GetString("dodano");
                         string username = reader.GetString("username");
                         string naslovPesmi = reader.GetString("naslov_pesmi");
                         string dolzinaPesmi = reader.GetString("dolzina_pesmi");
                         PlayListItem playListItem = new PlayListItem(
                             PesmId = pesmiId,
-                            Dodano = dodano,
+                            dodano = DodaoAgo,
                             UserId = userId,
                             PlaylistId = playlistId,
                             Username = username,
                             Naslovpesmi = naslovPesmi,
                             Dolzinapesmi = dolzinaPesmi
+                            
                             //inplaylistId
                             
                         );

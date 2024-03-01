@@ -3,17 +3,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Net;
-using Avalonia.LogicalTree;
 using Avalonia.VisualTree;
-using Avalonia.Controls;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-
+using Avalonia.Reactive.Operators;
 
 
 namespace Maturitetna;
@@ -33,6 +29,14 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
+    private PlayList _song;
+
+ 
+    public string Username
+    {
+        get { return PlayListItem.username; }
+        set { PlayListItem.username = value; }
+    }
     
     public MainWindow()
     {
@@ -43,8 +47,9 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _addPlaylist = new AddPlaylist(this, _playlist ); 
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
-       
     }
+
+  
 
     public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist) : this()
     {
@@ -67,14 +72,16 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             get { return userId;  }
             set { userId = value; }
         }
-        
+
+      
         public MusicItem(){}
         public MusicItem( string naslov, string dolzina, string destinacija, int userId)
         {
             Naslov = naslov;
             Dolzina = dolzina;
             Destinacija = destinacija;
-            UserId = userId; 
+            UserId = userId;
+            
         }
     }
  //=======================================================================================================================
@@ -153,20 +160,16 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             connection.Open();
             int userID = MainWindow.userId;
             string sql =
-                "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN user ON pesmi.user_id=user.user_id WHERE user.user_id=@user_id ";
+                "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN user ON pesmi.user_id=user.user_id WHERE user.user_id=@user_id  ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", userID);
-                   /* command.Parameters.AddWithValue("@pesmi_id", PlayListItem.pesmId);
-                    command.Parameters.AddWithValue("@naslov_pesmi", PlayListItem.naslovPesmi);
-                    command.Parameters.AddWithValue("@dolzina_pesmi", PlayListItem.dolzinaPesmi);*/
+                    //command.Parameters.AddWithValue("@pesmi_id",PlayListItem.pesmId);
                      using (MySqlDataReader reader =  command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             PlayListItem.pesmId = reader.GetInt32("pesmi_id");
-                            PlayListItem.naslovPesmi = reader.GetString("naslov_pesmi");
-                            PlayListItem.dolzinaPesmi = reader.GetString("dolzina_pesmi");
                             var musicItem = new MusicItem(
                                 reader.GetString("naslov_pesmi"),
                                 reader.GetString("dolzina_pesmi"), 
@@ -461,13 +464,13 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 //V playlistu
     private void OpenPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-        /*var playlist = new Playlist();
-        playlist.Show();*/
         BorderUploads.IsVisible = false;
         Serach.IsVisible = false;
         mewo.IsVisible = false;
         played.IsVisible = false;
         playlist.IsVisible = true;
+        myPlayListsSongs.Clear();
+        PlayListSongs.ItemsSource = myPlayListsSongs;
         _playlist.NaloziPlaylisto();
         
     }
@@ -497,6 +500,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             {
                 AllPlaylists.Add(playlist);
             }
+            _playlist.DodajvPlaylisto();
         }
     }
     
@@ -507,6 +511,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
        _playlist.DodajvPlaylisto();
+       
     }
 
     private void CancelAddToPlaylist_OnClick(object? sender, RoutedEventArgs e)

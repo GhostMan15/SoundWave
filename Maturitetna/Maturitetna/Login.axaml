@@ -5,19 +5,16 @@
         mc:Ignorable="d" Width="500" Height="450" d:DesignWidth="500" d:DesignHeight="450"
         x:Class="Maturitetna.Login"
         Title="Login"
+        TransparencyLevelHint="AcrylicBlur"
         Background="#262626"
         CornerRadius="10"
         CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaChromeHints="SystemChrome"
+        ExtendClientAreaToDecorationsHint="True"
         >
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-     <StackPanel  >
+    <Grid RowDefinitions="*,*,*,*,*">
+     <StackPanel Grid.Row="0"  >
          <Label Content="Sign In"  HorizontalAlignment="Center" FontSize="36" FontWeight="Black" Margin="10"/>
          <Label x:Name="wrong" Content="Nepravilno ime ali geslo" Foreground="Red" FontSize="16" IsVisible="False" HorizontalAlignment="Center"  CornerRadius="10" Margin="3" />
          <Label x:Name="prazno" Content="Prosim vpišite podatke" Foreground="Red" FontSize="16" IsVisible="False" HorizontalAlignment="Center"  CornerRadius="10" Margin="3"/> 

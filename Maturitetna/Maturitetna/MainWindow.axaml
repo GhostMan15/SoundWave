@@ -6,17 +6,23 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Maturitetna.MainWindow"
         Title="Maturitetna"
-        Background="#262626"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        ExtendClientAreaChromeHints="SystemChrome"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
         x:DataType="local:MainWindow"
         x:CompileBindings="True">
     <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
+        <!-- Slike -->
+        
         <!-- MyLibrary -->
         <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
             <TextBlock Text="My Library" Margin="5"  />
             <Button Content="Ustvari playlisto" Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" CornerRadius="10" Margin="3" IsVisible="False"/>
-            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"   Margin="5" BorderBrush="Black" CornerRadius="10">
+            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"  SelectedItem="{Binding PesmId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}" Margin="5" BorderBrush="Black" CornerRadius="10">
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>
@@ -39,7 +45,7 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel VerticalAlignment="Top">
                     <TextBlock Text="Public playlists" Margin="5"/>
-                    <ListBox x:Name="Public" ItemsSource="{Binding PublicPlayLists }"   Margin="5"  CornerRadius="10">
+                    <ListBox x:Name="Public" ItemsSource="{Binding PublicPlayLists }"   Margin="5"  CornerRadius="10" Background="Transparent">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -59,19 +65,23 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5"  />
-            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}"  Margin="5"  CornerRadius="10" >
+            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" SelectedItem="{Binding PesmId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}" Margin="5"  CornerRadius="10" Background="Transparent">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
-                                <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" Content="s"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
-                            <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center" Content="p"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0"/>
+                                <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
+                                    <PathIcon Data="{StaticResource play}"/>
+                                </Button>
+                            <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
+                                <PathIcon Data="{StaticResource stop}"/>
+                            </Button>
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"/>
-                                <Expander x:Name="Expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3" >
+                                <Expander x:Name="expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3">
                                     <Expander.Content>
                                         <Border Padding="10" CornerRadius="10" >
-                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
+                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}" SelectedItem="{Binding PlaylistId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}">
                                                 <ListBox.ItemTemplate>
                                                <DataTemplate>
                                                 <Button  Content="{Binding ImePlaylista}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
@@ -90,12 +100,12 @@
             </ScrollViewer>
         </Border>
         <!-- Profil -->
-        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
+        <StackPanel  Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
             <DockPanel Margin="3" >
-                <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3">
+                <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3" >
                     <MenuItem Header="_Profile" CornerRadius="10" >
-                        <MenuItem Header="_Upload" CornerRadius="10 " Margin="3" Click="Upload_OnClick"/>
-                        <MenuItem Header="_Logout" CornerRadius="10" Margin="3" x:Name="Logout" Click="Logout_OnClick"  />
+                        <Button  CornerRadius="10 " Margin="3" Width="80" Click="Upload_OnClick"><PathIcon Data="{StaticResource upload}"/></Button>
+                        <Button x:Name="Logout" CornerRadius="10 " Margin="3" Width="80" Click="Logout_OnClick" ><PathIcon Data="{StaticResource sign_out}"/></Button>
                     </MenuItem>
                 </Menu>
             </DockPanel>
@@ -106,22 +116,26 @@
         </StackPanel>
         <!-- Player -->
         <Border  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
-                <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal">
+                <StackPanel x:Name="Player"  VerticalAlignment="Top" Orientation="Horizontal" Background="Transparent">
                     <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*,*">
                     <TextBlock Text="Player" Margin="5"/>
-            <TextBlock Text="{Binding TrenutniCas, StringFormat='{}{0:mm\\:ss} / {1:mm\\:ss}'}" Margin="5" Grid.Row="2" Grid.Column="0"/>
-            <Button Content="Next"  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right"/><Button Content="stop" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100"/>
+            <Label Content="{Binding TrenutniCas, StringFormat='{}{0:mm\\:ss} / {1:mm\\:ss}'}" Margin="5" Grid.Row="2" Grid.Column="0" Foreground="White"/>
+            <Button  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right">
+                <PathIcon Data="{StaticResource next}"/>
+            </Button>
+                    <Button  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100">
+                        <PathIcon Data="{StaticResource stop}"/>
+                    </Button>
             <Button CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
                     HorizontalAlignment="Left">
-                <Image  Source=""/>
+                <PathIcon Data="{StaticResource previous}"/>
             </Button>
             <Slider x:Name="VolumeSlider" 
                     Minimum="0" 
                     Maximum="1" 
                     Value="{Binding VolumeLevel}" 
                     Width="100" 
-                    IsDirectionReversed="True"
-                    TickPlacement="BottomRight"
+                    TickPlacement="TopLeft"
                     Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="60" Orientation="Vertical" HorizontalAlignment="Right"
                     ValueChanged="VolumeSlider_OnValueChanged"/>
             <ProgressBar x:Name="ProgressBar" 
@@ -159,8 +173,9 @@
                                <TextBlock Text="{Binding Username}"/>
                                <Label Content="Naslov"/>
                                <TextBlock  Text="{Binding Naslovpesmi}"/>
+                               <Label Content="Dolzina"/>
                                <TextBlock  Text="{Binding Dolzinapesmi}"/>
-                               <TextBlock Text="{Binding Dodano}" />
+                               <TextBlock Text="{Binding DodaoAgo}" />
                            </StackPanel>
                        </DataTemplate>
                    </ListBox.ItemTemplate>

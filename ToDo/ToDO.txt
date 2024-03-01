@@ -1,4 +1,4 @@
-2.Urediti desing oz. path za slike
+6. Pogrunat problem z shranjevanjem songov v inplaylist playlist_id pesmi_id
 7.Changeat NAudio z FFMpeg
 8.Zrihtat Collaboration / napou narjen
 9.Move-at db na server
