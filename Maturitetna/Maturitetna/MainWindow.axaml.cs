@@ -9,7 +9,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
-using Avalonia.Reactive.Operators;
+
 
 
 namespace Maturitetna;
@@ -30,7 +30,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
     private PlayList _song;
-
+ 
  
     public string Username
     {
@@ -160,13 +160,14 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             connection.Open();
             int userID = MainWindow.userId;
             string sql =
-                "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN user ON pesmi.user_id=user.user_id WHERE user.user_id=@user_id  ";
+                "SELECT pesmi_id,naslov_pesmi,dolzina_pesmi,file_ext,pesmi.user_id FROM pesmi JOIN user ON pesmi.user_id=user.user_id WHERE user.user_id=@user_id ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", userID);
                     //command.Parameters.AddWithValue("@pesmi_id",PlayListItem.pesmId);
                      using (MySqlDataReader reader =  command.ExecuteReader())
                     {
+                        
                         while (reader.Read())
                         {
                             PlayListItem.pesmId = reader.GetInt32("pesmi_id");
@@ -176,7 +177,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                 reader.GetString("file_ext"), 
                                 reader.GetInt32("user_id")
                                 );
-                                
                             myUploads.Add(musicItem);
                         }
                     }
@@ -199,7 +199,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                    command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                    command.Parameters.AddWithValue("@file_ext", musicItem.Destinacija );
                    command.Parameters.AddWithValue("user_id", musicItem.UserId);
-                    command.ExecuteNonQuery();
+                   command.ExecuteNonQuery();
 
                }
            }
@@ -556,4 +556,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             _playlist.DodajUporabnika();
         }
+
+     
 }

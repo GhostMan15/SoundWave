@@ -14,15 +14,13 @@
         x:DataType="local:MainWindow"
         x:CompileBindings="True">
     <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
-        <!-- Slike -->
-        
         <!-- MyLibrary -->
         <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
             <TextBlock Text="My Library" Margin="5"  />
             <Button Content="Ustvari playlisto" Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" CornerRadius="10" Margin="3" IsVisible="False"/>
-            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"  SelectedItem="{Binding PesmId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}" Margin="5" BorderBrush="Black" CornerRadius="10">
+            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"  SelectedItem="{Binding PesmId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}"  Margin="5" BorderBrush="Black" CornerRadius="10">
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>

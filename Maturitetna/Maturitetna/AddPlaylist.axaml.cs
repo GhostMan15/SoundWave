@@ -67,7 +67,7 @@ public partial class AddPlaylist : Window
                 const string sql =
                     "SELECT playlist_id, playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist " +
                     "JOIN user ON playlist.playlist_fk_user = user.user_id " +
-                    "WHERE user.user_id = @userId  ";
+                    "WHERE user.user_id = @userId ";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@userId", MainWindow.userId);
@@ -75,7 +75,7 @@ public partial class AddPlaylist : Window
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
-                        {
+                        { 
                             PlayListItem.playlisId = reader.GetInt32("playlist_id");
                             string imePlaylista = reader.GetString("playlist_ime");
                             int privacy = reader.GetInt32("privacy");
