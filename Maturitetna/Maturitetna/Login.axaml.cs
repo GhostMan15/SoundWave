@@ -27,7 +27,7 @@ public partial class Login : Window
         this.Close();
        
     }
-    private void SignIn_OnClick(object? sender, RoutedEventArgs e)
+    public void SignIn_OnClick(object? sender, RoutedEventArgs e)
     {
         string? username = Username.Text;
         string? password = Password.Text;

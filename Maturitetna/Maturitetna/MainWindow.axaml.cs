@@ -136,6 +136,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         var login = new Login(this, _addPlaylist);
         login.Show();
         SignedIn = true;
+        uploadButton.IsVisible = true;
     }
 
     
@@ -297,6 +298,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         PobrisiUplode();
         _addPlaylist.PobrisiPlaylist();
         CreatePlaylistButton.IsVisible = false;
+        uploadButton.IsVisible = false;
+
     }
     //==============================================================================================================================================   
     //Za prikazovanje na playerju

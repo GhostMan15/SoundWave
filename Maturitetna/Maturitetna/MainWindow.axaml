@@ -101,8 +101,8 @@
         <StackPanel  Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" IsVisible="False" x:Name="Profile">
             <DockPanel Margin="3" >
                 <Menu DockPanel.Dock="Right" CornerRadius="10" Margin="3" >
-                    <MenuItem Header="_Profile" CornerRadius="10" >
-                        <Button  CornerRadius="10 " Margin="3" Width="80" Click="Upload_OnClick"><PathIcon Data="{StaticResource upload}"/></Button>
+                    <MenuItem Header="_Profile" CornerRadius="10">
+                        <Button  CornerRadius="10 " Margin="3" Width="80" Click="Upload_OnClick" x:Name="uploadButton" IsVisible="True"><PathIcon Data="{StaticResource upload}"/></Button>
                         <Button x:Name="Logout" CornerRadius="10 " Margin="3" Width="80" Click="Logout_OnClick" ><PathIcon Data="{StaticResource sign_out}"/></Button>
                     </MenuItem>
                 </Menu>
