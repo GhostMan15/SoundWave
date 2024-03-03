@@ -20,11 +20,11 @@
             <StackPanel>
             <TextBlock Text="My Library" Margin="5"  />
             <Button Content="Ustvari playlisto" Click="CreatePlaylistButton_OnClick" x:Name="CreatePlaylistButton" CornerRadius="10" Margin="3" IsVisible="False"/>
-            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"  SelectedItem="{Binding PesmId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}"  Margin="5" BorderBrush="Black" CornerRadius="10">
+            <ListBox x:Name="PlaylistBox" ItemsSource="{Binding myPlaylist }"   Margin="5" BorderBrush="Black" CornerRadius="10">
                 <ListBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel>
-                           <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick" CornerRadius="10" Margin="3"/>
+                           <Button x:Name="playlistButton" Content="{Binding ImePlaylista}" Tag="{Binding }" Click="OpenPlaylist_OnClick" CornerRadius="10" Margin="3"/>
                        </StackPanel>
                    </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -63,7 +63,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel  VerticalAlignment="Top">
             <TextBlock Text="My Uploads" Margin="5"  />
-            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" SelectedItem="{Binding PesmId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}" Margin="5"  CornerRadius="10" Background="Transparent">
+            <ListBox x:Name="Uploads"  ItemsSource="{Binding myUploads}" Margin="5"  CornerRadius="10" Background="Transparent">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -75,14 +75,14 @@
                                 <PathIcon Data="{StaticResource stop}"/>
                             </Button>
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" Tag="{Binding Destinacija}"/>
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}" Tag="{Binding PesmiID}"/>
                                 <Expander x:Name="expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3">
                                     <Expander.Content>
                                         <Border Padding="10" CornerRadius="10" >
-                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}" SelectedItem="{Binding PlaylistId,  RelativeSource={RelativeSource AncestorType=local:PlayListItem}}">
+                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
                                                 <ListBox.ItemTemplate>
                                                <DataTemplate>
-                                                <Button  Content="{Binding ImePlaylista}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
+                                                <Button  Content="{Binding ImePlaylista}" Tag="{Binding}"  CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
                                                </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>

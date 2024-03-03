@@ -71,19 +71,20 @@ public partial class AddPlaylist : Window
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@userId", MainWindow.userId);
-                    command.Parameters.AddWithValue("@playlist_id", PlayListItem.playlisId);
+                    //command.Parameters.AddWithValue("@playlist_id", PlayListItem.playlisId);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         { 
-                            PlayListItem.playlisId = reader.GetInt32("playlist_id");
                             string imePlaylista = reader.GetString("playlist_ime");
+                            int playlist_id = reader.GetInt32("playlist_id");
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
+                                PlayListId = playlist_id,
                                 Privacy = privacy,
                                 UserId = userId,
                                 Ustvarjeno = ustvarjeno
@@ -105,7 +106,7 @@ public partial class AddPlaylist : Window
         }
             
     }
-     public void IzpisiPlaylistePublic()
+     public  void IzpisiPlaylistePublic()
     {
         _mainWindow.PublicPlayLists.Clear();
         
@@ -121,14 +122,15 @@ public partial class AddPlaylist : Window
                     {
                         while (reader.Read())
                         {
-                            _playListItem.PlaylistId = reader.GetInt32("playlist_id");
                             string imePlaylista = reader.GetString("playlist_ime");
+                            int playlist_id = reader.GetInt32("playlist_id");
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
+                                PlayListId = playlist_id,
                                 Privacy = privacy,
                                 UserId = userId,
                                 Ustvarjeno = ustvarjeno
@@ -165,17 +167,14 @@ public partial class AddPlaylist : Window
     }
 }
 
-public class PlayList : IEnumerable
+public class PlayList
 {
     public string ImePlaylista { get; set; }
+    public int PlayListId { get; set; }
     public int Privacy { get;set; }
     public int UserId { get; set; }
-    public string? Ustvarjeno { get; set; }
+    public string Ustvarjeno { get; set; }
  
     public PlayList(){}
-
-    public IEnumerator GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    
 }
