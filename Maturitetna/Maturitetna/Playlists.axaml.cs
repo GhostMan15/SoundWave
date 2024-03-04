@@ -59,8 +59,8 @@ public class PlayListItem
     }
     public int PesmId
     {
-        get { return _musicItem.pesmiId;}
-        set { _musicItem.pesmiId = value; }
+        get { return _musicItem.PesmiID;}
+        set { _musicItem.PesmiID = value; }
     }
     public string Username
     {
@@ -109,30 +109,34 @@ public class PlayListItem
     }
 
 
-  DateTime dodano = DateTime.Now;
+  DateTime dodano = DateTime.Today;
 
-    public void DodajvPlaylisto(int playlist_id)
+    public void DodajvPlaylisto(List<int>dodanSongId,int playlist_id)
     {
        
         try
         {
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
-                if (_musicItem.pesmiId== 0)
+                if (_musicItem.PesmiID== 0)
                 {
                     Console.WriteLine("ni id-ja");
                     return;
                 }
                 connection.Open();
                 string sql = "INSERT INTO inplaylist(user_id,pesmi_id,dodano,playlist_id) VALUES (@user_id,@pesmi_id,@dodano,@playlist_id);";
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                foreach (int SongID in dodanSongId)
                 {
-                    command.Parameters.AddWithValue("@user_id", MainWindow.userId);
-                    command.Parameters.AddWithValue("@pesmi_id", _musicItem.pesmiId);
-                    command.Parameters.AddWithValue("@dodano", dodano);
-                    command.Parameters.AddWithValue("@playlist_id", playlist_id);
-                    command.ExecuteNonQuery();
+                    using (MySqlCommand command = new MySqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@user_id", MainWindow.userId);
+                        command.Parameters.AddWithValue("@pesmi_id", SongID);
+                        command.Parameters.AddWithValue("@dodano", dodano);
+                        command.Parameters.AddWithValue("@playlist_id", playlist_id);
+                        command.ExecuteNonQuery();
+                    }
                 }
+            
             }
         }
         catch (Exception e)
@@ -174,7 +178,7 @@ public class PlayListItem
                         string naslovPesmi = reader.GetString("naslov_pesmi");
                         string dolzinaPesmi = reader.GetString("dolzina_pesmi");
                         PlayListItem playListItem = new PlayListItem(
-                            _musicItem.PesmiID = pesmiId,
+                            PesmId= pesmiId,
                             dodano = DodaoAgo,
                             UserId = userId,
                             PlaylistId = playlistId, 
@@ -186,14 +190,13 @@ public class PlayListItem
                             
                         );
                         _mainWindow.myPlayListsSongs.Add(playListItem);
-                        _mainWindow.PlayListSongs.ItemsSource = _mainWindow.myPlayListsSongs;
+                      
                     }
 
                 }
             }
         }
-        
-        
+        _mainWindow.PlayListSongs.ItemsSource = _mainWindow.myPlayListsSongs;
     }
     //==============================================================================================================================
     //Dodaj uporabnika

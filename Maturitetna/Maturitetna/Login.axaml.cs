@@ -16,7 +16,7 @@ public partial class Login : Window
     {
         InitializeComponent();
         _mainWindow = mainWindow;
-        _mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
+        //_mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
         this._addPlaylist = _addPlaylist;
     }
 

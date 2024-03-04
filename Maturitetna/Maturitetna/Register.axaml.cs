@@ -7,18 +7,24 @@ namespace Maturitetna;
 
 public partial class Register : Window
 {
-    private string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-   
+    private readonly string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+  //  private readonly MainWindow _mainWindow;
+   // private readonly AddPlaylist _playList;
     public Register()
     {
         InitializeComponent();
     }
 
+   /* public Register(MainWindow mainWindow, AddPlaylist playlist) : this()
+    {
+        _mainWindow = mainWindow;
+        _playList = playlist;
+    }*/
     private void Register_OnClick(object? sender, RoutedEventArgs e)
     {
-        string? username = Username.Text;
-        string? password = Password.Text;
-        string? reenter = Reenter.Text;
+        string username = Username.Text;
+        string password = Password.Text;
+        string reenter = Reenter.Text;
         if (string.IsNullOrEmpty(username) ||   string.IsNullOrEmpty(password) || string.IsNullOrEmpty(reenter))
         {
             Username.Text = "";
@@ -33,18 +39,17 @@ public partial class Register : Window
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
                 connection.Open();
-                var sql = "INSERT INTO user(username,password) VALUES (@username, @password)";
+                const string sql = "INSERT INTO user(username,password) VALUES (@username, @password)";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", password);
-                    
                     command.ExecuteNonQuery();
-                    this.Close();   
-                    
+                    this.Close();
                 }
                
             }
+        
         }
         catch (Exception exception)
         {
