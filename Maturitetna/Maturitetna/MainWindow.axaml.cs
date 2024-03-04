@@ -30,6 +30,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
+    private readonly MusicItem _musicItem;
     private PlayList _song;
     
  
@@ -43,7 +44,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         InitializeComponent();
         _login = new Login(this, _addPlaylist);
-        _playlist = new PlayListItem(this);
+        _playlist = new PlayListItem(this, _musicItem);
         _onlyplaylist = new PlayList();
         _addPlaylist = new AddPlaylist(this, _playlist ); 
          DataContext = this;
@@ -51,23 +52,29 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
     
 
-    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist) : this()
+    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist, MainWindow.MusicItem musicItem) : this()
     {
         _login = login;
         _addPlaylist = addplaylist;
         _playlist = playlist;
         _onlyplaylist = onlyplaylist;
+        _musicItem = musicItem;
         DataContext = this;
     }
 //======================================================================================================================
 // My Uploads
     public class MusicItem 
-    {   
-        public int PesmiID { get; set; }
+    {
+        public int PesmiID
+        {
+            get { return pesmiId;}
+            set { pesmiId = value; }
+        }
+
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
         public string Destinacija { get; }
-        
+        public int pesmiId;
         public int UserId
         {
             get { return userId;  }
@@ -140,6 +147,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
 
     
+    [Obsolete("Opening file explorer")]
     private void Upload_OnClick(object? sender, RoutedEventArgs e)
     {
         Prikazi();
@@ -223,6 +231,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                 reader.GetInt32("user_id")
                                 );
                             myUploads.Add(musicItem);
+                            var playlistItem = new PlayListItem(this,musicItem);
                         }
                     }
                 }
@@ -263,6 +272,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                            while (reader.Read())
                            {
                                musicItem.PesmiID = reader.GetInt32("pesmi_id");
+                               Console.WriteLine(musicItem.pesmiId);
                            }
                        }
                    }
@@ -591,8 +601,15 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
            if (sender is Button button && button.Tag is PlayList pl)
            {
                int playlist_id = pl.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
-               if(_playlist !=null )
-               {_playlist.DodajvPlaylisto(playlist_id);}
+               if (_musicItem != null)
+               {
+                   PlayListItem playListItem = new PlayListItem(this, _musicItem);
+                   _playlist.DodajvPlaylisto(playlist_id);
+               }
+               else
+               {
+                   Console.WriteLine($"music item {_musicItem}");
+               }
                
            }
            else

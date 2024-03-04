@@ -59,8 +59,8 @@ public class PlayListItem
     }
     public int PesmId
     {
-        get { return pesmId;}
-        set { pesmId = value; }
+        get { return _musicItem.pesmiId;}
+        set { _musicItem.pesmiId = value; }
     }
     public string Username
     {
@@ -84,13 +84,11 @@ public class PlayListItem
         set { }
     }
 
-    public PlayListItem(MainWindow.MusicItem musicItem)
-    {
-        _musicItem = musicItem;
-    }
-    public PlayListItem(MainWindow mainWindow)
+   
+    public PlayListItem(MainWindow mainWindow, MainWindow.MusicItem musicItem)
     {
         _mainWindow = mainWindow;
+        _musicItem = musicItem;
         
     }
     public PlayListItem(int pesmId ,string dodaoAgo, int playlisId, int userId, string username, string naslovPesmi, string dolzinaPesmi)
@@ -120,12 +118,17 @@ public class PlayListItem
         {
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
+                if (_musicItem.pesmiId== 0)
+                {
+                    Console.WriteLine("ni id-ja");
+                    return;
+                }
                 connection.Open();
                 string sql = "INSERT INTO inplaylist(user_id,pesmi_id,dodano,playlist_id) VALUES (@user_id,@pesmi_id,@dodano,@playlist_id);";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", MainWindow.userId);
-                    command.Parameters.AddWithValue("@pesmi_id", _musicItem.PesmiID);
+                    command.Parameters.AddWithValue("@pesmi_id", _musicItem.pesmiId);
                     command.Parameters.AddWithValue("@dodano", dodano);
                     command.Parameters.AddWithValue("@playlist_id", playlist_id);
                     command.ExecuteNonQuery();

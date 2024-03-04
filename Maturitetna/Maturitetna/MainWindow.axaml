@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaChromeHints="SystemChrome"
         TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
+        Background="#262626"
         x:DataType="local:MainWindow"
         x:CompileBindings="True">
     <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
@@ -68,7 +68,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
-                                <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
+                                <Button x:Name="Play" Click="Play_OnClick"  HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
                                     <PathIcon Data="{StaticResource play}"/>
                                 </Button>
                             <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
@@ -121,7 +121,7 @@
             <Button  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right">
                 <PathIcon Data="{StaticResource next}"/>
             </Button>
-                    <Button  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" CornerRadius="100">
+                    <Button  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Click="Play_OnClick" HorizontalAlignment="Center" CornerRadius="100">
                         <PathIcon Data="{StaticResource stop}"/>
                     </Button>
             <Button CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
