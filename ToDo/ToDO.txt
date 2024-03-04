@@ -1,3 +1,4 @@
+4. Dodaj song v app in preveri ce pridobi/reada njegov id
 5.Pogledat ali musicItem sploh prebere oz odbi pesmi_id in ce ali dobi ta pravega
 6. Pogrunat problem z shranjevanjem songov v inplaylist playlist_id pesmi_id(pogrunut)
 7.Changeat NAudio z FFMpeg
