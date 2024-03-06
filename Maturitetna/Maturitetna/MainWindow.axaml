@@ -74,7 +74,7 @@
                                 <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
                                 <PathIcon Data="{StaticResource stop}"/>
                                 </Button>
-                                <Button Grid.Column="0" Grid.Row="1" Content="{Binding Naslov}" Tag="{Binding }" Background="#262626" x:Name="naslov" Click="AddToSelectedPlaylist_OnClick"/>
+                                <Button Grid.Column="0" Grid.Row="1" Content="{Binding Naslov}" Tag="{Binding  }" Background="#262626" x:Name="naslov" Click="SongButton_Click"/>
                                 <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"  />
                                 <Expander x:Name="expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3">
                                     <Expander.Content>
@@ -82,7 +82,7 @@
                                             <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
                                                 <ListBox.ItemTemplate>
                                                <DataTemplate>
-                                                   <Button  Content="{Binding ImePlaylista}" Tag="{Binding }" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
+                                                   <Button  Content="{Binding ImePlaylista}" Tag="{Binding  }" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick" />
                                                </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>

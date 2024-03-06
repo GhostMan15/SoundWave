@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using MySqlConnector;
 
 namespace Maturitetna;

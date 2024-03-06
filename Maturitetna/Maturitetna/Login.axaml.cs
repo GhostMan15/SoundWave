@@ -29,8 +29,8 @@ public partial class Login : Window
     }
     public void SignIn_OnClick(object? sender, RoutedEventArgs e)
     {
-        string? username = Username.Text;
-        string? password = Password.Text;
+        string username = Username.Text;
+        string password = Password.Text;
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             Username.Text = "";

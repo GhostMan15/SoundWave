@@ -20,6 +20,7 @@
         <PackageReference Include="MySqlConnector" Version="2.3.5" />
         <PackageReference Include="NAudio" Version="2.2.1" />
         <PackageReference Include="NAudio.WinMM" Version="2.2.1" />
+        <PackageReference Include="ReactiveUI" Version="19.5.41" />
     </ItemGroup>
 
                                                      

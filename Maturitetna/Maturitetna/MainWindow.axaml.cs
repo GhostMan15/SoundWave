@@ -8,12 +8,9 @@ using Avalonia.VisualTree;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MySqlConnector;
 using NAudio.Wave;
-
-
-
+using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
 {
@@ -25,7 +22,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
     public ObservableCollection<string> DodajUporabnika { get; } = new ObservableCollection<string>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
+    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
     private static  Login _login;
     public static int userId;
     private readonly AddPlaylist _addPlaylist;
@@ -33,8 +30,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayList _onlyplaylist;
     private  MusicItem _musicItem;
     //private PlayList _song;
-    
- 
+
+
     public string Username
     {
         get { return PlayListItem.username; }
@@ -51,6 +48,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
+
     }
     
 
@@ -232,6 +230,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                 );
                             myUploads.Add(musicItem);
                         }
+                       
                     }
                 }
         }
@@ -242,6 +241,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
    {
        try
        {
+         
            using (MySqlConnection connection = new MySqlConnection(conn))
            {
                connection.Open();
@@ -262,7 +262,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                        }
                    }*/
 
-                   //command.ExecuteNonQuery();
+                   command.ExecuteNonQuery();
                }
 
                using ( MySqlConnection konekcija = new MySqlConnection(conn))
@@ -282,7 +282,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                while (reader.Read())
                                {
                                    musicItem.PesmiID = reader.GetInt32("pesmi_id");
-                                   reader.Close();
                                    if (reader != null)
                                    {
                                        Console.WriteLine(musicItem.PesmiID);
@@ -390,13 +389,14 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         if (_trenutniTrack < myUploads.Count - 1)
         {
-            if (outputDevice!=null && outputDevice.PlaybackState == PlaybackState.Playing)
+            if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
             {
-                outputDevice.Stop();
-                outputDevice.Dispose();
+               outputDevice.Stop();
+               outputDevice.Dispose();
             }
             _trenutniTrack++;
-          await PlaySelectedTrack();
+            await PlaySelectedTrack();
+            
         }
     }
 
@@ -406,8 +406,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             if (outputDevice.PlaybackState == PlaybackState.Playing)
             {
-                outputDevice.Stop();
-                outputDevice.Dispose();
+              outputDevice.Stop();
+              outputDevice.Dispose();
             }
             _trenutniTrack--;
            await PlaySelectedTrack();
@@ -423,7 +423,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
     private void Stop_OnClick(object? sender, RoutedEventArgs e)
     {
-        outputDevice.Stop();
+        outputDevice.Stop(); 
         outputDevice.Dispose();
         IsProgressBarEnabled = false;
     }
@@ -434,18 +434,20 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             var filePath = Path.Combine(uploadFolder, myUploads[_trenutniTrack].Destinacija);
             if (File.Exists(filePath))
             {
-                if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+                if (File.Exists(filePath))
                 {
-                    outputDevice.Stop();
-                    outputDevice.Dispose();
+                    if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+                    {
+                        outputDevice.Stop();
+                        outputDevice.Dispose();
+                    }
+                    await  PlayAudio(filePath);
                 }
-                await  PlayAudio(filePath);
+                else
+                {
+                    Console.WriteLine("Ne spila");
+                } 
             }
-           
-            else
-            {
-                Console.WriteLine("Ne spila");
-            } 
         }
     }
 
@@ -463,7 +465,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             {
                 throw new Exception("ne dela");
             }
-
             await Task.Delay(1000);
         }
     }
@@ -510,31 +511,30 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         try
         {
-           await using (var audioFile = new AudioFileReader(filePath))
-           {
-               outputDevice = new WaveOutEvent();
-               outputDevice.Volume = VolumeLevel;
-               outputDevice.Init(audioFile);
-               outputDevice.Play();
-
-               PlayDolzina = audioFile.TotalTime.TotalSeconds;
-               _ = UpdateTime();
-                UpdatePlayProgressAndLength(0,PlayDolzina);
-               while (outputDevice.PlaybackState == PlaybackState.Playing)
-               {
-                   PlayProgress = audioFile.CurrentTime.TotalSeconds;
-                   UpdatePlayProgressAndLength(PlayProgress,PlayDolzina);
-                   await Task.Delay(200); 
-               }
-                
-           }
+           
+          await  using (var audioFile= new AudioFileReader(filePath))
+          {
+              outputDevice = new WaveOutEvent();
+              outputDevice.Volume = VolumeLevel;
+              outputDevice.Init(audioFile);
+              outputDevice.Play();
+              PlayDolzina = audioFile.TotalTime.TotalSeconds;
+              _ = UpdateTime();
+              while (outputDevice.PlaybackState == PlaybackState.Playing)
+              {
+                  PlayProgress = audioFile.CurrentTime.TotalSeconds;
+                  UpdatePlayProgressAndLength(PlayProgress,PlayDolzina);
+                  await Task.Delay(200);
+              }
+          }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Problem sef: {e}");
+            Console.WriteLine($"Error: {ex.Message}");
             throw;
         }
     }
+    
  
     private void Play_OnClick(object? sender, RoutedEventArgs e)
     {
@@ -597,40 +597,38 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 //==================================================================================================================================
 // Dodaj pesm v playlist
 
-    private MusicItem _selectedMusicItem;
+   // private MusicItem _selectedMusicItem;
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-       /* if (_musicItem ==null)
+       /* if (_musicItem.PesmiID ==null)
         {
             Console.WriteLine("shit je null ");
             return;
         }
         else
         {
-            Console.WriteLine(_musicItem);
+            Console.WriteLine(_musicItem.PesmiID);
         }*/
            /* _playlist.PesmId = SelectedMusicItem.PesmId;
             _playlist.PlaylistId = SelectedPlaylist.PlaylistId;*/
-           if (sender is Button button )
+           if (sender is Button button && button.Tag is PlayList playList)
            {
-               if (button.Tag is PlayList playlist)
+               //button.Click += SongButton_Click; Ne dela (Performanje clicka)
+               int playlist_id = playList.PlayListId;
+               Console.WriteLine(playlist_id);
+              
+               SongButton_Click(sender, e);
+
+               if (button.DataContext is MusicItem musicItem)
                {
-                   int playlist_id = playlist.PlayListId;
-                   SongButton_Click(sender, e);
-                   if (button.Tag is MusicItem _musicItem)
-                   {
-                       _playlist.PesmId = _musicItem.PesmiID;
-                       _playlist.DodajvPlaylisto(new List<int>(_musicItem.PesmiID), playlist_id);  
-                   }
-                   else
-                   {
-                       Console.WriteLine("Ni songa");
-                   }
-                     
+                   //Izbrani_song(musicItem);
+                   _playlist.PesmId = musicItem.PesmiID;
+                   Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}");
+                   _playlist.DodajvPlaylisto(new List<int>(musicItem.PesmiID), playlist_id);  
                }
                else
                {
-                   Console.WriteLine("Ni playlista.");
+                   Console.WriteLine("Ni songa");
                }
            }
            else
@@ -640,26 +638,36 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
     private void SongButton_Click(object sender, RoutedEventArgs e)
     {
-        var buton = sender as Button;
-        if (buton != null)
-        {
-            if (buton.Tag is MusicItem musicItem)
-            {
-                _musicItem = musicItem;
-                var pesmi_id = _musicItem.PesmiID;
-                _playlist.PesmId = pesmi_id;
-                Console.WriteLine($"Selected MusicItem: {_musicItem.PesmiID}");
-                e.Handled = true;
-            }
+       
+        HandleButtonClick(sender as Button, e);
+    }
+
+    public void Izbrani_song(MusicItem musicItem)
+    {
+        _musicItem = musicItem;
+        var pesmi_id = _musicItem.PesmiID;
+        _playlist.PesmId = pesmi_id;
+        Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}");      
         
+    }
+    private void HandleButtonClick(Button button, RoutedEventArgs e)
+    {
+        if (button == null)
+        {
+            Console.WriteLine("button is null");
+            return;
+        }
+      
+
+        if (button.Tag is MusicItem musicItem)
+        {
+           Izbrani_song(musicItem);
         }
         else
         {
             Console.WriteLine("button je null");
         }
-        
     }
-
     
     //================================================================================================================================
     //Dostopanje do childa
@@ -693,6 +701,45 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             return null;
         }
 
+        private Button FindButtonInListBox(string name, ListBox listBox)
+        {
+            foreach (var item in listBox.Items)
+            {
+                if (item is ListBoxItem listBoxItem)
+                {
+                    var button = FindButtonInVisualTree(name, listBoxItem);
+                    if (button != null)
+                    {
+                        return button;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private Button FindButtonInVisualTree(string name, ListBoxItem listBoxItem)
+        {
+            var button = listBoxItem.FindControl<Button>(name);
+            if (button != null)
+            {
+                return button;
+            }
+
+            // If the button was not found, search recursively in the visual tree
+            foreach (var child in listBoxItem.GetVisualChildren())
+            {
+                if (child is ListBoxItem childListBoxItem)
+                {
+                    button = FindButtonInVisualTree(name, childListBoxItem);
+                    if (button != null)
+                    {
+                        return button;
+                    }
+                }
+            }
+
+            return null;
+        }
  //=================================================================================================================
  //Dodajanje novega uporabnika v playlisto
         private void Expander_OnExpanded(object? sender, RoutedEventArgs e)
@@ -702,3 +749,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 
      
 }
+
+
+
+
