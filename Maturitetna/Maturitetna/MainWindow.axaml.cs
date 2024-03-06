@@ -25,7 +25,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
     public ObservableCollection<string> DodajUporabnika { get; } = new ObservableCollection<string>();
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
+    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
     public static int userId;
     private readonly AddPlaylist _addPlaylist;
@@ -141,6 +141,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         login.Show();
         SignedIn = true;
         uploadButton.IsVisible = true;
+        
     }
 
     
@@ -251,28 +252,55 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                    command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                    command.Parameters.AddWithValue("@file_ext", musicItem.Destinacija);
                    command.Parameters.AddWithValue("user_id", musicItem.UserId);
-                   command.ExecuteNonQuery();
-               
+                   //command.ExecuteNonQuery();
+                   /*using (MySqlDataReader reader = command.ExecuteReader())
+                   {
+                       while (reader.Read())
+                       {
+                           musicItem.PesmiID = reader.GetInt32("pesmi_id");
+                           Console.WriteLine(musicItem.PesmiID);
+                       }
+                   }*/
 
+                   //command.ExecuteNonQuery();
                }
 
                using ( MySqlConnection konekcija = new MySqlConnection(conn))
                {    konekcija.Open();
-                   string query = "SELECT pesmi_id FROM pesmi WHERE user_id=@user_id AND naslov_pesmi = @naslov_pesmi AND dolzina_pesmi = @dolzina_pesmi AND file_ext = @file_ext";
+                   string query = "SELECT pesmi_id FROM pesmi WHERE user_id=@user_id AND naslov_pesmi = @naslov_pesmi AND dolzina_pesmi = @dolzina_pesmi AND file_ext = @file_ext  ";
                    using (MySqlCommand komanda = new MySqlCommand(query,konekcija))
                    {
                        komanda.Parameters.AddWithValue("@naslov_pesmi", musicItem.Naslov);
                        komanda.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                        komanda.Parameters.AddWithValue("@file_ext", musicItem.Destinacija);
                        komanda.Parameters.AddWithValue("@user_id", musicItem.UserId);
-                       using (MySqlDataReader reader =  komanda.ExecuteReader())
+                       try
                        {
-                           while (reader.Read())
+                           using (MySqlDataReader reader = komanda.ExecuteReader())
                            {
-                               musicItem.PesmiID = reader.GetInt32("pesmi_id");
-                               Console.WriteLine(musicItem.PesmiID);
+                               
+                               while (reader.Read())
+                               {
+                                   musicItem.PesmiID = reader.GetInt32("pesmi_id");
+                                   reader.Close();
+                                   if (reader != null)
+                                   {
+                                       Console.WriteLine(musicItem.PesmiID);
+                                   }
+                                   else
+                                   {
+                                       Console.WriteLine("ne prebran id");
+                                   }
+                               }
                            }
                        }
+                       catch (Exception e)
+                       {
+                           Console.WriteLine($"idiiii {e.Message} ");
+                           throw;
+                       }
+                     
+                     
                    }
                }
            }
@@ -583,38 +611,56 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }*/
            /* _playlist.PesmId = SelectedMusicItem.PesmId;
             _playlist.PlaylistId = SelectedPlaylist.PlaylistId;*/
-           if (sender is Button button)
+           if (sender is Button button )
            {
-               
-               // Retrieve the playlist_id from the Tag property of the button
                if (button.Tag is PlayList playlist)
                {
                    int playlist_id = playlist.PlayListId;
-                   if(button.Tag is MusicItem mi)
+                   SongButton_Click(sender, e);
+                   if (button.Tag is MusicItem _musicItem)
                    {
-                       _playlist.PesmId = mi.PesmiID;
-                     _playlist.DodajvPlaylisto(new List<int>(mi.PesmiID), playlist_id);
+                       _playlist.PesmId = _musicItem.PesmiID;
+                       _playlist.DodajvPlaylisto(new List<int>(_musicItem.PesmiID), playlist_id);  
                    }
+                   else
+                   {
+                       Console.WriteLine("Ni songa");
+                   }
+                     
                }
                else
                {
-                   Console.WriteLine("No PlayList found.");
+                   Console.WriteLine("Ni playlista.");
                }
            }
            else
            {
-               Console.WriteLine("No Button found.");
+               Console.WriteLine("Ni buttona.");
            }
     }
     private void SongButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Tag is MusicItem musicItem)
+        var buton = sender as Button;
+        if (buton != null)
         {
-            _playlist.PesmId = musicItem.PesmiID; // Store the selected MusicItem
-            Console.WriteLine($"Selected MusicItem: {_selectedMusicItem.PesmiID}");
+            if (buton.Tag is MusicItem musicItem)
+            {
+                _musicItem = musicItem;
+                var pesmi_id = _musicItem.PesmiID;
+                _playlist.PesmId = pesmi_id;
+                Console.WriteLine($"Selected MusicItem: {_musicItem.PesmiID}");
+                e.Handled = true;
+            }
+        
         }
+        else
+        {
+            Console.WriteLine("button je null");
+        }
+        
     }
 
+    
     //================================================================================================================================
     //Dostopanje do childa
         public static ListBox FindListBoxByName(string name, ListBox parentListBox)

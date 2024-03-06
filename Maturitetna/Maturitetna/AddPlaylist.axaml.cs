@@ -170,7 +170,7 @@ public class PlayList
 {
     public string ImePlaylista { get; set; }
     public int PlayListId { get; set; }
-    public int Privacy { get;set; }
+    public int Privacy { get; set; }
     public int UserId { get; set; }
     public string Ustvarjeno { get; set; }
     
