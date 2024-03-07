@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.VisualTree;
 using Avalonia.Controls;
@@ -11,7 +12,6 @@ using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
-using DB_povezava;
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
 {
@@ -596,8 +596,19 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
 //==================================================================================================================================
 // Dodaj pesm v playlist
-
    // private MusicItem _selectedMusicItem;
+   public class ButtonTag
+   {
+       public MusicItem MusicItem { get; set; }
+       public PlayList PlayList { get; set; }
+       public ButtonTag(MusicItem musicItem, PlayList playList)
+       {
+           MusicItem = musicItem;
+           PlayList = playList;
+       }
+       
+   }
+
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
        /* if (_musicItem.PesmiID ==null)
@@ -611,35 +622,40 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }*/
            /* _playlist.PesmId = SelectedMusicItem.PesmId;
             _playlist.PlaylistId = SelectedPlaylist.PlaylistId;*/
-           if (sender is Button button && button.Tag is PlayList playList)
+           if (sender is Button button && button.DataContext is MusicItem musicItem && button.Tag is PlayList playList)
            {
-               //button.Click += SongButton_Click; Ne dela (Performanje clicka)
                int playlist_id = playList.PlayListId;
                Console.WriteLine(playlist_id);
-              
-               SongButton_Click(sender, e);
 
-               if (button.DataContext is MusicItem musicItem)
-               {
-                   //Izbrani_song(musicItem);
-                   _playlist.PesmId = musicItem.PesmiID;
-                   Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}");
-                   _playlist.DodajvPlaylisto(new List<int>(musicItem.PesmiID), playlist_id);  
-               }
-               else
-               {
-                   Console.WriteLine("Ni songa");
-               }
+               // Create ButtonTag object
+               ButtonTag buttonTag = new ButtonTag(musicItem, playList);
+        
+               // Assign the ButtonTag object to the Tag property of the button
+               button.Tag = buttonTag;
+
+               // Call SongButton_Click method with the Tag value
+               SongButton_Click(buttonTag);
+
+               // Perform other actions based on button data context
+               _playlist.PesmId = musicItem.PesmiID;
+               Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}");
+               _playlist.DodajvPlaylisto(new List<int>(musicItem.PesmiID), playlist_id);
            }
            else
            {
-               Console.WriteLine("Ni buttona.");
+               Console.WriteLine("Invalid button or data context.");
            }
     }
-    private void SongButton_Click(object sender, RoutedEventArgs e)
+    private void SongButton_Click(object tagValue)
     {
-       
-        HandleButtonClick(sender as Button, e);
+        if (tagValue is MusicItem musicItem)
+        {
+            Izbrani_song(musicItem);
+        }
+        else
+        {
+            Console.WriteLine("button ne stima");
+        }
     }
 
     public void Izbrani_song(MusicItem musicItem)
@@ -647,28 +663,26 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _musicItem = musicItem;
         var pesmi_id = _musicItem.PesmiID;
         _playlist.PesmId = pesmi_id;
-        Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}");      
-        
+        Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}"); 
     }
-    private void HandleButtonClick(Button button, RoutedEventArgs e)
+  
+   /* private void HandleButtonClick(Button button, RoutedEventArgs e)
     {
         if (button == null)
         {
             Console.WriteLine("button is null");
             return;
         }
-      
 
         if (button.Tag is MusicItem musicItem)
         {
-           Izbrani_song(musicItem);
+            Izbrani_song(musicItem);
         }
         else
         {
             Console.WriteLine("button je null");
         }
-    }
-    
+    }*/
     //================================================================================================================================
     //Dostopanje do childa
         public static ListBox FindListBoxByName(string name, ListBox parentListBox)
@@ -747,7 +761,43 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             _playlist.DodajUporabnika();
         }
 
-     
+//=================================================================================================================
+//Downloadanje songov
+    private async Task DownloadFile(IEnumerable<string> fileNames)
+    {
+        SaveFileDialog saveFileDialog = new SaveFileDialog();
+        saveFileDialog.Title = "Shrani pesem";
+        foreach (var fileName in fileNames)
+        {
+            var filePath = Path.Combine(uploadFolder, fileName);
+       
+            if (File.Exists(filePath))
+            {
+                saveFileDialog.InitialFileName = Path.GetFileName(filePath);
+                var saveFilePath = await saveFileDialog.ShowAsync(this);
+                if (!string.IsNullOrEmpty(saveFilePath))
+                {
+                    File.Copy(filePath, saveFilePath, true);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"File does not exist: {filePath}");
+            }
+        }
+        
+    }
+  
+    private void Download_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Tag is MusicItem musicItem)
+        {
+            _musicItem = musicItem;
+             var selectedFiles = new List<string> { _musicItem.Destinacija };
+            DownloadFile(selectedFiles);
+        }
+    }
+   
 }
 
 
