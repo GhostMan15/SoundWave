@@ -11,6 +11,7 @@ using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
+using DB_povezava;
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
 {
@@ -48,7 +49,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
-
     }
     
 
