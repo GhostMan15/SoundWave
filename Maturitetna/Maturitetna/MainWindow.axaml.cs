@@ -22,13 +22,16 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
     public ObservableCollection<string> DodajUporabnika { get; } = new ObservableCollection<string>();
+    public ObservableCollection<ButtonTag> DodajPesm { get; } = new ObservableCollection<ButtonTag>();
+    
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
+    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
     public static int userId;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
+    private readonly ButtonTag _buttonTag;
     private  MusicItem _musicItem;
     //private PlayList _song;
 
@@ -45,20 +48,21 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _login = new Login(this, _addPlaylist);
         _musicItem = new MusicItem();
         _onlyplaylist = new PlayList();
-        _addPlaylist = new AddPlaylist(this, _playlist );
+        _addPlaylist = new AddPlaylist(this, _playlist,_buttonTag );
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
     }
     
 
-    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist, MainWindow.MusicItem musicItem) : this()
+    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist, MainWindow.MusicItem musicItem, ButtonTag buttonTag) : this()
     {
         _login = login;
         _addPlaylist = addplaylist;
         _onlyplaylist = onlyplaylist;
         _playlist = playlist;
         _musicItem = musicItem;
+        _buttonTag = buttonTag;
         DataContext = this;
     }
 //======================================================================================================================
@@ -560,7 +564,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
   
     private void CreatePlaylistButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        var addPlaylist = new AddPlaylist(this, _playlist);
+        var addPlaylist = new AddPlaylist(this, _playlist,_buttonTag);
         addPlaylist.Show();
     }
 //=================================================================================================================================
@@ -599,14 +603,37 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
    // private MusicItem _selectedMusicItem;
    public class ButtonTag
    {
-       public MusicItem MusicItem { get; set; }
-       public PlayList PlayList { get; set; }
+       private MusicItem _musicItem;
+       private PlayList _playList;
+
+       public int PesMId
+       { 
+           get { return  _musicItem.PesmiID; }
+       }
+
+       public int PlayListID
+       { 
+           get { return _playList.PlayListId; }
+           set{}
+       }
+        public string ImePlayLista
+        {
+            get { return _playList.ImePlaylista; }
+            set {}
+        }
+        public int UserId
+        {
+            get { return userId;  }
+            set { userId = value; }
+        }
+
+        
        public ButtonTag(MusicItem musicItem, PlayList playList)
        {
-           MusicItem = musicItem;
-           PlayList = playList;
+           _musicItem = musicItem;
+           _playList = playList;
        }
-       
+       public ButtonTag(){}
    }
 
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
@@ -622,24 +649,11 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }*/
            /* _playlist.PesmId = SelectedMusicItem.PesmId;
             _playlist.PlaylistId = SelectedPlaylist.PlaylistId;*/
-           if (sender is Button button && button.DataContext is MusicItem musicItem && button.Tag is PlayList playList)
+           if (sender is Button button &&  button.Tag is ButtonTag buttonTag)
            {
-               int playlist_id = playList.PlayListId;
-               Console.WriteLine(playlist_id);
-
-               // Create ButtonTag object
-               ButtonTag buttonTag = new ButtonTag(musicItem, playList);
-        
-               // Assign the ButtonTag object to the Tag property of the button
-               button.Tag = buttonTag;
-
-               // Call SongButton_Click method with the Tag value
-               SongButton_Click(buttonTag);
-
-               // Perform other actions based on button data context
-               _playlist.PesmId = musicItem.PesmiID;
-               Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}");
-               _playlist.DodajvPlaylisto(new List<int>(musicItem.PesmiID), playlist_id);
+               int playlist_id = buttonTag.PlayListID;
+               int pesmi_id = buttonTag.PesMId;
+               Console.WriteLine($"{playlist_id},{pesmi_id}");
            }
            else
            {

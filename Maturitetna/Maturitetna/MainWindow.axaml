@@ -12,7 +12,8 @@
         TransparencyLevelHint="AcrylicBlur"
         Background="#262626"
         x:DataType="local:MainWindow"
-        x:CompileBindings="True">
+        x:CompileBindings="True"
+        >
     <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*,*,*">
         <!-- MyLibrary -->
         <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3">

@@ -15,14 +15,16 @@ public partial class AddPlaylist : Window
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
     private readonly ListBox _playListListBox;
+    private MainWindow.ButtonTag _buttonTag;
     
 
     private int privacy = 1;
-    public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem)
+    public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem, MainWindow.ButtonTag buttonTag)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
         _playListItem = playListItem;
+        _buttonTag = buttonTag;
         DataContext = _mainWindow;
         _playListListBox = MainWindow.FindListBoxByName("playListListBox", _mainWindow.Uploads);
         if (_playListListBox == null)
@@ -59,6 +61,7 @@ public partial class AddPlaylist : Window
     {
         _mainWindow.myPlaylist.Clear();
         _mainWindow.AllPlaylists.Clear();
+        _mainWindow.DodajPesm.Clear();
         try
         {
             using (MySqlConnection connection = new MySqlConnection(conn))
@@ -92,8 +95,16 @@ public partial class AddPlaylist : Window
                             _mainWindow.myPlaylist.Add(playlist);
                             _mainWindow.AllPlaylists.Add(playlist);
                             _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
-                            _playListListBox.ItemsSource = _mainWindow.AllPlaylists;
                            
+                            MainWindow.ButtonTag buttonTag = new MainWindow.ButtonTag
+                            {
+                                ImePlayLista = imePlaylista,
+                                PlayListID = playlist_id,
+                                UserId = userId
+                                
+                            };
+                            _mainWindow.DodajPesm.Add(buttonTag);
+                            _playListListBox.ItemsSource = _mainWindow.DodajPesm;
                         }
                     }
                 }
@@ -135,6 +146,7 @@ public partial class AddPlaylist : Window
                                 UserId = userId,
                                 Ustvarjeno = ustvarjeno
                             };
+                            
                             _mainWindow.PublicPlayLists.Add(playlist);
                             _mainWindow.Public.ItemsSource = _mainWindow.PublicPlayLists;
                            
@@ -151,7 +163,6 @@ public partial class AddPlaylist : Window
         _mainWindow.myPlaylist.Clear();
         _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
     }
- 
   
     private void ToggleButton_OnChecked(object? sender, RoutedEventArgs e)
     {
