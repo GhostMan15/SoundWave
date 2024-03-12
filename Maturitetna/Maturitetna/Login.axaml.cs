@@ -12,6 +12,7 @@ public partial class Login : Window
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayList _playList;
+    private readonly ButtonTag _buttonTag;
     public Login(MainWindow mainWindow, AddPlaylist _addPlaylist)
     {
         InitializeComponent();
@@ -54,6 +55,7 @@ public partial class Login : Window
             if (reader.Read())
             {
                 MainWindow.userId = reader.GetInt32("user_id");
+                
                 PlayListItem.username = reader.GetString("username");
                 this.Close();
                 _mainWindow.ShowProfile();

@@ -15,11 +15,11 @@ public partial class AddPlaylist : Window
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
     private readonly ListBox _playListListBox;
-    private MainWindow.ButtonTag _buttonTag;
+    private ButtonTag _buttonTag;
     
 
     private int privacy = 1;
-    public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem, MainWindow.ButtonTag buttonTag)
+    public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem, ButtonTag buttonTag)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
@@ -96,7 +96,7 @@ public partial class AddPlaylist : Window
                             _mainWindow.AllPlaylists.Add(playlist);
                             _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
                            
-                            MainWindow.ButtonTag buttonTag = new MainWindow.ButtonTag
+                            ButtonTag buttonTag = new ButtonTag
                             {
                                 ImePlayLista = imePlaylista,
                                 PlayListID = playlist_id,

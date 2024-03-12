@@ -31,7 +31,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
-    private readonly ButtonTag _buttonTag;
+    private  ButtonTag _buttonTag;
     private  MusicItem _musicItem;
     //private PlayList _song;
 
@@ -47,6 +47,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         InitializeComponent();
         _login = new Login(this, _addPlaylist);
         _musicItem = new MusicItem();
+        _buttonTag = new ButtonTag();
         _onlyplaylist = new PlayList();
         _addPlaylist = new AddPlaylist(this, _playlist,_buttonTag );
         _playlist = new PlayListItem(this, _musicItem);
@@ -286,6 +287,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                while (reader.Read())
                                {
                                    musicItem.PesmiID = reader.GetInt32("pesmi_id");
+                                   _buttonTag.PesMId = reader.GetInt32("pesmi_id");
                                    if (reader != null)
                                    {
                                        Console.WriteLine(musicItem.PesmiID);
@@ -601,86 +603,49 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 //==================================================================================================================================
 // Dodaj pesm v playlist
    // private MusicItem _selectedMusicItem;
-   public class ButtonTag
-   {
-       private MusicItem _musicItem;
-       private PlayList _playList;
-
-       public int PesMId
-       { 
-           get { return  _musicItem.PesmiID; }
-       }
-
-       public int PlayListID
-       { 
-           get { return _playList.PlayListId; }
-           set{}
-       }
-        public string ImePlayLista
-        {
-            get { return _playList.ImePlaylista; }
-            set {}
-        }
-        public int UserId
-        {
-            get { return userId;  }
-            set { userId = value; }
-        }
-
-        
-       public ButtonTag(MusicItem musicItem, PlayList playList)
-       {
-           _musicItem = musicItem;
-           _playList = playList;
-       }
-       public ButtonTag(){}
-   }
+ 
 
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-       /* if (_musicItem.PesmiID ==null)
-        {
-            Console.WriteLine("shit je null ");
-            return;
-        }
-        else
-        {
-            Console.WriteLine(_musicItem.PesmiID);
-        }*/
-           /* _playlist.PesmId = SelectedMusicItem.PesmId;
-            _playlist.PlaylistId = SelectedPlaylist.PlaylistId;*/
            if (sender is Button button &&  button.Tag is ButtonTag buttonTag)
            {
                int playlist_id = buttonTag.PlayListID;
-               int pesmi_id = buttonTag.PesMId;
-               Console.WriteLine($"{playlist_id},{pesmi_id}");
+               Console.WriteLine(playlist_id);
+               //SongButton_Click(sender,e);
+               if (button.DataContext is ButtonTag)
+               {
+                    int pesmi_id = buttonTag.PesMId;
+                     Console.WriteLine($"{playlist_id},{pesmi_id}");
+                     _playlist.DodajvPlaylisto(new List<int>(buttonTag.PesMId), playlist_id);
+               }
+               else
+               {
+                   Console.WriteLine("ni");
+               }
            }
            else
            {
                Console.WriteLine("Invalid button or data context.");
            }
     }
-    private void SongButton_Click(object tagValue)
+    private void SongButton_Click(object sender, RoutedEventArgs e)
     {
-        if (tagValue is MusicItem musicItem)
-        {
-            Izbrani_song(musicItem);
-        }
-        else
-        {
-            Console.WriteLine("button ne stima");
-        }
+        var button = sender as Button;
+        var buttonTag = button?.DataContext as ButtonTag;
+        var pesmi_id = buttonTag.PesMId;
+        _playlist.PesmId = pesmi_id;
+        Console.WriteLine(pesmi_id);
+
     }
 
-    public void Izbrani_song(MusicItem musicItem)
+    public void Izbrani_song(ButtonTag  buttonTag)
     {
-        _musicItem = musicItem;
-        var pesmi_id = _musicItem.PesmiID;
+        var pesmi_id = buttonTag.PesMId;
         _playlist.PesmId = pesmi_id;
-        Console.WriteLine($"{musicItem.Destinacija}, {musicItem.Dolzina}, {musicItem.Naslov}, {musicItem.PesmiID}, {musicItem.UserId}"); 
+        Console.WriteLine($"{buttonTag.PesMId}, {buttonTag.PlayListID}, {buttonTag.ImePlayLista}"); 
     }
   
-   /* private void HandleButtonClick(Button button, RoutedEventArgs e)
+    private void HandleButtonClick(Button button, RoutedEventArgs e)
     {
         if (button == null)
         {
@@ -688,15 +653,15 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             return;
         }
 
-        if (button.Tag is MusicItem musicItem)
+        if (button.Tag is ButtonTag buttonTag)
         {
-            Izbrani_song(musicItem);
+            Izbrani_song(buttonTag);
         }
         else
         {
             Console.WriteLine("button je null");
         }
-    }*/
+    }
     //================================================================================================================================
     //Dostopanje do childa
         public static ListBox FindListBoxByName(string name, ListBox parentListBox)
@@ -813,7 +778,25 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
    
 }
+public class ButtonTag
+{
+    
+   
+    public int PesMId
+    { get; set; }
 
+    public int PlayListID
+    { get; set; }
+    public string ImePlayLista
+    { get; set; }
+
+    public int UserId
+    { get; set; }
+  
+        
+    public ButtonTag(){}
+       
+}
 
 
 

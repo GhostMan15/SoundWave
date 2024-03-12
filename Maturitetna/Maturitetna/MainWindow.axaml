@@ -75,18 +75,18 @@
                                 <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
                                 <PathIcon Data="{StaticResource stop}"/>
                                 </Button>
-                                <Button Grid.Column="0" Grid.Row="1" Content="{Binding Naslov}"  Tag="{Binding }" Background="#262626" x:Name="naslov" Click="AddToSelectedPlaylist_OnClick"/>
-                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}"  />
+                                <Button Grid.Column="0" Grid.Row="1" Content="{Binding Naslov}"  Tag="{Binding  RelativeSource={RelativeSource AncestorType=local:ButtonTag } }" Background="#262626" x:Name="naslov" Click="SongButton_Click"/>
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Dolzina}" Tag="{Binding Destinacija}" />
                                 <Button Grid.Column="2" Grid.Row="1"  Tag="{Binding}" CornerRadius="10" Margin="3" Click="Download_OnClick">
                                     <PathIcon Data="{StaticResource download}"/>
                                 </Button>
                                 <Expander x:Name="expander" Grid.Row="0" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3">
                                     <Expander.Content>
                                         <Border Padding="10" CornerRadius="10" >
-                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
+                                            <ListBox x:Name="playListListBox"  ItemsSource="{Binding DodajPesm, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
                                                 <ListBox.ItemTemplate>
                                                <DataTemplate>
-                                                   <Button  Content="{Binding ImePlaylista}" Tag="{Binding}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
+                                                   <Button  Content="{Binding ImePlayLista}" Tag="{Binding}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
                                                </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
