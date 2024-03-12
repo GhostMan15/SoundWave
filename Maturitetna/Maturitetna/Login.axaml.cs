@@ -55,7 +55,6 @@ public partial class Login : Window
             if (reader.Read())
             {
                 MainWindow.userId = reader.GetInt32("user_id");
-                
                 PlayListItem.username = reader.GetString("username");
                 this.Close();
                 _mainWindow.ShowProfile();

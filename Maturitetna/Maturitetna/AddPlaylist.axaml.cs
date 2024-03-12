@@ -16,7 +16,7 @@ public partial class AddPlaylist : Window
     private readonly PlayList _playList;
     private readonly ListBox _playListListBox;
     private ButtonTag _buttonTag;
-    
+    private MainWindow.MusicItem _musicItem;
 
     private int privacy = 1;
     public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem, ButtonTag buttonTag)
@@ -80,10 +80,19 @@ public partial class AddPlaylist : Window
                         while (reader.Read())
                         { 
                             string imePlaylista = reader.GetString("playlist_ime");
+                           _musicItem.ImePlaylista = reader.GetString("playlist_ime");
                             int playlist_id = reader.GetInt32("playlist_id");
+                            _musicItem.PlaylistId = reader.GetInt32("playlist_id");
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
+                            MainWindow.MusicItem musicItem = new MainWindow.MusicItem(
+                                
+                                _musicItem.ImePlaylista = imePlaylista,
+                                _musicItem.PlaylistId = playlist_id
+                            );
+                            _mainWindow.myUploads.Add(musicItem);
+                            _playListListBox.ItemsSource = _mainWindow.myUploads;
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
@@ -101,10 +110,10 @@ public partial class AddPlaylist : Window
                                 ImePlayLista = imePlaylista,
                                 PlayListID = playlist_id,
                                 UserId = userId
-                                
                             };
                             _mainWindow.DodajPesm.Add(buttonTag);
                             _playListListBox.ItemsSource = _mainWindow.DodajPesm;
+                          
                         }
                     }
                 }
