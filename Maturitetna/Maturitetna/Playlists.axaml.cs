@@ -24,17 +24,16 @@ public class PlayListItem
         public PlayListItem(MainWindow mainWindow, PlayList playlist)
         {
             _playlist = playlist;
-            // Other constructor logic
+            
         }
 
         public void UpdatePlaylist(PlayListItem playlist)
         {
-            // Update the playlist information
+        
             PlaylistId = playlist?.PlaylistId ?? 0;
-            // Other playlist updates as needed
+            
         }*/
-
-        // Other class members
+      
     
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     public PlayListItem() {}

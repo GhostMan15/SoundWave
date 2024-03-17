@@ -33,7 +33,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
     private  ButtonTag _buttonTag;
-    private  MusicItem _musicItem;
+    public MusicItem _musicItem;
     //private PlayList _song;
 
 
@@ -71,17 +71,12 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 // My Uploads
     public class MusicItem 
     {
-    
         public int PesmiID { get; set; }
         public string Naslov { get; set; }
         public string Dolzina { get; set; }
         public string Destinacija { get; }
-        
-        public int PlaylistId
-        { get; set; }
-
-        public string ImePlaylista
-        { get; set; }
+        public int PlaylistId { get; set; } 
+        public string ImePlaylista { get; set; }
         public  int UserId
         {
             get { return userId;  }
@@ -98,7 +93,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }
 
         public MusicItem(string imePlaylista, int playlistId)
-            
         {
             ImePlaylista = imePlaylista;
             PlaylistId = playlistId;
@@ -271,10 +265,11 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                while (reader.Read())
                                {
                                    musicItem.PesmiID = reader.GetInt32("pesmi_id");
-                                   _buttonTag.PesMId = reader.GetInt32("pesmi_id");
+                                   
                                    if (reader != null)
                                    {
                                        Console.WriteLine(musicItem.PesmiID);
+                                       Console.WriteLine(_buttonTag.PesMId);
                                    }
                                    else
                                    {
@@ -591,16 +586,14 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-           if (sender is Button button &&  button.Tag is MusicItem buttonTag)
+           if (sender is Button button &&  button.DataContext is ButtonTag buttonTag)
            {
-               int playlist_id = buttonTag.PlaylistId;
+               int playlist_id = buttonTag.PlayListID;
                Console.WriteLine(playlist_id);
-               //SongButton_Click(sender,e);
-                    int pesmi_id = buttonTag.PesmiID;
-                     Console.WriteLine($"{playlist_id},{pesmi_id}");
-                     _playlist.DodajvPlaylisto(new List<int>(buttonTag.PesmiID), playlist_id);
-               
-              
+               SongButton_Click(sender,e);
+               int pesmi_id = buttonTag.PesMId;
+               Console.WriteLine($"{playlist_id},{pesmi_id}");
+               _playlist.DodajvPlaylisto(new List<int>(buttonTag.PesMId), playlist_id);
            }
            else
            {
@@ -611,9 +604,9 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
         try
         {
-            if (sender is Button button && button.Tag is MusicItem musicItem)
+            if (sender is Button button && button.DataContext is ButtonTag musicItem)
             {
-                var pesmi_id = musicItem.PesmiID;
+                var pesmi_id = musicItem.PesMId;
                 Console.WriteLine("dela");
                 Console.WriteLine(pesmi_id);
             }
@@ -628,10 +621,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             throw;
         }
      
-       /* var pesmi_id = buttonTag.PesMId;
-        _playlist.PesmId = pesmi_id;*/
-      
-
+        /* var pesmi_id = buttonTag.PesMId;
+         _playlist.PesmId = pesmi_id;*/
     }
     public void Izbrani_song(ButtonTag  buttonTag)
     {

@@ -80,19 +80,18 @@ public partial class AddPlaylist : Window
                         while (reader.Read())
                         { 
                             string imePlaylista = reader.GetString("playlist_ime");
-                           _musicItem.ImePlaylista = reader.GetString("playlist_ime");
                             int playlist_id = reader.GetInt32("playlist_id");
-                            _musicItem.PlaylistId = reader.GetInt32("playlist_id");
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
-                            MainWindow.MusicItem musicItem = new MainWindow.MusicItem(
+                           /* MainWindow.MusicItem musicItem = new MainWindow.MusicItem(
                                 
-                                _musicItem.ImePlaylista = imePlaylista,
-                                _musicItem.PlaylistId = playlist_id
+                                _mainWindow._musicItem.ImePlaylista = imePlaylista,
+                                _mainWindow._musicItem.PlaylistId = playlist_id
+                                
                             );
                             _mainWindow.myUploads.Add(musicItem);
-                            _playListListBox.ItemsSource = _mainWindow.myUploads;
+                            _playListListBox.ItemsSource = _mainWindow.myUploads;*/
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
