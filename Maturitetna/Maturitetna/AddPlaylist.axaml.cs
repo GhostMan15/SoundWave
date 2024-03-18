@@ -84,14 +84,6 @@ public partial class AddPlaylist : Window
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
-                           /* MainWindow.MusicItem musicItem = new MainWindow.MusicItem(
-                                
-                                _mainWindow._musicItem.ImePlaylista = imePlaylista,
-                                _mainWindow._musicItem.PlaylistId = playlist_id
-                                
-                            );
-                            _mainWindow.myUploads.Add(musicItem);
-                            _playListListBox.ItemsSource = _mainWindow.myUploads;*/
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
@@ -103,16 +95,7 @@ public partial class AddPlaylist : Window
                             _mainWindow.myPlaylist.Add(playlist);
                             _mainWindow.AllPlaylists.Add(playlist);
                             _mainWindow.PlaylistBox.ItemsSource = _mainWindow.myPlaylist;
-                           
-                            ButtonTag buttonTag = new ButtonTag
-                            {
-                                ImePlayLista = imePlaylista,
-                                PlayListID = playlist_id,
-                                UserId = userId
-                            };
-                            _mainWindow.DodajPesm.Add(buttonTag);
-                            _playListListBox.ItemsSource = _mainWindow.DodajPesm;
-                          
+                            _playListListBox.ItemsSource = _mainWindow.AllPlaylists;
                         }
                     }
                 }
@@ -157,10 +140,6 @@ public partial class AddPlaylist : Window
                             
                             _mainWindow.PublicPlayLists.Add(playlist);
                             _mainWindow.Public.ItemsSource = _mainWindow.PublicPlayLists;
-                           
-                            
-                           
-                           
                         }
                     }
                 }

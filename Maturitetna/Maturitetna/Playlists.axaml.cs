@@ -18,26 +18,8 @@ public partial class Playlists : Window
 
 public class PlayListItem  
 {
-   
-      /*  private readonly PlayList _playlist;
-
-        public PlayListItem(MainWindow mainWindow, PlayList playlist)
-        {
-            _playlist = playlist;
-            
-        }
-
-        public void UpdatePlaylist(PlayListItem playlist)
-        {
-        
-            PlaylistId = playlist?.PlaylistId ?? 0;
-            
-        }*/
-      
-    
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     public PlayListItem() {}
-    public  int pesmId;
     public static string username;
     public  string naslovPesmi;
     public  string dolzinaPesmi;
@@ -53,11 +35,7 @@ public class PlayListItem
         get { return dolzinaPesmi; }
         set { dolzinaPesmi = value; }
     }
-    public int PesmId
-    {
-        get { return _musicItem.PesmiID;}
-        set { _musicItem.PesmiID = value; }
-    }
+    public int PesmId { get; set; }
     public string Username
     {
         get { return username; }
@@ -107,39 +85,24 @@ public class PlayListItem
 
   DateTime dodano = DateTime.Today;
 
-    public void DodajvPlaylisto(List<int>dodanSongId,int playlist_id)
+    public void DodajvPlaylisto(int pesmi_id,int playlist_id)
     {
-       
-        try
-        {
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
-                if (_musicItem.PesmiID== 0)
-                {
-                    Console.WriteLine("ni id-ja");
-                    return;
-                }
                 connection.Open();
                 string sql = "INSERT INTO inplaylist(user_id,pesmi_id,dodano,playlist_id) VALUES (@user_id,@pesmi_id,@dodano,@playlist_id);";
-                foreach (int SongID in dodanSongId)
-                {
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@user_id", MainWindow.userId);
-                        command.Parameters.AddWithValue("@pesmi_id", SongID);
+                        command.Parameters.AddWithValue("@pesmi_id", _mainWindow.PESMI);
                         command.Parameters.AddWithValue("@dodano", dodano);
                         command.Parameters.AddWithValue("@playlist_id", playlist_id);
                         command.ExecuteNonQuery();
                     }
-                }
             
             }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Problemi slef {e}");
-            throw;
-        }
+        
+     
 
         
     }
@@ -186,7 +149,6 @@ public class PlayListItem
                             
                         );
                         _mainWindow.myPlayListsSongs.Add(playListItem);
-                      
                     }
 
                 }
@@ -196,21 +158,23 @@ public class PlayListItem
     }
     //==============================================================================================================================
     //Dodaj uporabnika
-    public void DodajUporabnika()
+    public void DodajUporabnika(int uporabnik)
     {
         _mainWindow.DodajUporabnika.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "SELECT  username From user";
+            string sql = "SELECT user_id,  username From user";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
+                command.Parameters.AddWithValue("@user_id", uporabnik);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        uporabnik= reader.GetInt32("user_id");
                         string username = reader.GetString("username");
-                        _mainWindow.DodajUporabnika.Add(username);
+                       
                         _mainWindow.Dodajuporabnika.ItemsSource = _mainWindow.DodajUporabnika;
                     }
                    

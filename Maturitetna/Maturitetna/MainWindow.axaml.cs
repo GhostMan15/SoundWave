@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.VisualTree;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
+using Avalonia.Controls.Presenters;
+using Avalonia.Controls.Templates;
+using Avalonia.Controls.Primitives;
+using Avalonia.VisualTree;
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
 {
@@ -34,8 +36,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayList _onlyplaylist;
     private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
-
-    public Expander _playlisti;
     //private PlayList _song;
 
 
@@ -56,13 +56,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
-         _playlisti = FindExpanderInListBox("playlisti", Uploads);
-         if (_playlisti == null)
-         {
-             _playlisti = new Expander();
-             _playlisti.Name = "playlisti";
-         }
-
     }
     
 
@@ -175,7 +168,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             var izbraniFile = await fileDialog.ShowAsync(this);
             if (izbraniFile != null && izbraniFile.Length > 0)
             {
-                List<int> dodanSongId = new List<int>();
+                //List<int> dodanSongId = new List<int>();
                 foreach (var file in izbraniFile)
                 {
                     //Dodajanje file v databazo in v file kjer ga hrani
@@ -190,7 +183,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                     var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
                     myUploads.Add(newMusic);
                     ShraniVDatabazo(newMusic);
-                    dodanSongId.Add(newMusic.PesmiID);
+                    //dodanSongId.Add(newMusic.PesmiID);
                 }
             }
         }
@@ -244,16 +237,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                    command.Parameters.AddWithValue("@dolzina_pesmi", musicItem.Dolzina);
                    command.Parameters.AddWithValue("@file_ext", musicItem.Destinacija);
                    command.Parameters.AddWithValue("user_id", musicItem.UserId);
-                   //command.ExecuteNonQuery();
-                   /*using (MySqlDataReader reader = command.ExecuteReader())
-                   {
-                       while (reader.Read())
-                       {
-                           musicItem.PesmiID = reader.GetInt32("pesmi_id");
-                           Console.WriteLine(musicItem.PesmiID);
-                       }
-                   }*/
-
                    command.ExecuteNonQuery();
                }
 
@@ -278,7 +261,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                                    if (reader != null)
                                    {
                                        Console.WriteLine(musicItem.PesmiID);
-                                       Console.WriteLine(_buttonTag.PesMId);
                                    }
                                    else
                                    {
@@ -568,17 +550,15 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         playlist.IsVisible = true;
         myPlayListsSongs.Clear();
         PlayListSongs.ItemsSource = myPlayListsSongs;
-        if (Tag is PlayList)
+        if (sender is Button button && button.Tag is PlayList playList)
         {
-            int playlist_id = (Tag as PlayList).PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
+            int playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
             _playlist.NaloziPlaylisto(playlist_id);
         }
         else
         {
             Console.WriteLine("ne dewa :(");
         }
-        
-
     }
     private void Nazaj_OnClick(object? sender, RoutedEventArgs e)
     {
@@ -595,31 +575,29 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
-           if (sender is Button button &&  button.DataContext is ButtonTag buttonTag)
+           if (sender is Button button &&  button.DataContext is PlayList buttonTag)
            {
-               int playlist_id = buttonTag.PlayListID;
+               int playlist_id = buttonTag.PlayListId;
+               int pesmi_id = PESMI;
                Console.WriteLine(playlist_id);
-               SongButton_Click(sender,e);
-               int pesmi_id = buttonTag.PesMId;
                Console.WriteLine($"{playlist_id},{pesmi_id}");
-               _playlist.DodajvPlaylisto(new List<int>(buttonTag.PesMId), playlist_id);
+               _playlist.DodajvPlaylisto(pesmi_id, playlist_id);
            }
            else
            {
-               Console.WriteLine("Invalid button or data context.");
+               Console.WriteLine("Button ne deluje pravilno");
            }
     }
 
-    private int pesmi_id;
-    public void SongButton_Click(object sender, RoutedEventArgs e)
-    { 
-            if (sender is Button button && button.Tag is MusicItem musicItem)
-            {
-                pesmi_id = musicItem.PesmiID;
-                Console.WriteLine("dela");
-                Console.WriteLine(pesmi_id);
-                _playlisti.IsVisible = true;
-            }
+    public int PESMI;
+    private void Playlisti_OnExpanded(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Expander button && button.Tag is MusicItem musicItem)
+        {
+            PESMI = musicItem.PesmiID;
+            Console.WriteLine("dela");
+            Console.WriteLine(PESMI);
+        }
     }
     //================================================================================================================================
     //Dostopanje do childa
@@ -641,7 +619,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                     {
                         parent = VisualExtensions.GetVisualParent(parent);
                     }
-
                     if (parent is ListBox listBox && listBox.Name == name)
                     {
                         return listBox;
@@ -650,51 +627,16 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             }
             return null;
         }
-        
-        private Expander FindExpanderInListBox(string name, ListBox listBox)
-        {
-            foreach (var item in listBox.Items)
-            {
-                if (item is ListBoxItem listBoxItem)
-                {
-                    var button = FindButtonInVisualTree(name, listBoxItem);
-                    if (button != null)
-                    {
-                        return button;
-                    }
-                }
-            }
-            return null;
-        }
-
-        private Expander FindButtonInVisualTree(string name, ListBoxItem listBoxItem)
-        {
-            var expander = listBoxItem.FindControl<Expander>(name);
-            if (expander != null)
-            {
-                return expander;
-            }
-
-            // If the button was not found, search recursively in the visual tree
-            foreach (var child in listBoxItem.GetVisualChildren())
-            {
-                if (child is ListBoxItem childListBoxItem)
-                {
-                    expander = FindButtonInVisualTree(name, childListBoxItem);
-                    if (expander != null)
-                    {
-                        return expander;
-                    }
-                }
-            }
-
-            return null;
-        }
  //=================================================================================================================
  //Dodajanje novega uporabnika v playlisto
         private void Expander_OnExpanded(object? sender, RoutedEventArgs e)
         {
-            _playlist.DodajUporabnika();
+            if (sender is Expander expander && expander.Tag is PlayListItem playListItem)
+            {
+                int uporabnik = playListItem.UserId;
+                _playlist.DodajUporabnika(uporabnik);
+            }
+  
         }
 
 //=================================================================================================================
@@ -733,23 +675,19 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             DownloadFile(selectedFiles);
         }
     }
+
    
 }
 public class ButtonTag
 {
-    
-   
     public int PesMId
     { get; set; }
-
     public int PlayListID
     { get; set; }
     public string ImePlayLista
     { get; set; }
-
     public int UserId
     { get; set; }
-    
     public ButtonTag(){}
        
 }
