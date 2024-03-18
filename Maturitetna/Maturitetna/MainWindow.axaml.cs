@@ -34,6 +34,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayList _onlyplaylist;
     private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
+
+    public Expander _playlisti;
     //private PlayList _song;
 
 
@@ -54,6 +56,13 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
+         _playlisti = FindExpanderInListBox("playlisti", Uploads);
+         if (_playlisti == null)
+         {
+             _playlisti = new Expander();
+             _playlisti.Name = "playlisti";
+         }
+
     }
     
 
@@ -600,35 +609,17 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                Console.WriteLine("Invalid button or data context.");
            }
     }
-    private void SongButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (sender is Button button && button.DataContext is ButtonTag musicItem)
+
+    private int pesmi_id;
+    public void SongButton_Click(object sender, RoutedEventArgs e)
+    { 
+            if (sender is Button button && button.Tag is MusicItem musicItem)
             {
-                var pesmi_id = musicItem.PesMId;
+                pesmi_id = musicItem.PesmiID;
                 Console.WriteLine("dela");
                 Console.WriteLine(pesmi_id);
+                _playlisti.IsVisible = true;
             }
-            else
-            {
-                Console.WriteLine("Ne dela");
-            }
-        }
-        catch (Exception exception)
-        {
-            Console.WriteLine( exception);
-            throw;
-        }
-     
-        /* var pesmi_id = buttonTag.PesMId;
-         _playlist.PesmId = pesmi_id;*/
-    }
-    public void Izbrani_song(ButtonTag  buttonTag)
-    {
-        var pesmi_id = buttonTag.PesMId;
-        _playlist.PesmId = pesmi_id;
-        Console.WriteLine($"{buttonTag.PesMId}, {buttonTag.PlayListID}, {buttonTag.ImePlayLista}"); 
     }
     //================================================================================================================================
     //Dostopanje do childa
@@ -657,12 +648,10 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                     }
                 }
             }
-
-
             return null;
         }
-
-        private Button FindButtonInListBox(string name, ListBox listBox)
+        
+        private Expander FindExpanderInListBox(string name, ListBox listBox)
         {
             foreach (var item in listBox.Items)
             {
@@ -678,12 +667,12 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             return null;
         }
 
-        private Button FindButtonInVisualTree(string name, ListBoxItem listBoxItem)
+        private Expander FindButtonInVisualTree(string name, ListBoxItem listBoxItem)
         {
-            var button = listBoxItem.FindControl<Button>(name);
-            if (button != null)
+            var expander = listBoxItem.FindControl<Expander>(name);
+            if (expander != null)
             {
-                return button;
+                return expander;
             }
 
             // If the button was not found, search recursively in the visual tree
@@ -691,10 +680,10 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             {
                 if (child is ListBoxItem childListBoxItem)
                 {
-                    button = FindButtonInVisualTree(name, childListBoxItem);
-                    if (button != null)
+                    expander = FindButtonInVisualTree(name, childListBoxItem);
+                    if (expander != null)
                     {
-                        return button;
+                        return expander;
                     }
                 }
             }
