@@ -158,26 +158,24 @@ public class PlayListItem
     }
     //==============================================================================================================================
     //Dodaj uporabnika
-    public void DodajUporabnika(int uporabnik)
+    public void DodajUporabnika()
     {
         _mainWindow.DodajUporabnika.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "SELECT user_id,  username From user";
+            string sql = "SELECT  username From user";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@user_id", uporabnik);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        uporabnik= reader.GetInt32("user_id");
-                        string username = reader.GetString("username");
                        
+                        _mainWindow.DodajUporabnika.Add(username);
                         _mainWindow.Dodajuporabnika.ItemsSource = _mainWindow.DodajUporabnika;
                     }
-                   
+
                 }
             }
         }

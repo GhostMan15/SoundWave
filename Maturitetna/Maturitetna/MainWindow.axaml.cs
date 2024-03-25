@@ -633,8 +633,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             if (sender is Expander expander && expander.Tag is PlayListItem playListItem)
             {
-                int uporabnik = playListItem.UserId;
-                _playlist.DodajUporabnika(uporabnik);
+                
+                _playlist.DodajUporabnika();
             }
   
         }
@@ -676,7 +676,15 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }
     }
 
-   
+
+    private void AddUser_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if(sender is Button button && button.Tag is PlayListItem playListItem )
+        {
+            int userID = _playlist.UserId;
+            Console.WriteLine(userID);
+        }
+    }
 }
 public class ButtonTag
 {

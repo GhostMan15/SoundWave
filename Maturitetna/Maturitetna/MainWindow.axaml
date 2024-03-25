@@ -157,10 +157,10 @@
                <Expander Header="Dodaj uporabnika na seznam" Expanded="Expander_OnExpanded" CornerRadius="10" Margin="5">
                    <Expander.Content>
                        <Border Padding="10" CornerRadius="10" >
-                           <ListBox x:Name="Dodajuporabnika"  ItemsSource="{Binding DodajUporabnika }" >
+                           <ListBox x:Name="Dodajuporabnika"  ItemsSource="{Binding myPlayListsSongs }" >
                                <ListBox.ItemTemplate>
                                    <DataTemplate>
-                                       <Button  Content="{Binding }" Tag="{Binding}" CornerRadius="10" Margin="3" />
+                                       <Button  Content="{Binding Username }" Tag="{Binding}" Click="AddUser_OnClick" CornerRadius="10" Margin="3" />
                                    </DataTemplate>
                                </ListBox.ItemTemplate>
                            </ListBox>
