@@ -23,8 +23,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayList> AllPlaylists { get; set; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
-    public ObservableCollection<string> DodajUporabnika { get; } = new ObservableCollection<string>();
-    public ObservableCollection<ButtonTag> DodajPesm { get; } = new ObservableCollection<ButtonTag>();
+    public ObservableCollection<PlayListItem> DodajUporabnika { get; } = new ObservableCollection<PlayListItem>();
+    //public ObservableCollection<ButtonTag> DodajPesm { get; } = new ObservableCollection<ButtonTag>();
     
     
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
@@ -34,7 +34,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
-    private  ButtonTag _buttonTag;
+    //private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
     //private PlayList _song;
 
@@ -50,23 +50,21 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         InitializeComponent();
         _login = new Login(this, _addPlaylist);
         _musicItem = new MusicItem();
-        _buttonTag = new ButtonTag();
         _onlyplaylist = new PlayList();
-        _addPlaylist = new AddPlaylist(this, _playlist,_buttonTag );
+        _addPlaylist = new AddPlaylist(this, _playlist);
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
     }
     
 
-    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist, MusicItem musicItem, ButtonTag buttonTag) : this()
+    public MainWindow(Login login, AddPlaylist addplaylist, PlayListItem playlist, PlayList onlyplaylist, MusicItem musicItem) : this()
     {
         _login = login;
         _addPlaylist = addplaylist;
         _onlyplaylist = onlyplaylist;
         _playlist = playlist;
         _musicItem = musicItem;
-        _buttonTag = buttonTag;
         DataContext = this;
     }
 //======================================================================================================================
@@ -85,7 +83,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             set {userId = value; }
         }
         
-        private ButtonTag _buttonTag;
         public MusicItem(){}
     
         public MusicItem(int pesmiId, string naslov, string dolzina, string destinacija, int userId) : this(naslov,
@@ -108,12 +105,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             UserId = userId;
             
         }
-
-        public MusicItem(ButtonTag buttonTag)
-        {
-            _buttonTag = new ButtonTag();
-        }
-        
     }
   //=======================================================================================================================
  //Login/Upload buttons
@@ -158,7 +149,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
 
    
-        [Obsolete("Prikaz za upload file-ov")]
+        [Obsolete("Prikaz za upload file-ov")] 
         private async Task Prikazi()
         {
             var fileDialog = new OpenFileDialog();
@@ -168,27 +159,23 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             var izbraniFile = await fileDialog.ShowAsync(this);
             if (izbraniFile != null && izbraniFile.Length > 0)
             {
-                //List<int> dodanSongId = new List<int>();
                 foreach (var file in izbraniFile)
                 {
                     //Dodajanje file v databazo in v file kjer ga hrani
-                    var naslov = System.IO.Path.GetFileNameWithoutExtension(file);
+                    var naslov = Path.GetFileNameWithoutExtension(file);
                     var dolzina = await Audio.GetAudioFileLength(file);
                     var userID = MainWindow.userId;
                     //=================================================================================
-                    var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file);
-                    var destinacija = System.IO.Path.Combine(uploadFolder, fileName);
-                    System.IO.File.Copy(file, destinacija, true);
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file);
+                    var destinacija = Path.Combine(uploadFolder, fileName);
+                    File.Copy(file, destinacija, true);
                     //================================================================================
                     var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
                     myUploads.Add(newMusic);
                     ShraniVDatabazo(newMusic);
-                    //dodanSongId.Add(newMusic.PesmiID);
                 }
             }
         }
-   
-
     public void NaloizIzDatabaze()
     {
         using (MySqlConnection connection = new MySqlConnection(conn))
@@ -536,7 +523,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
   
     private void CreatePlaylistButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        var addPlaylist = new AddPlaylist(this, _playlist,_buttonTag);
+        var addPlaylist = new AddPlaylist(this, _playlist);
         addPlaylist.Show();
     }
 //=================================================================================================================================
@@ -607,7 +594,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             {
                 return parentListBox;
             }
-
             //Da gre skozi iteme znotri Listboxa Uploads
             foreach (var item in parentListBox.Items)
             {
@@ -631,14 +617,17 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
  //Dodajanje novega uporabnika v playlisto
         private void Expander_OnExpanded(object? sender, RoutedEventArgs e)
         {
-            if (sender is Expander expander && expander.Tag is PlayListItem playListItem)
-            {
-                
-                _playlist.DodajUporabnika();
-            }
-  
+            _playlist.NaloziUporabnike();
         }
-
+        private void AddUser_OnClick(object? sender, RoutedEventArgs e)
+        {
+            if(sender is Button button && button.Tag is PlayListItem playListItem )
+            {
+                int userID = playListItem.UporabnikID;
+                Console.WriteLine(userID);
+                //_playlist.DodajUporabnika(); //Uporabi oz. uncommenti ko pogruntas query za collabanje
+            }
+        }
 //=================================================================================================================
 //Downloadanje songov
     private async Task DownloadFile(IEnumerable<string> fileNames)
@@ -672,33 +661,22 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             _musicItem = musicItem;
              var selectedFiles = new List<string> { _musicItem.Destinacija };
-            DownloadFile(selectedFiles);
+             DownloadFile(selectedFiles);
         }
     }
 
 
-    private void AddUser_OnClick(object? sender, RoutedEventArgs e)
-    {
-        if(sender is Button button && button.Tag is PlayListItem playListItem )
-        {
-            int userID = _playlist.UserId;
-            Console.WriteLine(userID);
-        }
-    }
+  
 }
-public class ButtonTag
+/*public class ButtonTag
 {
-    public int PesMId
-    { get; set; }
-    public int PlayListID
-    { get; set; }
-    public string ImePlayLista
-    { get; set; }
-    public int UserId
-    { get; set; }
+    public int PesMId { get; set; }
+    public int PlayListID { get; set; }
+    public string ImePlayLista { get; set; }
+    public int UserId { get; set; }
     public ButtonTag(){}
        
-}
+}*/
 
 
 

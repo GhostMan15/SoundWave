@@ -15,16 +15,15 @@ public partial class AddPlaylist : Window
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
     private readonly ListBox _playListListBox;
-    private ButtonTag _buttonTag;
+    //private ButtonTag _buttonTag;
     private MainWindow.MusicItem _musicItem;
 
     private int privacy = 1;
-    public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem, ButtonTag buttonTag)
+    public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
         _playListItem = playListItem;
-        _buttonTag = buttonTag;
         DataContext = _mainWindow;
         _playListListBox = MainWindow.FindListBoxByName("playListListBox", _mainWindow.Uploads);
         if (_playListListBox == null)
@@ -61,7 +60,6 @@ public partial class AddPlaylist : Window
     {
         _mainWindow.myPlaylist.Clear();
         _mainWindow.AllPlaylists.Clear();
-        _mainWindow.DodajPesm.Clear();
         try
         {
             using (MySqlConnection connection = new MySqlConnection(conn))

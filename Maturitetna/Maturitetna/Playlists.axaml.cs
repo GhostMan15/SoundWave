@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using Avalonia.Controls;
 using MySqlConnector;
 
@@ -47,18 +48,11 @@ public class PlayListItem
         set { playlisId = value; }
     }
     public  int UserId { get; set; }
+    public int UporabnikID { get; set; }
+    public string UporabniskoIme { get; set; }
    // protected DateTime Dodano { get; set; }
     private readonly MainWindow _mainWindow;
-    private string DodaoAgo
-    {
-        get
-        {
-            return CalculateDodano(dodano); 
-        }
-        set { }
-    }
-
-   
+    private string DodaoAgo { get { return CalculateDodano(dodano); } set { } }
     public PlayListItem(MainWindow mainWindow, MainWindow.MusicItem musicItem)
     {
         _mainWindow = mainWindow;
@@ -75,6 +69,12 @@ public class PlayListItem
         Naslovpesmi = naslovPesmi;
         Dolzinapesmi = dolzinaPesmi;
 
+    }
+
+    public PlayListItem(int uporabnikId, string uporabniskoIme)
+    {
+        UporabnikID = uporabnikId;
+        UporabniskoIme = uporabniskoIme;
     }
     private string CalculateDodano( DateTime dodano)
     {
@@ -99,11 +99,7 @@ public class PlayListItem
                         command.Parameters.AddWithValue("@playlist_id", playlist_id);
                         command.ExecuteNonQuery();
                     }
-            
             }
-        
-     
-
         
     }
 
@@ -144,9 +140,6 @@ public class PlayListItem
                             Username = username,
                             Naslovpesmi = naslovPesmi,
                             Dolzinapesmi = dolzinaPesmi
-                            
-                            //inplaylistId
-                            
                         );
                         _mainWindow.myPlayListsSongs.Add(playListItem);
                     }
@@ -160,24 +153,43 @@ public class PlayListItem
     //Dodaj uporabnika
     public void DodajUporabnika()
     {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            string sql = "";
+            using (MySqlCommand command = new MySqlCommand(sql,connection))
+            {
+                
+            }
+        }
+    }
+
+    public void NaloziUporabnike()
+    {
         _mainWindow.DodajUporabnika.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "SELECT  username From user";
+            string sql = "SELECT user_id, username From user";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                       
-                        _mainWindow.DodajUporabnika.Add(username);
-                        _mainWindow.Dodajuporabnika.ItemsSource = _mainWindow.DodajUporabnika;
+                        int uporabnikID = reader.GetInt32("user_id");
+                        string uporabniskoIme = reader.GetString("username");
+                        PlayListItem dodaj = new PlayListItem(
+                            UporabnikID = uporabnikID,
+                            UporabniskoIme = uporabniskoIme
+                        );
+                        _mainWindow.DodajUporabnika.Add(dodaj);
+                    
                     }
-
+                    _mainWindow.Dodajuporabnika.ItemsSource = _mainWindow.DodajUporabnika;
                 }
             }
         }
     }
+    
 }

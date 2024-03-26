@@ -11,8 +11,8 @@ public partial class Login : Window
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
-    private readonly PlayList _playList;
-    private readonly ButtonTag _buttonTag;
+    //private readonly PlayList _playList;
+    //private readonly ButtonTag _buttonTag;
     public Login(MainWindow mainWindow, AddPlaylist _addPlaylist)
     {
         InitializeComponent();
