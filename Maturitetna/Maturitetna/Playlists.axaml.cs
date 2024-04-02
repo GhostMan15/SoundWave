@@ -12,9 +12,7 @@ public partial class Playlists : Window
     {
         InitializeComponent();
         DataContext = this;
-        
     }
-   
 }
 
 public class PlayListItem  
@@ -25,6 +23,8 @@ public class PlayListItem
     public  string naslovPesmi;
     public  string dolzinaPesmi;
     public  int playlisId;
+    //private List<int> pesmice = new List<int>();
+    public int pesmica;
     private MainWindow.MusicItem _musicItem;
     public string Naslovpesmi
     {
@@ -76,6 +76,7 @@ public class PlayListItem
         UporabnikID = uporabnikId;
         UporabniskoIme = uporabniskoIme;
     }
+
     private string CalculateDodano( DateTime dodano)
     {
         TimeSpan neki = DateTime.Now - dodano;
@@ -85,7 +86,7 @@ public class PlayListItem
 
   DateTime dodano = DateTime.Today;
 
-    public void DodajvPlaylisto(int pesmi_id,int playlist_id)
+    public void DodajvPlaylisto(int playlist_id)
     {
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
@@ -150,18 +151,53 @@ public class PlayListItem
         _mainWindow.PlayListSongs.ItemsSource = _mainWindow.myPlayListsSongs;
     }
     //==============================================================================================================================
-    //Dodaj uporabnika
-    public void DodajUporabnika()
+    //Dodaj uporabnika / Collabing
+    public void Collabing()
     {
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "";
+            string sql = "SELECT pesmi_id FROM inplaylist WHERE playlist_id = @playlist_id";
             using (MySqlCommand command = new MySqlCommand(sql,connection))
             {
-                
+                //command.Parameters.AddWithValue("@pesmi_id",pesmica);
+                command.Parameters.AddWithValue("@playlist_id",PlaylistId);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    { 
+                        pesmica = reader.GetInt32("pesmi_id");
+                        //Console.WriteLine(pesmica);
+                     
+                    }
+                }
             }
         }
+    }
+    public void DodajUporabnika(int user_id)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                string sql = "INSERT INTO collaborate VALUES (@user_id,@pesmi_id,@playlist_id)";
+                using (MySqlCommand command = new MySqlCommand(sql,connection))
+                {
+                    command.Parameters.AddWithValue("user_id", user_id);
+                    command.Parameters.AddWithValue("pesmi_id", pesmica); //pogrunti dodajanje pesmi_idjev   
+                    command.Parameters.AddWithValue("playlist_id",PlaylistId);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine($"{user_id},{pesmica},{PlaylistId}");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"ne deluje\n{e}");
+            throw;
+        }
+       
     }
 
     public void NaloziUporabnike()

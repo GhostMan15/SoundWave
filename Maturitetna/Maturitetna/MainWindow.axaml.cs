@@ -541,6 +541,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             int playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
             _playlist.NaloziPlaylisto(playlist_id);
+            Console.WriteLine($"{playlist_id},{_playlist.PesmId}");
         }
         else
         {
@@ -565,10 +566,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
            if (sender is Button button &&  button.DataContext is PlayList buttonTag)
            {
                int playlist_id = buttonTag.PlayListId;
-               int pesmi_id = PESMI;
                Console.WriteLine(playlist_id);
-               Console.WriteLine($"{playlist_id},{pesmi_id}");
-               _playlist.DodajvPlaylisto(pesmi_id, playlist_id);
+               _playlist.DodajvPlaylisto (playlist_id);
            }
            else
            {
@@ -615,17 +614,23 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }
  //=================================================================================================================
  //Dodajanje novega uporabnika v playlisto
-        private void Expander_OnExpanded(object? sender, RoutedEventArgs e)
+        private void Expander_OnExpanded(object? sender, RoutedEventArgs e) 
         {
             _playlist.NaloziUporabnike();
         }
+        
         private void AddUser_OnClick(object? sender, RoutedEventArgs e)
         {
             if(sender is Button button && button.Tag is PlayListItem playListItem )
             {
                 int userID = playListItem.UporabnikID;
                 Console.WriteLine(userID);
-                //_playlist.DodajUporabnika(); //Uporabi oz. uncommenti ko pogruntas query za collabanje
+                _playlist.Collabing();
+                _playlist.DodajUporabnika(userID); //Uporabi oz. uncommenti ko pogruntas query za collabanje
+            }
+            else
+            {
+                Console.WriteLine("nedeluje");
             }
         }
 //=================================================================================================================
