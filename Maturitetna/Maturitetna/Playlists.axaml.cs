@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Avalonia.Controls;
+using DynamicData;
 using MySqlConnector;
 
 namespace Maturitetna;
@@ -23,7 +24,7 @@ public class PlayListItem
     public  string naslovPesmi;
     public  string dolzinaPesmi;
     public  int playlisId;
-    //private List<int> pesmice = new List<int>();
+    private List<int> pesmice = new List<int>();
     public int pesmica;
     private MainWindow.MusicItem _musicItem;
     public string Naslovpesmi
@@ -31,6 +32,7 @@ public class PlayListItem
         get { return naslovPesmi; }
         set { naslovPesmi = value; }
     }
+    public int Pesmica { get; set; }
     public string Dolzinapesmi
     {
         get { return dolzinaPesmi; }
@@ -76,7 +78,10 @@ public class PlayListItem
         UporabnikID = uporabnikId;
         UporabniskoIme = uporabniskoIme;
     }
-
+    public PlayListItem(int pesmica)
+    {
+        Pesmica = this.pesmica;
+    }
     private string CalculateDodano( DateTime dodano)
     {
         TimeSpan neki = DateTime.Now - dodano;
@@ -167,15 +172,26 @@ public class PlayListItem
                     while (reader.Read())
                     { 
                         pesmica = reader.GetInt32("pesmi_id");
-                        //Console.WriteLine(pesmica);
-                     
+                        PlayListItem neki = new PlayListItem(
+                            Pesmica = pesmica
+                            );
+                            Console.WriteLine(neki);
+                        /*for ( i = pesmica; i <= pesmica; i++)
+                        {
+                            //pesmice.Add(i);
+                            Console.WriteLine(i);
+                        }*/
+
                     }
                 }
             }
         }
     }
+
+    public int i;
     public void DodajUporabnika(int user_id)
     {
+        pesmice.Clear();
         try
         {
             using (MySqlConnection connection = new MySqlConnection(conn))
@@ -185,10 +201,17 @@ public class PlayListItem
                 using (MySqlCommand command = new MySqlCommand(sql,connection))
                 {
                     command.Parameters.AddWithValue("user_id", user_id);
-                    command.Parameters.AddWithValue("pesmi_id", pesmica); //pogrunti dodajanje pesmi_idjev   
+                    for (i = pesmica; i <= pesmica; i++)
+                    {
+                        //pesmice.Add(i);
+                        //command.Parameters.AddWithValue("pesmi_id", i); //pogrunti dodajanje pesmi_idjev   
+                        //Console.WriteLine(i);
+                    }
+                     
+                     
                     command.Parameters.AddWithValue("playlist_id",PlaylistId);
-                    command.ExecuteNonQuery();
-                    Console.WriteLine($"{user_id},{pesmica},{PlaylistId}");
+                    //command.ExecuteNonQuery();
+                    Console.WriteLine($"{user_id},{PlaylistId}");
                 }
             }
         }

@@ -625,7 +625,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             {
                 int userID = playListItem.UporabnikID;
                 Console.WriteLine(userID);
-                _playlist.Collabing();
+                 _playlist.Collabing();
                 _playlist.DodajUporabnika(userID); //Uporabi oz. uncommenti ko pogruntas query za collabanje
             }
             else
