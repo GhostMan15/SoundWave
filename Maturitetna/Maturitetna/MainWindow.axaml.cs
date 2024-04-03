@@ -541,7 +541,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             int playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
             _playlist.NaloziPlaylisto(playlist_id);
-            Console.WriteLine($"{playlist_id},{_playlist.PesmId}");
+            Console.WriteLine($"{playlist_id},{_playlist.UserId}");
         }
         else
         {
@@ -624,7 +624,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             if(sender is Button button && button.Tag is PlayListItem playListItem )
             {
                 int userID = playListItem.UporabnikID;
-                Console.WriteLine(userID);
+                //Console.WriteLine(userID);
                  _playlist.Collabing();
                 _playlist.DodajUporabnika(userID); //Uporabi oz. uncommenti ko pogruntas query za collabanje
             }

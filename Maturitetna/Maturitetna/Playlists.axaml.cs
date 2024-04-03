@@ -25,7 +25,6 @@ public class PlayListItem
     public  string dolzinaPesmi;
     public  int playlisId;
     private List<int> pesmice = new List<int>();
-    public int pesmica;
     private MainWindow.MusicItem _musicItem;
     public string Naslovpesmi
     {
@@ -78,10 +77,10 @@ public class PlayListItem
         UporabnikID = uporabnikId;
         UporabniskoIme = uporabniskoIme;
     }
-    public PlayListItem(int pesmica)
+    /*public PlayListItem(int pesmica)
     {
         Pesmica = this.pesmica;
-    }
+    }*/
     private string CalculateDodano( DateTime dodano)
     {
         TimeSpan neki = DateTime.Now - dodano;
@@ -172,10 +171,7 @@ public class PlayListItem
                     while (reader.Read())
                     { 
                         pesmica = reader.GetInt32("pesmi_id");
-                        PlayListItem neki = new PlayListItem(
-                            Pesmica = pesmica
-                            );
-                            Console.WriteLine(neki);
+                        Console.WriteLine(pesmica);
                         /*for ( i = pesmica; i <= pesmica; i++)
                         {
                             //pesmice.Add(i);
@@ -188,31 +184,29 @@ public class PlayListItem
         }
     }
 
-    public int i;
+    private int i;
+    private int pesmica;
     public void DodajUporabnika(int user_id)
     {
-        pesmice.Clear();
+      
         try
         {
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
                 connection.Open();
                 string sql = "INSERT INTO collaborate VALUES (@user_id,@pesmi_id,@playlist_id)";
-                using (MySqlCommand command = new MySqlCommand(sql,connection))
+                for (i = pesmica; i <= pesmica; i++)
                 {
-                    command.Parameters.AddWithValue("user_id", user_id);
-                    for (i = pesmica; i <= pesmica; i++)
+                    using (MySqlCommand command = new MySqlCommand(sql,connection))
                     {
-                        //pesmice.Add(i);
-                        //command.Parameters.AddWithValue("pesmi_id", i); //pogrunti dodajanje pesmi_idjev   
-                        //Console.WriteLine(i);
+                        command.Parameters.AddWithValue("user_id", user_id);
+                        command.Parameters.AddWithValue("pesmi_id", pesmica);     //pogrunti dodajanje pesmi_idjev   
+                        command.Parameters.AddWithValue("playlist_id",PlaylistId);
+                        command.ExecuteNonQuery();
+                        Console.WriteLine($"{user_id},{PlaylistId}");
                     }
-                     
-                     
-                    command.Parameters.AddWithValue("playlist_id",PlaylistId);
-                    //command.ExecuteNonQuery();
-                    Console.WriteLine($"{user_id},{PlaylistId}");
                 }
+          
             }
         }
         catch (Exception e)
