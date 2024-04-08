@@ -72,7 +72,6 @@ public partial class AddPlaylist : Window
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@userId", MainWindow.userId);
-                    //command.Parameters.AddWithValue("@playlist_id", PlayListItem.playlisId);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())

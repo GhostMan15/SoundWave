@@ -24,8 +24,8 @@ public class PlayListItem
     public  string naslovPesmi;
     public  string dolzinaPesmi;
     public  int playlisId;
-    private List<int> pesmice = new List<int>();
     private MainWindow.MusicItem _musicItem;
+    private readonly ListBox _collab;
     public string Naslovpesmi
     {
         get { return naslovPesmi; }
@@ -60,7 +60,12 @@ public class PlayListItem
     {
         _mainWindow = mainWindow;
         _musicItem = musicItem;
-        
+        _collab = MainWindow.FindListBoxByName("collabiList", _mainWindow.PlaylistBox);
+        if (_collab == null)
+        {
+            _collab = new ListBox();
+            _collab.Name = "collabiList";
+        }
     }
     public PlayListItem(int pesmId ,string dodaoAgo, int playlisId, int userId, string username, string naslovPesmi, string dolzinaPesmi)
     {
@@ -82,7 +87,7 @@ public class PlayListItem
     public PlayListItem(int userId, int playlisId)
     {
         UserCollab = userId;
-        PlaylistCollab = this.playlisId;
+        PlaylistCollab = playlisId;
     }
     private string CalculateDodano( DateTime dodano)
     {
@@ -187,24 +192,22 @@ public class PlayListItem
         }
     }*/
 
-    private int i;
-    private int pesmica;
+    //private int i;
+    //private int pesmica;
     public void DodajUporabnika(int user_id)
     {
-      
         try
         {
                 using (MySqlConnection connection = new MySqlConnection(conn))
                 {
                     connection.Open();
                     string sql = "INSERT INTO collaborate VALUES (NULL,@user_id,@playlist_id)";
-               
                     using (MySqlCommand command = new MySqlCommand(sql,connection))
                     {
                         command.Parameters.AddWithValue("user_id", user_id);
                         command.Parameters.AddWithValue("playlist_id",PlaylistId);
                         command.ExecuteNonQuery();
-                        Console.WriteLine($"{user_id},{pesmica},{PlaylistId}");
+                        Console.WriteLine($"{user_id},{PlaylistId}");
                     }
                 }
         }
@@ -250,9 +253,10 @@ public class PlayListItem
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "SELECT user_id, playlist_id FROM collabing WHERE user_id=@user_id";
+            string sql = "SELECT user_id, playlist_id FROM collaborate WHERE user_id=@user_id";
             using (MySqlCommand command = new MySqlCommand(sql,connection))
             {
+                command.Parameters.AddWithValue("user_id", MainWindow.userId);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -263,11 +267,21 @@ public class PlayListItem
                             UserCollab = user_id,
                             PlaylistCollab = playlist_id
                         );
+                        Console.WriteLine($"{user_id},{playlist_id}");
                         _mainWindow.Collebanje.Add(collab);
                     }
-                    
+                    _collab.ItemsSource = _mainWindow.Collebanje;
                 }   
             }
+        }
+    }
+
+    public void NaloziCollabSonge(int playlistID)
+    {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            string sql = "";
         }
     }
 }

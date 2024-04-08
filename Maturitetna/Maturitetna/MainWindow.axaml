@@ -30,6 +30,15 @@
                    </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <ListBox x:Name="collabiList" ItemsSource="{Binding  Collebanje ,RelativeSource={RelativeSource AncestorType=local:MainWindow}} ">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Button Content="{Binding UserCollab}" Tag="{Binding}" Click="OpenCollabList_OnClick"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
             </ScrollViewer>
         </Border>
@@ -160,7 +169,9 @@
                            <ListBox x:Name="Dodajuporabnika"  ItemsSource="{Binding DodajUporabnika }" >
                                <ListBox.ItemTemplate>
                                    <DataTemplate>
-                                       <Button  Content="{Binding UporabniskoIme }" Tag="{Binding}" Click="AddUser_OnClick" CornerRadius="10" Margin="3" />
+                                       <Button  
+                                           Content="{Binding UporabniskoIme }" 
+                                           Tag="{Binding}" Click="AddUser_OnClick" CornerRadius="10" Margin="3" />
                                    </DataTemplate>
                                </ListBox.ItemTemplate>
                            </ListBox>

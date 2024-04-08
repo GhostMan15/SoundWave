@@ -11,13 +11,13 @@ public partial class Login : Window
     private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
-    //private readonly PlayList _playList;
+    private readonly PlayListItem _playList;
     //private readonly ButtonTag _buttonTag;
-    public Login(MainWindow mainWindow, AddPlaylist _addPlaylist)
+    public Login(MainWindow mainWindow, AddPlaylist _addPlaylist, PlayListItem playList)
     {
         InitializeComponent();
         _mainWindow = mainWindow;
-        //_mainWindow.Uploads.ItemsSource = _mainWindow.myUploads;
+        _playList = playList;
         this._addPlaylist = _addPlaylist;
     }
 
@@ -61,6 +61,7 @@ public partial class Login : Window
                 _mainWindow.NaloizIzDatabaze();
                 _mainWindow.CreatePlaylistButton.IsVisible=true;
                 _addPlaylist.IzpisiPlayliste();
+                _playList.NaloziCollabanje();
                Console.WriteLine(_mainWindow.Username);
                 
             }

@@ -37,7 +37,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     //private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
     //private PlayList _song;
-
+    private readonly ListBox _collab;
 
     public string Username
     {
@@ -48,13 +48,19 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public MainWindow()
     {
         InitializeComponent();
-        _login = new Login(this, _addPlaylist);
+        _login = new Login(this, _addPlaylist, _playlist);
         _musicItem = new MusicItem();
         _onlyplaylist = new PlayList();
         _addPlaylist = new AddPlaylist(this, _playlist);
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
+         _collab = MainWindow.FindListBoxByName("collabiList", PlaylistBox);
+         if (_collab == null)
+         {
+             _collab = new ListBox();
+             _collab.Name = "collabiList";
+         }
     }
     
 
@@ -111,7 +117,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        var login = new Login(this, _addPlaylist);
+        var login = new Login(this, _addPlaylist, _playlist);
         login.Show();
         SignedIn = true;
         uploadButton.IsVisible = true;
@@ -546,6 +552,27 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         else
         {
             Console.WriteLine("ne dewa :(");
+        }
+    }
+    private void OpenCollabList_OnClick(object? sender, RoutedEventArgs e)
+    {
+        BorderUploads.IsVisible = false;
+        Serach.IsVisible = false;
+        mewo.IsVisible = false;
+        played.IsVisible = false;
+        playlist.IsVisible = true;
+        myPlayListsSongs.Clear();
+        PlayListSongs.ItemsSource = myPlayListsSongs;
+        if (sender is Button button && button.Tag is PlayListItem playList)
+        {
+            int playlist_id = playList.PlaylistCollab; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
+            _playlist.NaloziPlaylisto(playlist_id);
+            Console.WriteLine($"{playlist_id}");
+        }
+        else
+        {
+            Console.WriteLine("ne dewa :(");
+            
         }
     }
     private void Nazaj_OnClick(object? sender, RoutedEventArgs e)
