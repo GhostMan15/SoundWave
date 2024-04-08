@@ -51,6 +51,8 @@ public class PlayListItem
     public  int UserId { get; set; }
     public int UporabnikID { get; set; }
     public string UporabniskoIme { get; set; }
+    public int UserCollab { get; set; }
+    public int PlaylistCollab { get; set; }
    // protected DateTime Dodano { get; set; }
     private readonly MainWindow _mainWindow;
     private string DodaoAgo { get { return CalculateDodano(dodano); } set { } }
@@ -71,16 +73,17 @@ public class PlayListItem
         Dolzinapesmi = dolzinaPesmi;
 
     }
-
     public PlayListItem(int uporabnikId, string uporabniskoIme)
     {
         UporabnikID = uporabnikId;
         UporabniskoIme = uporabniskoIme;
     }
-    /*public PlayListItem(int pesmica)
+    // Za collebanje
+    public PlayListItem(int userId, int playlisId)
     {
-        Pesmica = this.pesmica;
-    }*/
+        UserCollab = userId;
+        PlaylistCollab = this.playlisId;
+    }
     private string CalculateDodano( DateTime dodano)
     {
         TimeSpan neki = DateTime.Now - dodano;
@@ -156,7 +159,7 @@ public class PlayListItem
     }
     //==============================================================================================================================
     //Dodaj uporabnika / Collabing
-    public void Collabing()
+   /* public void Collabing()
     {
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
@@ -172,17 +175,17 @@ public class PlayListItem
                     { 
                         pesmica = reader.GetInt32("pesmi_id");
                         Console.WriteLine(pesmica);
-                        /*for ( i = pesmica; i <= pesmica; i++)
+                        for ( i = pesmica; i <= pesmica; i++)
                         {
                             //pesmice.Add(i);
                             Console.WriteLine(i);
-                        }*/
+                        }
 
                     }
                 }
             }
         }
-    }
+    }*/
 
     private int i;
     private int pesmica;
@@ -191,23 +194,19 @@ public class PlayListItem
       
         try
         {
-            using (MySqlConnection connection = new MySqlConnection(conn))
-            {
-                connection.Open();
-                string sql = "INSERT INTO collaborate VALUES (@user_id,@pesmi_id,@playlist_id)";
-                for (i = pesmica; i <= pesmica; i++)
+                using (MySqlConnection connection = new MySqlConnection(conn))
                 {
+                    connection.Open();
+                    string sql = "INSERT INTO collaborate VALUES (NULL,@user_id,@playlist_id)";
+               
                     using (MySqlCommand command = new MySqlCommand(sql,connection))
                     {
                         command.Parameters.AddWithValue("user_id", user_id);
-                        command.Parameters.AddWithValue("pesmi_id", pesmica);     //pogrunti dodajanje pesmi_idjev   
                         command.Parameters.AddWithValue("playlist_id",PlaylistId);
                         command.ExecuteNonQuery();
-                        Console.WriteLine($"{user_id},{PlaylistId}");
+                        Console.WriteLine($"{user_id},{pesmica},{PlaylistId}");
                     }
                 }
-          
-            }
         }
         catch (Exception e)
         {
@@ -244,5 +243,31 @@ public class PlayListItem
             }
         }
     }
-    
+
+    public void NaloziCollabanje()
+    {
+        _mainWindow.Collebanje.Clear();
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            string sql = "SELECT user_id, playlist_id FROM collabing WHERE user_id=@user_id";
+            using (MySqlCommand command = new MySqlCommand(sql,connection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int user_id = reader.GetInt32("user_id");
+                        int playlist_id = reader.GetInt32("playlist_id");
+                        PlayListItem collab = new PlayListItem(
+                            UserCollab = user_id,
+                            PlaylistCollab = playlist_id
+                        );
+                        _mainWindow.Collebanje.Add(collab);
+                    }
+                    
+                }   
+            }
+        }
+    }
 }

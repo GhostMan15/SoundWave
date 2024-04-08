@@ -24,7 +24,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> myPlayListsSongs { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayListItem> DodajUporabnika { get; } = new ObservableCollection<PlayListItem>();
-    //public ObservableCollection<ButtonTag> DodajPesm { get; } = new ObservableCollection<ButtonTag>();
+    public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
     
     
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
@@ -625,7 +625,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             {
                 int userID = playListItem.UporabnikID;
                 //Console.WriteLine(userID);
-                 _playlist.Collabing();
                 _playlist.DodajUporabnika(userID); //Uporabi oz. uncommenti ko pogruntas query za collabanje
             }
             else
