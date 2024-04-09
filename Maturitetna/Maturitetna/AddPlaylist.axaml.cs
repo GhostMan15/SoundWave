@@ -17,7 +17,7 @@ public partial class AddPlaylist : Window
     private readonly ListBox _playListListBox;
     //private ButtonTag _buttonTag;
     private MainWindow.MusicItem _musicItem;
-
+    private DateTime dodano = DateTime.Now;
     private int privacy = 1;
     public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem)
     {
@@ -66,9 +66,9 @@ public partial class AddPlaylist : Window
             {
                 connection.Open();
                 const string sql =
-                    "SELECT playlist_id, playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja FROM playlist " +
+                    "SELECT playlist_id, playlist_ime, privacy, playlist.playlist_fk_user, datum_ustvarjanja,datum_dostopa FROM playlist " +
                     "JOIN user ON playlist.playlist_fk_user = user.user_id " +
-                    "WHERE user.user_id = @userId ";
+                    "WHERE user.user_id = @userId ORDER BY datum_dostopa DESC";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@userId", MainWindow.userId);
@@ -81,13 +81,15 @@ public partial class AddPlaylist : Window
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
+                            string datum_dostopa = reader.GetString("datum_dostopa");
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
                                 PlayListId = playlist_id,
                                 Privacy = privacy,
                                 UserId = userId,
-                                Ustvarjeno = ustvarjeno
+                                Ustvarjeno = ustvarjeno,
+                                DatumDostopa = datum_dostopa
                             };
                             _mainWindow.myPlaylist.Add(playlist);
                             _mainWindow.AllPlaylists.Add(playlist);
@@ -132,7 +134,7 @@ public partial class AddPlaylist : Window
                                 PlayListId = playlist_id,
                                 Privacy = privacy,
                                 UserId = userId,
-                                Ustvarjeno = ustvarjeno
+                                Ustvarjeno = ustvarjeno,
                             };
                             
                             _mainWindow.PublicPlayLists.Add(playlist);
@@ -160,6 +162,44 @@ public partial class AddPlaylist : Window
     {
       DodajPlaylisto();
     }
+
+    public void PrikaziReacent()
+    {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            string sql = "";
+        }
+    }
+
+    public void UpdateTime(int playlistid)
+    {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            string sql = "UPDATE playlist SET datum_dostopa = NOW() WHERE playlist_id = @playlist_id AND playlist_fk_user = @user_id";
+            using (MySqlCommand command = new MySqlCommand(sql,connection))
+            {
+                command.Parameters.AddWithValue("playlist_id",playlistid);
+                command.Parameters.AddWithValue("@user_id", MainWindow.userId);
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    public void UpdateTimeC(int playlistid)
+    {
+        using (MySqlConnection connection = new MySqlConnection(conn))
+        {
+            connection.Open();
+            string sql = "UPDATE collaborate SET datum_dostopa = NOW() WHERE playlist_id = @playlist_id AND user_id = @user_id";
+            using (MySqlCommand command = new MySqlCommand(sql,connection))
+            {
+                command.Parameters.AddWithValue("playlist_id",playlistid);
+                command.Parameters.AddWithValue("@user_id", MainWindow.userId);
+                command.ExecuteNonQuery();
+            }
+        }
+    }
 }
 public class PlayList
 {
@@ -168,6 +208,7 @@ public class PlayList
     public int Privacy { get; set; }
     public int UserId { get; set; }
     public string Ustvarjeno { get; set; }
+    public string DatumDostopa { get; set; }
   
     public PlayList(){}
     

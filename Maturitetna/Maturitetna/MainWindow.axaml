@@ -30,11 +30,12 @@
                    </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox x:Name="collabiList" ItemsSource="{Binding  Collebanje ,RelativeSource={RelativeSource AncestorType=local:MainWindow}} ">
+            <ListBox x:Name="collabiList" ItemsSource="{Binding  Collebanje ,RelativeSource={RelativeSource AncestorType=local:MainWindow}} " CornerRadius="10" Margin="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <Button Content="{Binding UserCollab}" Tag="{Binding}" Click="OpenCollabList_OnClick"/>
+                            <Label Content="Collaborations" Margin="3"/>
+                            <Button Content="{Binding UserCollab}" Tag="{Binding}" Click="OpenCollabList_OnClick" CornerRadius="10" Margin="3"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -46,6 +47,15 @@
             <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="played" IsVisible="True"> 
                 <StackPanel  VerticalAlignment="Top" >
                     <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
             </Border>
         <!-- Public Playlists -->

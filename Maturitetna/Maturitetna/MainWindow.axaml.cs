@@ -37,7 +37,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     //private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
     //private PlayList _song;
-    private readonly ListBox _collab;
 
     public string Username
     {
@@ -55,12 +54,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _playlist = new PlayListItem(this, _musicItem);
          DataContext = this;
          _addPlaylist.IzpisiPlaylistePublic();
-         _collab = MainWindow.FindListBoxByName("collabiList", PlaylistBox);
-         if (_collab == null)
-         {
-             _collab = new ListBox();
-             _collab.Name = "collabiList";
-         }
     }
     
 
@@ -547,6 +540,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             int playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
             _playlist.NaloziPlaylisto(playlist_id);
+            _addPlaylist.UpdateTime(playlist_id);
+            _addPlaylist.IzpisiPlayliste();
             Console.WriteLine($"{playlist_id},{_playlist.UserId}");
         }
         else
@@ -567,6 +562,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         {
             int playlist_id = playList.PlaylistCollab; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
             _playlist.NaloziPlaylisto(playlist_id);
+            _addPlaylist.UpdateTimeC(playlist_id);
             Console.WriteLine($"{playlist_id}");
         }
         else
