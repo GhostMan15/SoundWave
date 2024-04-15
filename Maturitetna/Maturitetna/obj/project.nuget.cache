@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pLztgCKr/ezT9u3z3icvV99opKDZ5oSV2WRT2OlRM10Y54rzgNN0TlHuYYhOH41NT5U4d0rEl2r5oEYsaQVR+w==",
+  "dgSpecHash": "jZdiIOzqbBlzP1+buX65SBpcGEQ+DI/fiBFhsRN7BSDTAfZeddO8j4MEJHpwBLSz7FiVcX10VcbdK8aglLhxxA==",
   "success": true,
   "projectFilePath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
   "expectedPackageFiles": [
@@ -117,7 +117,7 @@
     "/home/Faruk/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512",
     "/home/Faruk/.nuget/packages/tmds.dbus.protocol/0.15.0/tmds.dbus.protocol.0.15.0.nupkg.sha512",
     "/home/Faruk/.nuget/packages/zstdsharp.port/0.7.1/zstdsharp.port.0.7.1.nupkg.sha512",
-    "/home/Faruk/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.3/microsoft.aspnetcore.app.ref.8.0.3.nupkg.sha512"
+    "/home/Faruk/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.4/microsoft.aspnetcore.app.ref.8.0.4.nupkg.sha512"
   ],
   "logs": []
 }
