@@ -197,11 +197,12 @@ public class PlayListItem
                 using (MySqlConnection connection = new MySqlConnection(conn))
                 {
                     connection.Open();
-                    string sql = "INSERT INTO collaborate VALUES (NULL,@user_id,@playlist_id)";
+                    string sql = "INSERT INTO collaborate VALUES (NULL,@user_id,@playlist_id,NULL,@song)";
                     using (MySqlCommand command = new MySqlCommand(sql,connection))
                     {
                         command.Parameters.AddWithValue("user_id", user_id);
                         command.Parameters.AddWithValue("playlist_id",PlaylistId);
+                        command.Parameters.AddWithValue("song", PlaylistId);
                         command.ExecuteNonQuery();
                         Console.WriteLine($"{user_id},{PlaylistId}");
                     }

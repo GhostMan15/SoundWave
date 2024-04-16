@@ -644,7 +644,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             if(sender is Button button && button.Tag is PlayListItem playListItem )
             {
                 int userID = playListItem.UporabnikID;
-                //Console.WriteLine(userID);
+                Console.WriteLine(userID);
                 _playlist.DodajUporabnika(userID); //Uporabi oz. uncommenti ko pogruntas query za collabanje
             }
             else
