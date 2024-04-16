@@ -165,10 +165,36 @@ public partial class AddPlaylist : Window
 
     public void PrikaziReacent()
     {
+        _mainWindow.Collebanje.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "";
+            /*string sql = "SELECT c.playlist_id, p.playlist_id, p.playlist_ime, p.playlist_fk_user " +
+                         "FROM playlist p LEFT JOIN collaborate c ON c.playlist_id = p.playlist_id " +
+                         "UNION SELECT c.playlist_id, p.playlist_id, p.playlist_ime,p.playlist_fk_user " +
+                         "FROM collaborate c RIGHT JOIN playlist p ON c.playlist_id = p.playlist_id  WHERE p.playlist_fk_user = @user_id OR c.user_id = @user_id;"; */
+
+            string sql = "SELECT * FROM  (SELECT c.playlist_id AS collab_playlist_id, p.playlist_id AS playlist_id, p.playlist_ime, p.playlist_fk_user, NULL AS datum_dostopa   " +
+                         "FROM playlist p LEFT JOIN collaborate c ON c.playlist_id = p.playlist_id " +
+                         "UNION SELECT c.playlist_id, p.playlist_id, p.playlist_ime, p.playlist_fk_user, p.datum_dostopa FROM collaborate c RIGHT JOIN playlist p ON c.playlist_id = p.playlist_id " +
+                         "WHERE p.playlist_fk_user = @playlist_fk_user OR c.user_id = @user_id) AS combined_data ORDER BY CASE " +
+                         "WHEN datum_dostopa IS NOT NULL THEN datum_dostopa ELSE datum_dostopa END DESC LIMIT 0, 6";
+            using (MySqlCommand command = new MySqlCommand(sql,connection))
+            {
+                command.Parameters.AddWithValue("playlist_fk_user", MainWindow.userId);
+                command.Parameters.AddWithValue("user_id", MainWindow.userId);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string ime_playlista = reader.GetString("playlist_ime");
+                        int playlist_id = reader.GetInt32("playlist_id");
+                        int user_id = reader.GetInt32("user_id");
+                        int playlist_fk_user = reader.GetInt32("playlist_fk_user");
+                        // se dokoncat
+                    }
+                }
+            }
         }
     }
 
@@ -211,5 +237,21 @@ public class PlayList
     public string DatumDostopa { get; set; }
   
     public PlayList(){}
+    
+    //c.playlist_id p._playlist_id p.playlist_ime c.datum_dostopa p.datum_dostopa
+    
+    public int CollabID { get; set; }
+    public string DatumDostopaC { get; set; }
+
+    public PlayList(string imePlaylista, int playListId, int userId, string datumDostopa, int collabId,
+        string datumDostopaC)
+    {
+        ImePlaylista = imePlaylista;
+        PlayListId = playListId;
+        UserId = userId;
+        DatumDostopa = datumDostopa;
+        CollabID = collabId;
+        DatumDostopaC = datumDostopaC;
+    }
     
 }

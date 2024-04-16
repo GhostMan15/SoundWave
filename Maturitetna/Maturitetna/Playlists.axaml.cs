@@ -47,6 +47,7 @@ public class PlayListItem
         get { return playlisId;}
         set { playlisId = value; }
     }
+    public string SongNameC { get; set; }
     public  int UserId { get; set; }
     public int UporabnikID { get; set; }
     public string UporabniskoIme { get; set; }
@@ -78,11 +79,12 @@ public class PlayListItem
         UporabniskoIme = uporabniskoIme;
     }
     // Za collebanje
-    public PlayListItem(int userId, int playlisId, string datum_dostopa)
+    public PlayListItem(int userId, int playlisId, string datum_dostopa, string ime_playlista)
     {
         UserCollab = userId;
         PlaylistCollab = playlisId;
         DatumDostopa = datum_dostopa;
+        SongNameC = ime_playlista;
     }
     private string CalculateDodano( DateTime dodano)
     {
@@ -246,7 +248,8 @@ public class PlayListItem
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
-            string sql = "SELECT user_id, playlist_id, datum_dostopa FROM collaborate WHERE user_id=@user_id ORDER BY datum_dostopa DESC ";
+            string sql = "SELECT user_id, c.playlist_id, c.datum_dostopa, p.playlist_ime,c.song FROM collaborate c JOIN playlist p ON c.song = p.playlist_id " +
+                         "WHERE user_id=@user_id ORDER BY datum_dostopa DESC ";
             using (MySqlCommand command = new MySqlCommand(sql,connection))
             {
                 command.Parameters.AddWithValue("user_id", MainWindow.userId);
@@ -257,10 +260,12 @@ public class PlayListItem
                         int user_id = reader.GetInt32("user_id");
                         int playlist_id = reader.GetInt32("playlist_id");
                         string datum_dostopa = reader.GetString("datum_dostopa");
+                        string ime_playlist = reader.GetString("playlist_ime");
                         PlayListItem collab = new PlayListItem(
                             UserCollab = user_id,
                             PlaylistCollab = playlist_id,
-                            DatumDostopa = datum_dostopa
+                            DatumDostopa = datum_dostopa,
+                            SongNameC = ime_playlist
                         );
                         Console.WriteLine($"{user_id},{playlist_id}");
                         _mainWindow.Collebanje.Add(collab);

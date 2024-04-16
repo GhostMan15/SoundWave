@@ -10,10 +10,7 @@ using Avalonia.Interactivity;
 using MySqlConnector;
 using NAudio.Wave;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
-using Avalonia.Controls.Presenters;
-using Avalonia.Controls.Templates;
-using Avalonia.Controls.Primitives;
-using Avalonia.VisualTree;
+
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
 {
@@ -25,8 +22,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayList> PublicPlayLists { get; } = new ObservableCollection<PlayList>();
     public ObservableCollection<PlayListItem> DodajUporabnika { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
-    
-    
+    public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
+     
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
