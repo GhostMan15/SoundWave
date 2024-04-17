@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Maturitetna.MainWindow"
         Title="Maturitetna"
-        CanResize="False"
+        CanResize="True"
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaChromeHints="SystemChrome"
         TransparencyLevelHint="AcrylicBlur"

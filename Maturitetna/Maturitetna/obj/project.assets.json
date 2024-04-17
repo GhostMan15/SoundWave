@@ -6366,19 +6366,19 @@
     ]
   },
   "packageFolders": {
-    "/home/Faruk/.nuget/packages/": {}
+    "/home/faruk/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+      "projectUniqueName": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
       "projectName": "Maturitetna",
-      "projectPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
-      "packagesPath": "/home/Faruk/.nuget/packages/",
-      "outputPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
+      "projectPath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+      "packagesPath": "/home/faruk/.nuget/packages/",
+      "outputPath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/Faruk/.nuget/NuGet/NuGet.Config"
+        "/home/faruk/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
