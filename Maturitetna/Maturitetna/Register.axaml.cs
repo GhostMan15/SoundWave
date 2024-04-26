@@ -7,7 +7,7 @@ namespace Maturitetna;
 
 public partial class Register : Window
 {
-    private readonly string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private readonly string conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
   //  private readonly MainWindow _mainWindow;
    // private readonly AddPlaylist _playList;
     public Register()

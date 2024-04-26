@@ -24,7 +24,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
      
-    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private string  conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
     private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
     public static int userId;

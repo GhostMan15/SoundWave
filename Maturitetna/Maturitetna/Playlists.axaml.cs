@@ -18,7 +18,7 @@ public partial class Playlists : Window
 
 public class PlayListItem  
 {
-    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private const string conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
     public PlayListItem() {}
     public static string username;
     public  string naslovPesmi;

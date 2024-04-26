@@ -8,7 +8,7 @@ namespace Maturitetna;
 
 public partial class Login : Window
 {
-    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private const string conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playList;
