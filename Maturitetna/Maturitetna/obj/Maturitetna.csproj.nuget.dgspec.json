@@ -58,6 +58,10 @@
               "target": "Package",
               "version": "[11.0.7, )"
             },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.0-preview.3.24172.9, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.3.0, )"

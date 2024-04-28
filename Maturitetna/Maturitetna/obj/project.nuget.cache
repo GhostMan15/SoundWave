@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Xo8mDAvLXLvOjFsjQnP43GROIyo/Wm7duUbLVEujAzZwoknFRxREW2LrJDYhPuhvw4cnRjbiGpR0PRF3TnmuGw==",
+  "dgSpecHash": "DWGwaI6A2QuQkP070oHIUhYx0Tfiz5TwODOovJ8osA8xwNl0FQyHMXjfE6zOUrK7NQidPUgeA+W12NLWFl0UAg==",
   "success": true,
   "projectFilePath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
   "expectedPackageFiles": [
@@ -38,7 +38,10 @@
     "/home/faruk/.nuget/packages/microsoft.codeanalysis.csharp.scripting/3.8.0/microsoft.codeanalysis.csharp.scripting.3.8.0.nupkg.sha512",
     "/home/faruk/.nuget/packages/microsoft.codeanalysis.scripting.common/3.8.0/microsoft.codeanalysis.scripting.common.3.8.0.nupkg.sha512",
     "/home/faruk/.nuget/packages/microsoft.csharp/4.3.0/microsoft.csharp.4.3.0.nupkg.sha512",
+    "/home/faruk/.nuget/packages/microsoft.extensions.configuration/9.0.0-preview.3.24172.9/microsoft.extensions.configuration.9.0.0-preview.3.24172.9.nupkg.sha512",
+    "/home/faruk/.nuget/packages/microsoft.extensions.configuration.abstractions/9.0.0-preview.3.24172.9/microsoft.extensions.configuration.abstractions.9.0.0-preview.3.24172.9.nupkg.sha512",
     "/home/faruk/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "/home/faruk/.nuget/packages/microsoft.extensions.primitives/9.0.0-preview.3.24172.9/microsoft.extensions.primitives.9.0.0-preview.3.24172.9.nupkg.sha512",
     "/home/faruk/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/home/faruk/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/home/faruk/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",

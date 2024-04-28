@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
 namespace Maturitetna;
@@ -8,10 +9,12 @@ namespace Maturitetna;
 
 public partial class Login : Window
 {
-    private const string conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
+    private const string conn = "Server=213.161.27.37;Database=maturitetna;Uid=root;Pwd=root;";
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playList;
+
+
     //private readonly ButtonTag _buttonTag;
     public Login(MainWindow mainWindow, AddPlaylist _addPlaylist, PlayListItem playList)
     {
