@@ -165,7 +165,7 @@ public partial class AddPlaylist : Window
 
     public void PrikaziReacent()
     {
-        _mainWindow.Collebanje.Clear();
+        _mainWindow.Reacently.Clear();
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
             connection.Open();
@@ -176,7 +176,7 @@ public partial class AddPlaylist : Window
 
             string sql = "SELECT * FROM  (SELECT c.playlist_id AS collab_playlist_id, p.playlist_id AS playlist_id, p.playlist_ime, p.playlist_fk_user, NULL AS datum_dostopa   " +
                          "FROM playlist p LEFT JOIN collaborate c ON c.playlist_id = p.playlist_id " +
-                         "UNION SELECT c.playlist_id, p.playlist_id, p.playlist_ime, p.playlist_fk_user, p.datum_dostopa FROM collaborate c RIGHT JOIN playlist p ON c.playlist_id = p.playlist_id " +
+                         "UNION SELECT c.playlist_id , p.playlist_id, p.playlist_ime, p.playlist_fk_user, p.datum_dostopa FROM collaborate c RIGHT JOIN playlist p ON c.playlist_id = p.playlist_id " +
                          "WHERE p.playlist_fk_user = @playlist_fk_user OR c.user_id = @user_id) AS combined_data ORDER BY CASE " +
                          "WHEN datum_dostopa IS NOT NULL THEN datum_dostopa ELSE datum_dostopa END DESC LIMIT 0, 6";
             using (MySqlCommand command = new MySqlCommand(sql,connection))
@@ -189,16 +189,22 @@ public partial class AddPlaylist : Window
                     {
                         string ime_playlista = reader.GetString("playlist_ime");
                         int playlist_id = reader.GetInt32("playlist_id");
-                        int user_id = reader.GetInt32("user_id");
                         int playlist_fk_user = reader.GetInt32("playlist_fk_user");
-                        // se dokoncat
+                        string datum = reader.GetString("datum_dostopa");
+                        string datumC = reader.GetString("datum_dostopa");
+                        //int? collab = reader.GetInt32("collab_playlist_id");
+                        // se dokoncat (mnde sm)
+                        var collabi = new PlayList(ime_playlista,playlist_id,playlist_fk_user,datum,datumC);
+                        _mainWindow.Reacently.Add(collabi);
                     }
                 }
             }
         }
+
+        _mainWindow.RecentlyBox.ItemsSource = _mainWindow.Reacently;
     }
 
-    public void UpdateTime(int playlistid)
+    public void UpdateTime(int? playlistid)
     {
         using (MySqlConnection connection = new MySqlConnection(conn))
         {
@@ -227,31 +233,6 @@ public partial class AddPlaylist : Window
         }
     }
 }
-public class PlayList
-{
-    public string ImePlaylista { get; set; }
-    public int PlayListId { get; set; }
-    public int Privacy { get; set; }
-    public int UserId { get; set; }
-    public string Ustvarjeno { get; set; }
-    public string DatumDostopa { get; set; }
-  
-    public PlayList(){}
-    
-    //c.playlist_id p._playlist_id p.playlist_ime c.datum_dostopa p.datum_dostopa
-    
-    public int CollabID { get; set; }
-    public string DatumDostopaC { get; set; }
 
-    public PlayList(string imePlaylista, int playListId, int userId, string datumDostopa, int collabId,
-        string datumDostopaC)
-    {
-        ImePlaylista = imePlaylista;
-        PlayListId = playListId;
-        UserId = userId;
-        DatumDostopa = datumDostopa;
-        CollabID = collabId;
-        DatumDostopaC = datumDostopaC;
-    }
     
-}
+

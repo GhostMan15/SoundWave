@@ -358,3 +358,6 @@ C:/Users/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/ne
 /home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/net8.0/ReactiveUI.dll
 /home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/net8.0/Splat.dll
 /home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/net8.0/System.Reactive.dll
+/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/net8.0/Microsoft.Extensions.Configuration.dll
+/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll

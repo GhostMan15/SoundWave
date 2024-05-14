@@ -47,11 +47,11 @@
             <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="played" IsVisible="True"> 
                 <StackPanel  VerticalAlignment="Top" >
                     <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>
-                    <ListBox>
+                    <ListBox x:Name="RecentlyBox" ItemsSource="{Binding Reacently}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button/>
+                                    <Button Content="{Binding ImePlaylista}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

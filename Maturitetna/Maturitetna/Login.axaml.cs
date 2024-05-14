@@ -9,7 +9,7 @@ namespace Maturitetna;
 
 public partial class Login : Window
 {
-    private const string conn = "Server=213.161.27.37;Database=maturitetna;Uid=root;Pwd=root;";
+    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playList;
@@ -66,6 +66,7 @@ public partial class Login : Window
                 _mainWindow.collab.IsVisible = true;
                 _addPlaylist.IzpisiPlayliste();
                 _playList.NaloziCollabanje();
+               _addPlaylist.PrikaziReacent();
                Console.WriteLine(_mainWindow.Username);
                 
             }

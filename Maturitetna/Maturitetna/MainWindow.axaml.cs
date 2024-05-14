@@ -24,7 +24,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
      
-    private string  conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
+    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
     private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
     public static int userId;
@@ -49,8 +49,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _onlyplaylist = new PlayList();
         _addPlaylist = new AddPlaylist(this, _playlist);
         _playlist = new PlayListItem(this, _musicItem);
-         DataContext = this;
-         _addPlaylist.IzpisiPlaylistePublic();
+        DataContext = this;
+        _addPlaylist.IzpisiPlaylistePublic();
     }
     
 
@@ -535,7 +535,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         PlayListSongs.ItemsSource = myPlayListsSongs;
         if (sender is Button button && button.Tag is PlayList playList)
         {
-            int playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
+            int? playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
             _playlist.NaloziPlaylisto(playlist_id);
             _addPlaylist.UpdateTime(playlist_id);
             _addPlaylist.IzpisiPlayliste();
@@ -585,7 +585,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     {
            if (sender is Button button &&  button.DataContext is PlayList buttonTag)
            {
-               int playlist_id = buttonTag.PlayListId;
+               int? playlist_id = buttonTag.PlayListId;
                Console.WriteLine(playlist_id);
                _playlist.DodajvPlaylisto (playlist_id);
            }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {}
+    "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {}
   },
   "projects": {
-    "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {
+    "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+        "projectUniqueName": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
         "projectName": "Maturitetna",
-        "projectPath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
-        "packagesPath": "/home/faruk/.nuget/packages/",
-        "outputPath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
+        "projectPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+        "packagesPath": "/home/Faruk/.nuget/packages/",
+        "outputPath": "/home/Faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/faruk/.nuget/NuGet/NuGet.Config"
+          "/home/Faruk/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
