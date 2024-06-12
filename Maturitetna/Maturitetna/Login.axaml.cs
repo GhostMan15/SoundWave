@@ -66,8 +66,8 @@ public partial class Login : Window
                 _mainWindow.collab.IsVisible = true;
                 _addPlaylist.IzpisiPlayliste();
                 _playList.NaloziCollabanje();
-               _addPlaylist.PrikaziReacent();
-               Console.WriteLine(_mainWindow.Username);
+                _addPlaylist.PrikaziReacent();
+                Console.WriteLine(_mainWindow.Username);
                 
             }
             else

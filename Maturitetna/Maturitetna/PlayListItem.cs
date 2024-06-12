@@ -156,7 +156,7 @@ public class PlayListItem
                         string dolzinaPesmi = reader.GetString("dolzina_pesmi");
                         PlayListItem playListItem = new PlayListItem(
                             PesmId = pesmiId,
-                            dodano = DodaoAgo,
+                            DodaoAgo = dodano,
                             UserId = userId,
                             PlaylistId = playlistId,
                             Username = username,
@@ -251,7 +251,6 @@ public class PlayListItem
                         );
                         _mainWindow.DodajUporabnika.Add(dodaj);
                     }
-
                     _mainWindow.Dodajuporabnika.ItemsSource = _mainWindow.DodajUporabnika;
                 }
             }

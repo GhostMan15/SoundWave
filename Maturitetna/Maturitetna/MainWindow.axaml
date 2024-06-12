@@ -44,19 +44,21 @@
             </ScrollViewer>
         </Border>
             <!-- Recently Played -->
-            <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="played" IsVisible="True"> 
+            <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="played" IsVisible="True">
+                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel  VerticalAlignment="Top" >
                     <TextBlock Text="Recently Played" Margin="5" TextAlignment="Start"/>
                     <ListBox x:Name="RecentlyBox" ItemsSource="{Binding Reacently}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Content="{Binding ImePlaylista}"/>
+                                    <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick" Tag="{Binding}"  CornerRadius="10" Margin="3" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
+                 </ScrollViewer> 
             </Border>
         <!-- Public Playlists -->
             <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" BorderThickness="1"  BorderBrush="Black" CornerRadius="10" Margin="3" x:Name="mewo" IsVisible="True">
@@ -67,7 +69,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Content="{Binding ImePlaylista}" CornerRadius="10" Margin="3" />
+                                    <Button Content="{Binding ImePlaylista}" Click="OpenPlaylist_OnClick" Tag="{Binding}"  CornerRadius="10" Margin="3" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -188,21 +190,45 @@
                        </Border>
                    </Expander.Content>
                </Expander>
+               <StackPanel>
+               <ScrollViewer VerticalScrollBarVisibility="Auto">
                <ListBox x:Name="PlayListSongs" ItemsSource="{Binding myPlayListsSongs }"   Margin="5"  CornerRadius="10">
                    <ListBox.ItemTemplate>
                        <DataTemplate>
                            <StackPanel>
-                               <Label Content="Avtor"/>
-                               <TextBlock Text="{Binding Username}"/>
-                               <Label Content="Naslov"/>
-                               <TextBlock  Text="{Binding Naslovpesmi}"/>
-                               <Label Content="Dolzina"/>
-                               <TextBlock  Text="{Binding Dolzinapesmi}"/>
-                               <TextBlock Text="{Binding DodaoAgo}" />
+                               <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*">
+                                   <Label Grid.Row="0" Grid.Column="0" Content="Avtor:"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Username}"/>
+                                     <Label Grid.Row="1" Grid.Column="0" Content="Naslov:"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Naslovpesmi}"/>
+                                     <Label Grid.Row="2" Grid.Column="0" Content="Dolzina:"/>
+                                     <TextBlock Grid.Row="2" Grid.Column="1"   Text="{Binding Dolzinapesmi}"/>
+                                   <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="3" Grid.Column="0">
+                                       <PathIcon Data="{StaticResource play}"/>
+                                   </Button>
+                                   <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="3" Grid.Column="0">
+                                       <PathIcon Data="{StaticResource stop}"/>
+                                   </Button>
+                                   <Expander x:Name="playlisti" Expanded="Playlisti_OnExpanded"   Tag="{Binding}" Grid.Row="3" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3">
+                                       <Expander.Content>
+                                           <Border Padding="10" CornerRadius="10" >
+                                               <ListBox x:Name="playListListBox"  ItemsSource="{Binding AllPlaylists, RelativeSource={RelativeSource AncestorType=local:MainWindow}}">
+                                                   <ListBox.ItemTemplate>
+                                                       <DataTemplate>
+                                                           <Button  Content="{Binding ImePlaylista}" Tag="{Binding}" CornerRadius="10" Margin="3" Click="AddToSelectedPlaylist_OnClick"/>
+                                                       </DataTemplate>
+                                                   </ListBox.ItemTemplate>
+                                               </ListBox>
+                                           </Border>
+                                       </Expander.Content>
+                                   </Expander>
+                               </Grid>
                            </StackPanel>
                        </DataTemplate>
                    </ListBox.ItemTemplate>
                </ListBox>
+               </ScrollViewer>
+               </StackPanel>
            </StackPanel>
         </Grid> 
     </Grid>

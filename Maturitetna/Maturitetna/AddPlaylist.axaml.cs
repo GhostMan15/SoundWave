@@ -34,7 +34,9 @@ public partial class AddPlaylist : Window
         }
        
     }
-  
+
+   
+    
     public void DodajPlaylisto()
     {
        
@@ -178,7 +180,7 @@ public partial class AddPlaylist : Window
                          "FROM playlist p LEFT JOIN collaborate c ON c.playlist_id = p.playlist_id " +
                          "UNION SELECT c.playlist_id , p.playlist_id, p.playlist_ime, p.playlist_fk_user, p.datum_dostopa FROM collaborate c RIGHT JOIN playlist p ON c.playlist_id = p.playlist_id " +
                          "WHERE p.playlist_fk_user = @playlist_fk_user OR c.user_id = @user_id) AS combined_data ORDER BY CASE " +
-                         "WHEN datum_dostopa IS NOT NULL THEN datum_dostopa ELSE datum_dostopa END DESC LIMIT 0, 6";
+                         "WHEN datum_dostopa IS NOT NULL THEN datum_dostopa ELSE datum_dostopa END DESC LIMIT 0, 5";
             using (MySqlCommand command = new MySqlCommand(sql,connection))
             {
                 command.Parameters.AddWithValue("playlist_fk_user", MainWindow.userId);
@@ -190,9 +192,8 @@ public partial class AddPlaylist : Window
                         string ime_playlista = reader.GetString("playlist_ime");
                         int playlist_id = reader.GetInt32("playlist_id");
                         int playlist_fk_user = reader.GetInt32("playlist_fk_user");
-                        string datum = reader.GetString("datum_dostopa");
-                        string datumC = reader.GetString("datum_dostopa");
-                        //int? collab = reader.GetInt32("collab_playlist_id");
+                        string? datum = reader.IsDBNull(reader.GetOrdinal("datum_dostopa")) ? null : reader.GetString("datum_dostopa");
+                        string? datumC = datum;
                         // se dokoncat (mnde sm)
                         var collabi = new PlayList(ime_playlista,playlist_id,playlist_fk_user,datum,datumC);
                         _mainWindow.Reacently.Add(collabi);
@@ -202,6 +203,7 @@ public partial class AddPlaylist : Window
         }
 
         _mainWindow.RecentlyBox.ItemsSource = _mainWindow.Reacently;
+        
     }
 
     public void UpdateTime(int? playlistid)

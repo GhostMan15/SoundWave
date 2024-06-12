@@ -565,7 +565,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         else
         {
             Console.WriteLine("ne dewa :(");
-            
         }
     }
     private void Nazaj_OnClick(object? sender, RoutedEventArgs e)
@@ -575,6 +574,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         mewo.IsVisible = true;
         played.IsVisible = true;
         playlist.IsVisible = false;
+        _addPlaylist.PrikaziReacent();
     }
 //==================================================================================================================================
 // Dodaj pesm v playlist
