@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Confluent.Kafka;
 using MySqlConnector;
 using NAudio.Wave;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
+using System.Net;
+
 
 namespace Maturitetna;
 public partial class  MainWindow:Window,INotifyPropertyChanged
@@ -25,12 +28,14 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
      
     private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-    private string uploadFolder = "/home/Faruk/Documents/GitHub/Maturitetna/Muska";
+    private string uploadFolder = "/home/faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
     public static int userId;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
+
+ 
     //private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
     //private PlayList _song;
@@ -49,6 +54,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _onlyplaylist = new PlayList();
         _addPlaylist = new AddPlaylist(this, _playlist);
         _playlist = new PlayListItem(this, _musicItem);
+       
         DataContext = this;
         _addPlaylist.IzpisiPlaylistePublic();
     }
@@ -148,29 +154,47 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         [Obsolete("Prikaz za upload file-ov")] 
         private async Task Prikazi()
         {
-            var fileDialog = new OpenFileDialog();
-            fileDialog.Title = "Izberite file";
-            fileDialog.Filters.Add(new FileDialogFilter { Name = "file", Extensions = { "mp3", "wav", "ogg" } });
-
-            var izbraniFile = await fileDialog.ShowAsync(this);
-            if (izbraniFile != null && izbraniFile.Length > 0)
+            try
             {
-                foreach (var file in izbraniFile)
+                var fileDialog = new OpenFileDialog();
+                fileDialog.Title = "Izberite file";
+                fileDialog.Filters.Add(new FileDialogFilter { Name = "file", Extensions = { "mp3", "wav", "ogg","MP3" } });
+
+                var izbraniFile = await fileDialog.ShowAsync(this);
+                if (izbraniFile != null && izbraniFile.Length > 0)
                 {
-                    //Dodajanje file v databazo in v file kjer ga hrani
-                    var naslov = Path.GetFileNameWithoutExtension(file);
-                    var dolzina = await Audio.GetAudioFileLength(file);
-                    var userID = MainWindow.userId;
-                    //=================================================================================
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file);
-                    var destinacija = Path.Combine(uploadFolder, fileName);
-                    File.Copy(file, destinacija, true);
-                    //================================================================================
-                    var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
-                    myUploads.Add(newMusic);
-                    ShraniVDatabazo(newMusic);
+                    foreach (var file in izbraniFile)
+                    {
+                        //Dodajanje file v databazo in v file kjer ga hrani
+                        var naslov = Path.GetFileNameWithoutExtension(file);
+                        var dolzina = await Audio.GetAudioFileLength(file);
+                        var userID = MainWindow.userId;
+                        //=================================================================================
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file);
+                        var destinacija = Path.Combine(uploadFolder, fileName);
+                        File.Copy(file, destinacija, true);
+                    
+                        //================================================================================
+                        UploadFileToFtp(destinacija);
+                        /*var config = new ProducerConfig { BootstrapServers = "213.161.27.37" };
+                        using (var producer = new ProducerBuilder<Null, string>(config).Build())
+                        {
+                            var message = $"File uploaded: {naslov}, Path: {destinacija}";
+                            await producer.ProduceAsync("file-uploads", new Message<Null, string> { Value = message });
+                        }*/
+                        //================================================================================
+                        var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
+                        myUploads.Add(newMusic);
+                        ShraniVDatabazo(newMusic);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ne uploda {e}");
+                throw;
+            }
+            
         }
     public void NaloizIzDatabaze()
     {
@@ -689,18 +713,44 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }
     }
 
+    
+  //==============================================================================
+  // Uploadanje songov na server
+  private void UploadFileToFtp(string filePath)
+  {
+      try
+      {
+          string ftpServerUrl = "ftp://213.161.27.37/";
+          string username = "MaturaFTP";
+          string password = "58318Ghost";
 
-  
+          string fileName = Path.GetFileName(filePath);
+          string ftpFullPath = ftpServerUrl + fileName;
+
+          FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(ftpFullPath);
+          ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+          ftpRequest.Credentials = new NetworkCredential(username, password);
+
+          using (Stream fileStream = File.OpenRead(filePath))
+          using (Stream ftpStream = ftpRequest.GetRequestStream())
+          {
+              byte[] buffer = new byte[10240]; 
+              int bytesRead;
+              while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+              {
+                  ftpStream.Write(buffer, 0, bytesRead);
+              }
+          }
+
+          Console.WriteLine("Upload successful");
+      }
+      catch (Exception ex)
+      {
+          Console.WriteLine($"Error uploading file: {ex.Message}");
+      }
+  }
 }
-/*public class ButtonTag
-{
-    public int PesMId { get; set; }
-    public int PlayListID { get; set; }
-    public string ImePlayLista { get; set; }
-    public int UserId { get; set; }
-    public ButtonTag(){}
-       
-}*/
+
 
 
 

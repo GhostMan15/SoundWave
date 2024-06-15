@@ -349,6 +349,23 @@
           }
         }
       },
+      "Confluent.Kafka/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.0",
+          "librdkafka.redist": "2.4.0"
+        },
+        "compile": {
+          "lib/net6.0/Confluent.Kafka.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Confluent.Kafka.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DynamicData/8.3.27": {
         "type": "package",
         "dependencies": {
@@ -517,6 +534,114 @@
         "runtime": {
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
+          }
+        }
+      },
+      "librdkafka.redist/2.4.0": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-x64/native/alpine-librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x64/native/centos6-librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x64/native/centos7-librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x64/native/librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-arm64/native/librdkafka.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/librdkafka.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/libcrypto-3-x64.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/libcurl.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/librdkafka.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/librdkafkacpp.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/libssl-3-x64.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/msvcp140.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/vcruntime140.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/zlib1.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/zstd.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/libcrypto-3.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/libcurl.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/librdkafka.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/librdkafkacpp.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/libssl-3.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/msvcp140.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/vcruntime140.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/zlib1.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/zstd.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
           }
         }
       },
@@ -838,6 +963,108 @@
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.FileExtensions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
+          "Microsoft.Extensions.FileProviders.Physical": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.FileExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.FileExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Json/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Configuration.FileExtensions": "8.0.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
+          "System.Text.Json": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Physical/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
+          "Microsoft.Extensions.FileSystemGlobbing": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.FileProviders.Physical.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.FileProviders.Physical.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.FileSystemGlobbing/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.FileSystemGlobbing.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.FileSystemGlobbing.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/7.0.1": {
@@ -2641,6 +2868,26 @@
         "packageIcon.png"
       ]
     },
+    "Confluent.Kafka/2.4.0": {
+      "sha512": "3xrE8SUSLN10klkDaXFBAiXxTc+2wMffvjcZ3RUyvOo2ckaRJZ3dY7yjs6R7at7+tjUiuq2OlyTiEaV6G9zFHA==",
+      "type": "package",
+      "path": "confluent.kafka/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "confluent.kafka.2.4.0.nupkg.sha512",
+        "confluent.kafka.nuspec",
+        "lib/net462/Confluent.Kafka.dll",
+        "lib/net462/Confluent.Kafka.xml",
+        "lib/net6.0/Confluent.Kafka.dll",
+        "lib/net6.0/Confluent.Kafka.xml",
+        "lib/netstandard1.3/Confluent.Kafka.dll",
+        "lib/netstandard1.3/Confluent.Kafka.xml",
+        "lib/netstandard2.0/Confluent.Kafka.dll",
+        "lib/netstandard2.0/Confluent.Kafka.xml"
+      ]
+    },
     "DynamicData/8.3.27": {
       "sha512": "m5PGnTbFCE04xrH3peeNtiHrXJM5Vxk6Sy9bwXm8ahZ+/ZavqYb8XstBD1GFqcU7g6f8YD3zPcI7XkkW3Y1Ang==",
       "type": "package",
@@ -2919,6 +3166,54 @@
         "lib/netstandard2.0/K4os.Hash.xxHash.xml",
         "lib/netstandard2.1/K4os.Hash.xxHash.dll",
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "librdkafka.redist/2.4.0": {
+      "sha512": "uqi1sNe0LEV50pYXZ3mYNJfZFF1VmsZ6m8wbpWugAAPOzOcX8FJP5FOhLMoUKVFiuenBH2v8zVBht7f1RCs3rA==",
+      "type": "package",
+      "path": "librdkafka.redist/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CONFIGURATION.md",
+        "LICENSES.txt",
+        "README.md",
+        "build/librdkafka.redist.props",
+        "build/native/include/librdkafka/rdkafka.h",
+        "build/native/include/librdkafka/rdkafka_mock.h",
+        "build/native/include/librdkafka/rdkafkacpp.h",
+        "build/native/lib/win/x64/win-x64-Release/v142/librdkafka.lib",
+        "build/native/lib/win/x64/win-x64-Release/v142/librdkafkacpp.lib",
+        "build/native/lib/win/x86/win-x86-Release/v142/librdkafka.lib",
+        "build/native/lib/win/x86/win-x86-Release/v142/librdkafkacpp.lib",
+        "build/native/librdkafka.redist.targets",
+        "librdkafka.redist.2.4.0.nupkg.sha512",
+        "librdkafka.redist.nuspec",
+        "runtimes/linux-arm64/native/librdkafka.so",
+        "runtimes/linux-x64/native/alpine-librdkafka.so",
+        "runtimes/linux-x64/native/centos6-librdkafka.so",
+        "runtimes/linux-x64/native/centos7-librdkafka.so",
+        "runtimes/linux-x64/native/librdkafka.so",
+        "runtimes/osx-arm64/native/librdkafka.dylib",
+        "runtimes/osx-x64/native/librdkafka.dylib",
+        "runtimes/win-x64/native/libcrypto-3-x64.dll",
+        "runtimes/win-x64/native/libcurl.dll",
+        "runtimes/win-x64/native/librdkafka.dll",
+        "runtimes/win-x64/native/librdkafkacpp.dll",
+        "runtimes/win-x64/native/libssl-3-x64.dll",
+        "runtimes/win-x64/native/msvcp140.dll",
+        "runtimes/win-x64/native/vcruntime140.dll",
+        "runtimes/win-x64/native/zlib1.dll",
+        "runtimes/win-x64/native/zstd.dll",
+        "runtimes/win-x86/native/libcrypto-3.dll",
+        "runtimes/win-x86/native/libcurl.dll",
+        "runtimes/win-x86/native/librdkafka.dll",
+        "runtimes/win-x86/native/librdkafkacpp.dll",
+        "runtimes/win-x86/native/libssl-3.dll",
+        "runtimes/win-x86/native/msvcp140.dll",
+        "runtimes/win-x86/native/vcruntime140.dll",
+        "runtimes/win-x86/native/zlib1.dll",
+        "runtimes/win-x86/native/zstd.dll"
       ]
     },
     "MicroCom.Runtime/0.11.0": {
@@ -3327,6 +3622,156 @@
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
         "microsoft.extensions.configuration.abstractions.9.0.0-preview.3.24172.9.nupkg.sha512",
         "microsoft.extensions.configuration.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.FileExtensions/8.0.0": {
+      "sha512": "McP+Lz/EKwvtCv48z0YImw+L1gi1gy5rHhNaNIY2CrjloV+XY8gydT8DjMR6zWeL13AFK+DioVpppwAuO1Gi1w==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.fileextensions/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Configuration.FileExtensions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Configuration.FileExtensions.targets",
+        "lib/net462/Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.FileExtensions.xml",
+        "lib/net6.0/Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "lib/net6.0/Microsoft.Extensions.Configuration.FileExtensions.xml",
+        "lib/net7.0/Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "lib/net7.0/Microsoft.Extensions.Configuration.FileExtensions.xml",
+        "lib/net8.0/Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "lib/net8.0/Microsoft.Extensions.Configuration.FileExtensions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.FileExtensions.xml",
+        "microsoft.extensions.configuration.fileextensions.8.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.fileextensions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Json/8.0.0": {
+      "sha512": "C2wqUoh9OmRL1akaCcKSTmRU8z0kckfImG7zLNI8uyi47Lp+zd5LWAD17waPQEqCz3ioWOCrFUo+JJuoeZLOBw==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.json/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Configuration.Json.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Configuration.Json.targets",
+        "lib/net462/Microsoft.Extensions.Configuration.Json.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.Json.xml",
+        "lib/net6.0/Microsoft.Extensions.Configuration.Json.dll",
+        "lib/net6.0/Microsoft.Extensions.Configuration.Json.xml",
+        "lib/net7.0/Microsoft.Extensions.Configuration.Json.dll",
+        "lib/net7.0/Microsoft.Extensions.Configuration.Json.xml",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Json.dll",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Json.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Json.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Json.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.Configuration.Json.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.Configuration.Json.xml",
+        "microsoft.extensions.configuration.json.8.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.json.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.FileProviders.Abstractions/8.0.0": {
+      "sha512": "ZbaMlhJlpisjuWbvXr4LdAst/1XxH3vZ6A0BsgTphZ2L4PGuxRLz7Jr/S7mkAAnOn78Vu0fKhEgNF5JO3zfjqQ==",
+      "type": "package",
+      "path": "microsoft.extensions.fileproviders.abstractions/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.FileProviders.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.FileProviders.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.FileProviders.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.FileProviders.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.FileProviders.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.xml",
+        "microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
+        "microsoft.extensions.fileproviders.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.FileProviders.Physical/8.0.0": {
+      "sha512": "UboiXxpPUpwulHvIAVE36Knq0VSHaAmfrFkegLyBZeaADuKezJ/AIXYAW8F5GBlGk/VaibN2k/Zn1ca8YAfVdA==",
+      "type": "package",
+      "path": "microsoft.extensions.fileproviders.physical/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.FileProviders.Physical.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.FileProviders.Physical.targets",
+        "lib/net462/Microsoft.Extensions.FileProviders.Physical.dll",
+        "lib/net462/Microsoft.Extensions.FileProviders.Physical.xml",
+        "lib/net6.0/Microsoft.Extensions.FileProviders.Physical.dll",
+        "lib/net6.0/Microsoft.Extensions.FileProviders.Physical.xml",
+        "lib/net7.0/Microsoft.Extensions.FileProviders.Physical.dll",
+        "lib/net7.0/Microsoft.Extensions.FileProviders.Physical.xml",
+        "lib/net8.0/Microsoft.Extensions.FileProviders.Physical.dll",
+        "lib/net8.0/Microsoft.Extensions.FileProviders.Physical.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Physical.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Physical.xml",
+        "microsoft.extensions.fileproviders.physical.8.0.0.nupkg.sha512",
+        "microsoft.extensions.fileproviders.physical.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.FileSystemGlobbing/8.0.0": {
+      "sha512": "OK+670i7esqlQrPjdIKRbsyMCe9g5kSLpRRQGSr4Q58AOYEe/hCnfLZprh7viNisSUUQZmMrbbuDaIrP+V1ebQ==",
+      "type": "package",
+      "path": "microsoft.extensions.filesystemglobbing/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.FileSystemGlobbing.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.FileSystemGlobbing.targets",
+        "lib/net462/Microsoft.Extensions.FileSystemGlobbing.dll",
+        "lib/net462/Microsoft.Extensions.FileSystemGlobbing.xml",
+        "lib/net6.0/Microsoft.Extensions.FileSystemGlobbing.dll",
+        "lib/net6.0/Microsoft.Extensions.FileSystemGlobbing.xml",
+        "lib/net7.0/Microsoft.Extensions.FileSystemGlobbing.dll",
+        "lib/net7.0/Microsoft.Extensions.FileSystemGlobbing.xml",
+        "lib/net8.0/Microsoft.Extensions.FileSystemGlobbing.dll",
+        "lib/net8.0/Microsoft.Extensions.FileSystemGlobbing.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.xml",
+        "microsoft.extensions.filesystemglobbing.8.0.0.nupkg.sha512",
+        "microsoft.extensions.filesystemglobbing.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -6496,7 +6941,9 @@
       "Avalonia.Diagnostics >= 11.0.7",
       "Avalonia.Fonts.Inter >= 11.0.7",
       "Avalonia.Themes.Fluent >= 11.0.7",
+      "Confluent.Kafka >= 2.4.0",
       "Microsoft.Extensions.Configuration >= 9.0.0-preview.3.24172.9",
+      "Microsoft.Extensions.Configuration.Json >= 8.0.0",
       "MySql.Data >= 8.3.0",
       "MySqlConnector >= 2.3.5",
       "NAudio >= 2.2.1",
@@ -6562,9 +7009,17 @@
             "target": "Package",
             "version": "[11.0.7, )"
           },
+          "Confluent.Kafka": {
+            "target": "Package",
+            "version": "[2.4.0, )"
+          },
           "Microsoft.Extensions.Configuration": {
             "target": "Package",
             "version": "[9.0.0-preview.3.24172.9, )"
+          },
+          "Microsoft.Extensions.Configuration.Json": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           },
           "MySql.Data": {
             "target": "Package",

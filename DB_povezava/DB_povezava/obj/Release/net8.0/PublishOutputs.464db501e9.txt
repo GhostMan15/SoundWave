@@ -1,3 +1,0 @@
-C:\Users\faruk\Documents\GitHub\Maturitetna\DB_povezava\DB_povezava\bin\Release\net8.0\publish\DB_povezava.dll
-C:\Users\faruk\Documents\GitHub\Maturitetna\DB_povezava\DB_povezava\bin\Release\net8.0\publish\DB_povezava.deps.json
-C:\Users\faruk\Documents\GitHub\Maturitetna\DB_povezava\DB_povezava\bin\Release\net8.0\publish\DB_povezava.pdb

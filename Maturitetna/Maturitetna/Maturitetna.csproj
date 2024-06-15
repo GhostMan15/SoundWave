@@ -16,7 +16,9 @@
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.7" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.7" />
+        <PackageReference Include="Confluent.Kafka" Version="2.4.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0-preview.3.24172.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
         <PackageReference Include="MySql.Data" Version="8.3.0" />
         <PackageReference Include="MySqlConnector" Version="2.3.5" />
         <PackageReference Include="NAudio" Version="2.2.1" />
@@ -38,6 +40,9 @@
     <ItemGroup>
       <Reference Include="DB_povezava">
         <HintPath>..\..\DB_povezava\DB_povezava\bin\Release\net8.0\DB_povezava.dll</HintPath>
+      </Reference>
+      <Reference Include="FileUploadApi">
+        <HintPath>..\FileUploadApi\obj\Debug\net8.0\FileUploadApi.dll</HintPath>
       </Reference>
     </ItemGroup>
 

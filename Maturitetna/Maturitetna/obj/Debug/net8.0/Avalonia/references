@@ -22,7 +22,7 @@
 /home/faruk/.nuget/packages/avalonia.win32/11.0.7/lib/net6.0/Avalonia.Win32.dll
 /home/faruk/.nuget/packages/avalonia.x11/11.0.7/lib/net6.0/Avalonia.X11.dll
 /home/faruk/.nuget/packages/bouncycastle.cryptography/2.2.1/lib/net6.0/BouncyCastle.Cryptography.dll
-/home/faruk/Documents/GitHub/Maturitetna/DB_povezava/DB_povezava/bin/Release/net8.0/DB_povezava.dll
+/home/faruk/.nuget/packages/confluent.kafka/2.4.0/lib/net6.0/Confluent.Kafka.dll
 /home/faruk/.nuget/packages/dynamicdata/8.3.27/lib/net8.0/DynamicData.dll
 /home/faruk/.nuget/packages/google.protobuf/3.25.1/lib/net5.0/Google.Protobuf.dll
 /home/faruk/.nuget/packages/harfbuzzsharp/7.3.0/lib/net6.0/HarfBuzzSharp.dll
@@ -37,6 +37,11 @@
 /usr/share/dotnet/packs/Microsoft.NETCore.App.Ref/8.0.6/ref/net8.0/Microsoft.CSharp.dll
 /home/faruk/.nuget/packages/microsoft.extensions.configuration.abstractions/9.0.0-preview.3.24172.9/lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
 /home/faruk/.nuget/packages/microsoft.extensions.configuration/9.0.0-preview.3.24172.9/lib/net8.0/Microsoft.Extensions.Configuration.dll
+/home/faruk/.nuget/packages/microsoft.extensions.configuration.fileextensions/8.0.0/lib/net8.0/Microsoft.Extensions.Configuration.FileExtensions.dll
+/home/faruk/.nuget/packages/microsoft.extensions.configuration.json/8.0.0/lib/net8.0/Microsoft.Extensions.Configuration.Json.dll
+/home/faruk/.nuget/packages/microsoft.extensions.fileproviders.abstractions/8.0.0/lib/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll
+/home/faruk/.nuget/packages/microsoft.extensions.fileproviders.physical/8.0.0/lib/net8.0/Microsoft.Extensions.FileProviders.Physical.dll
+/home/faruk/.nuget/packages/microsoft.extensions.filesystemglobbing/8.0.0/lib/net8.0/Microsoft.Extensions.FileSystemGlobbing.dll
 /home/faruk/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/lib/net7.0/Microsoft.Extensions.Logging.Abstractions.dll
 /home/faruk/.nuget/packages/microsoft.extensions.primitives/9.0.0-preview.3.24172.9/lib/net8.0/Microsoft.Extensions.Primitives.dll
 /usr/share/dotnet/packs/Microsoft.NETCore.App.Ref/8.0.6/ref/net8.0/Microsoft.VisualBasic.Core.dll
