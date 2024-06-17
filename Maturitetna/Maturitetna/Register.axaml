@@ -19,23 +19,23 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="Register" TextAlignment="Center" FontSize="36" Margin="10" FontWeight="Black"/>
+            <TextBlock Text="Registracija" TextAlignment="Center" FontSize="36" Margin="10" FontWeight="Black"/>
             <Label x:Name="error" Content="Prosim vpišite podatke" Foreground="Red" HorizontalAlignment="Center"  CornerRadius="10" IsVisible="False" FontSize="24"/>
         </StackPanel>
         <StackPanel Grid.Row="1"  HorizontalAlignment="Center" >
-            <TextBlock Text="Username:" Margin="5"/>
+            <TextBlock Text="Uporabniško ime:" Margin="5"/>
             <TextBox  x:Name="Username" Width="400" CornerRadius="10" />           
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
-            <TextBlock Text="Password:" Margin="5"/>
+            <TextBlock Text="Geslo:" Margin="5"/>
             <TextBox PasswordChar="*" x:Name="Password" Width="400" CornerRadius="10"/>
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-            <TextBlock Text="Re-enter password:" Margin="5"/>
+            <TextBlock Text="Ponovno vpišite geslo:" Margin="5"/>
            <TextBox PasswordChar="*"  x:Name="Reenter" Width="400"  CornerRadius="10"/>
         </StackPanel>
         <StackPanel Grid.Row="4">
-            <Button CornerRadius="10" HorizontalAlignment="Center" Content="Register" Click="Register_OnClick"/>
+            <Button CornerRadius="10" HorizontalAlignment="Center" Content="Registriraj se" Click="Register_OnClick"/>
          </StackPanel>
         
       

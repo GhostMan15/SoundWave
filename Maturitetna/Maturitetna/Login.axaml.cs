@@ -9,7 +9,7 @@ namespace Maturitetna;
 
 public partial class Login : Window
 {
-    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+ 
     private readonly MainWindow _mainWindow;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playList;
@@ -48,7 +48,7 @@ public partial class Login : Window
             
         }
 
-        using MySqlConnection connection = new MySqlConnection(conn);
+        using MySqlConnection connection = new MySqlConnection(_conn);
         connection.Open();
         try
         {

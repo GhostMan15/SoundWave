@@ -26,8 +26,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> DodajUporabnika { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
-     
-    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    
     private string uploadFolder = "/home/faruk/Documents/GitHub/Maturitetna/Muska";
     private static  Login _login;
     public static int userId;
@@ -35,7 +34,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
 
- 
+    private readonly string _conn;
     //private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
     //private PlayList _song;
@@ -54,7 +53,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _onlyplaylist = new PlayList();
         _addPlaylist = new AddPlaylist(this, _playlist);
         _playlist = new PlayListItem(this, _musicItem);
-       
+        var reader = new AppSettingsReader("appsettings.json");
+        _conn = reader.GetStringValue("ConnectionStrings:MyConnectionString");
         DataContext = this;
         _addPlaylist.IzpisiPlaylistePublic();
     }
@@ -198,7 +198,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         }
     public void NaloizIzDatabaze()
     {
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             int userID = MainWindow.userId;
@@ -234,7 +234,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
        try
        {
          
-           using (MySqlConnection connection = new MySqlConnection(conn))
+           using (MySqlConnection connection = new MySqlConnection(_conn))
            {
                connection.Open();
                string sql = "INSERT INTO pesmi(naslov_pesmi,dolzina_pesmi,file_ext,user_id) VALUES(@naslov_pesmi,@dolzina_pesmi,@file_ext,@user_id)";
@@ -247,7 +247,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                    command.ExecuteNonQuery();
                }
 
-               using ( MySqlConnection konekcija = new MySqlConnection(conn))
+               using ( MySqlConnection konekcija = new MySqlConnection(_conn))
                {    konekcija.Open();
                    string query = "SELECT pesmi_id FROM pesmi WHERE user_id=@user_id AND naslov_pesmi = @naslov_pesmi AND dolzina_pesmi = @dolzina_pesmi AND file_ext = @file_ext  ";
                    using (MySqlCommand komanda = new MySqlCommand(query,konekcija))
@@ -317,7 +317,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         _addPlaylist.PobrisiPlaylist();
         CreatePlaylistButton.IsVisible = false;
         uploadButton.IsVisible = false;
-
+        
     }
     //==============================================================================================================================================   
     //Za prikazovanje na playerju
@@ -551,7 +551,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private void OpenPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
         BorderUploads.IsVisible = false;
-        Serach.IsVisible = false;
         mewo.IsVisible = false;
         played.IsVisible = false;
         playlist.IsVisible = true;
@@ -573,7 +572,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private void OpenCollabList_OnClick(object? sender, RoutedEventArgs e)
     {
         BorderUploads.IsVisible = false;
-        Serach.IsVisible = false;
         mewo.IsVisible = false;
         played.IsVisible = false;
         playlist.IsVisible = true;
@@ -594,7 +592,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private void Nazaj_OnClick(object? sender, RoutedEventArgs e)
     {
         BorderUploads.IsVisible = true;
-        Serach.IsVisible = true;
         mewo.IsVisible = true;
         played.IsVisible = true;
         playlist.IsVisible = false;

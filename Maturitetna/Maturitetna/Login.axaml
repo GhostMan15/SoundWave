@@ -15,16 +15,16 @@
         >
     <Grid RowDefinitions="*,*,*,*,*">
      <StackPanel Grid.Row="0"  >
-         <Label Content="Sign In"  HorizontalAlignment="Center" FontSize="36" FontWeight="Black" Margin="10"/>
+         <Label Content="Prijava"  HorizontalAlignment="Center" FontSize="36" FontWeight="Black" Margin="10"/>
          <Label x:Name="wrong" Content="Nepravilno ime ali geslo" Foreground="Red" FontSize="16" IsVisible="False" HorizontalAlignment="Center"  CornerRadius="10" Margin="3" />
          <Label x:Name="prazno" Content="Prosim vpišite podatke" Foreground="Red" FontSize="16" IsVisible="False" HorizontalAlignment="Center"  CornerRadius="10" Margin="3"/> 
      </StackPanel>
         <StackPanel Grid.Row="1"  HorizontalAlignment="Center" >
-            <TextBlock Text="Username:"  Margin="5"/>
+            <TextBlock Text="Uporabniško ime:"  Margin="5"/>
             <TextBox x:Name="Username" Width="400" CornerRadius="10" />           
         </StackPanel>
         <StackPanel Grid.Row="2"  HorizontalAlignment="Center" >
-            <TextBlock Text="Password:" Margin="5"/>
+            <TextBlock Text="Geslo:" Margin="5"/>
             <TextBox PasswordChar="*" x:Name="Password" Width="400" CornerRadius="10"/>           
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">

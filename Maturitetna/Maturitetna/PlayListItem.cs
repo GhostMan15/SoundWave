@@ -5,10 +5,11 @@ namespace Maturitetna;
 
 public class PlayListItem
 {
-    private const string conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
-
+  
+    private readonly string _conn = "Server=63.135.165.41; Port=3306; Database=nrpaFaruk; Uid=nrpaFaruk; Pwd=nrpaFaruk2024!;";
     public PlayListItem()
     {
+        
     }
 
     public static string username;
@@ -62,7 +63,7 @@ public class PlayListItem
         get { return CalculateDodano(dodano); }
         set { }
     }
-
+    
     public PlayListItem(MainWindow mainWindow, MainWindow.MusicItem musicItem)
     {
         _mainWindow = mainWindow;
@@ -79,6 +80,8 @@ public class PlayListItem
         Username = username;
         Naslovpesmi = naslovPesmi;
         Dolzinapesmi = dolzinaPesmi;
+       
+  
 
     }
 
@@ -86,6 +89,7 @@ public class PlayListItem
     {
         UporabnikID = uporabnikId;
         UporabniskoIme = uporabniskoIme;
+      
     }
 
     // Za collebanje
@@ -95,6 +99,7 @@ public class PlayListItem
         PlaylistCollab = playlisId;
         DatumDostopa = datum_dostopa;
         SongNameC = ime_playlista;
+       
     }
 
     private string CalculateDodano(DateTime dodano)
@@ -108,7 +113,7 @@ public class PlayListItem
 
     public void DodajvPlaylisto(int? playlist_id)
     {
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             string sql =
@@ -129,7 +134,7 @@ public class PlayListItem
     public void NaloziPlaylisto(int? playlist_id)
     {
         _mainWindow.myPlayListsSongs.Clear();
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             string sql =
@@ -173,42 +178,11 @@ public class PlayListItem
         _mainWindow.PlayListSongs.ItemsSource = _mainWindow.myPlayListsSongs;
     }
     //==============================================================================================================================
-    //Dodaj uporabnika / Collabing
-    /* public void Collabing()
-     {
-         using (MySqlConnection connection = new MySqlConnection(conn))
-         {
-             connection.Open();
-             string sql = "SELECT pesmi_id FROM inplaylist WHERE playlist_id = @playlist_id";
-             using (MySqlCommand command = new MySqlCommand(sql,connection))
-             {
-                 //command.Parameters.AddWithValue("@pesmi_id",pesmica);
-                 command.Parameters.AddWithValue("@playlist_id",PlaylistId);
-                 using (MySqlDataReader reader = command.ExecuteReader())
-                 {
-                     while (reader.Read())
-                     {
-                         pesmica = reader.GetInt32("pesmi_id");
-                         Console.WriteLine(pesmica);
-                         for ( i = pesmica; i <= pesmica; i++)
-                         {
-                             //pesmice.Add(i);
-                             Console.WriteLine(i);
-                         }
-
-                     }
-                 }
-             }
-         }
-     }*/
-
-    //private int i;
-    //private int pesmica;
     public void DodajUporabnika(int user_id)
     {
         try
         {
-            using (MySqlConnection connection = new MySqlConnection(conn))
+            using (MySqlConnection connection = new MySqlConnection(_conn))
             {
                 connection.Open();
                 string sql = "INSERT INTO collaborate VALUES (NULL,@user_id,@playlist_id,NULL,@song)";
@@ -233,7 +207,7 @@ public class PlayListItem
     public void NaloziUporabnike()
     {
         _mainWindow.DodajUporabnika.Clear();
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             string sql = "SELECT user_id, username From user";
@@ -260,7 +234,7 @@ public class PlayListItem
     public void NaloziCollabanje()
     {
         _mainWindow.Collebanje.Clear();
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             string sql =

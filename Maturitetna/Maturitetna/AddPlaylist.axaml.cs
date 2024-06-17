@@ -10,12 +10,11 @@ namespace Maturitetna;
 
 public partial class AddPlaylist : Window
 {
-    private string  conn = "Server=localhost;Database=maturitetna;Uid=root;Pwd=root;";
+    private readonly string _conn;
     private readonly MainWindow _mainWindow;
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
     private readonly ListBox _playListListBox;
-    //private ButtonTag _buttonTag;
     private MainWindow.MusicItem _musicItem;
     private DateTime dodano = DateTime.Now;
     private int privacy = 1;
@@ -25,6 +24,8 @@ public partial class AddPlaylist : Window
         _mainWindow = mainWindow;
         _playListItem = playListItem;
         DataContext = _mainWindow;
+        var reader = new AppSettingsReader("appsettings.json");
+        _conn = reader.GetStringValue("ConnectionStrings:MyConnectionString");
         _playListListBox = MainWindow.FindListBoxByName("playListListBox", _mainWindow.Uploads);
         if (_playListListBox == null)
         {
@@ -43,7 +44,7 @@ public partial class AddPlaylist : Window
         var addplaylist = addPlaylist.Text; 
         var datum_ustvarjanja = DateTime.Now.ToString();
         int fk_user = MainWindow.userId;
-        using MySqlConnection connection = new MySqlConnection(conn);
+        using MySqlConnection connection = new MySqlConnection(_conn);
         connection.Open();
         string sql = "INSERT INTO playlist(playlist_ime,privacy,playlist_fk_user,datum_ustvarjanja) VALUES(@playlist_ime,@privacy,@playlist_fk_user,@datum_ustvarjanja);";
         using MySqlCommand command = new MySqlCommand(sql,connection);
@@ -64,7 +65,7 @@ public partial class AddPlaylist : Window
         _mainWindow.AllPlaylists.Clear();
         try
         {
-            using (MySqlConnection connection = new MySqlConnection(conn))
+            using (MySqlConnection connection = new MySqlConnection(_conn))
             {
                 connection.Open();
                 const string sql =
@@ -83,7 +84,7 @@ public partial class AddPlaylist : Window
                             int privacy = reader.GetInt32("privacy");
                             int userId = reader.GetInt32("playlist_fk_user");
                             string ustvarjeno = reader.GetString("datum_ustvarjanja");
-                            string datum_dostopa = reader.GetString("datum_dostopa");
+                            string? datum_dostopa = reader.IsDBNull(reader.GetOrdinal("datum_dostopa")) ? null : reader.GetString("datum_dostopa");
                             PlayList playlist = new PlayList
                             {
                                 ImePlaylista = imePlaylista,
@@ -113,7 +114,7 @@ public partial class AddPlaylist : Window
     {
         _mainWindow.PublicPlayLists.Clear();
         
-            using (MySqlConnection connection = new MySqlConnection(conn))
+            using (MySqlConnection connection = new MySqlConnection(_conn))
             {
                 connection.Open();
                 string sql =
@@ -168,7 +169,7 @@ public partial class AddPlaylist : Window
     public void PrikaziReacent()
     {
         _mainWindow.Reacently.Clear();
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             /*string sql = "SELECT c.playlist_id, p.playlist_id, p.playlist_ime, p.playlist_fk_user " +
@@ -208,7 +209,7 @@ public partial class AddPlaylist : Window
 
     public void UpdateTime(int? playlistid)
     {
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             string sql = "UPDATE playlist SET datum_dostopa = NOW() WHERE playlist_id = @playlist_id AND playlist_fk_user = @user_id";
@@ -222,7 +223,7 @@ public partial class AddPlaylist : Window
     }
     public void UpdateTimeC(int playlistid)
     {
-        using (MySqlConnection connection = new MySqlConnection(conn))
+        using (MySqlConnection connection = new MySqlConnection(_conn))
         {
             connection.Open();
             string sql = "UPDATE collaborate SET datum_dostopa = NOW() WHERE playlist_id = @playlist_id AND user_id = @user_id";

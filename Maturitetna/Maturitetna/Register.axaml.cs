@@ -7,12 +7,12 @@ namespace Maturitetna;
 
 public partial class Register : Window
 {
-    private readonly string conn = "Server=dataserver;Database=maturitetna;Uid=root;Pwd=root;";
-  //  private readonly MainWindow _mainWindow;
-   // private readonly AddPlaylist _playList;
+    private readonly string _conn;
     public Register()
     {
         InitializeComponent();
+        var reader = new AppSettingsReader("appsettings.json");
+        _conn = reader.GetStringValue("ConnectionStrings:MyConnectionString");
     }
 
    /* public Register(MainWindow mainWindow, AddPlaylist playlist) : this()
@@ -36,7 +36,7 @@ public partial class Register : Window
 
         try
         {
-            using (MySqlConnection connection = new MySqlConnection(conn))
+            using (MySqlConnection connection = new MySqlConnection(_conn))
             {
                 connection.Open();
                 const string sql = "INSERT INTO user(username,password) VALUES (@username, @password)";
