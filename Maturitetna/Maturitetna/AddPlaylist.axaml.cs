@@ -15,7 +15,7 @@ public partial class AddPlaylist : Window
     private readonly PlayListItem _playListItem;
     private readonly PlayList _playList;
     private readonly ListBox _playListListBox;
-    private MainWindow.MusicItem _musicItem;
+    private MusicItem _musicItem;
     private DateTime dodano = DateTime.Now;
     private int privacy = 1;
     public AddPlaylist(MainWindow mainWindow, PlayListItem playListItem)

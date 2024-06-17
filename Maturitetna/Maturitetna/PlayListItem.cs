@@ -16,7 +16,7 @@ public class PlayListItem
     public string naslovPesmi;
     public string dolzinaPesmi;
     public int playlisId;
-    private MainWindow.MusicItem _musicItem;
+    private MusicItem _musicItem;
 
     public string Naslovpesmi
     {
@@ -64,7 +64,7 @@ public class PlayListItem
         set { }
     }
     
-    public PlayListItem(MainWindow mainWindow, MainWindow.MusicItem musicItem)
+    public PlayListItem(MainWindow mainWindow, MusicItem musicItem)
     {
         _mainWindow = mainWindow;
         _musicItem = musicItem;
@@ -249,7 +249,7 @@ public class PlayListItem
                     {
                         int user_id = reader.GetInt32("user_id");
                         int playlist_id = reader.GetInt32("playlist_id");
-                        string datum_dostopa = reader.GetString("datum_dostopa");
+                        string? datum_dostopa = reader.IsDBNull(reader.GetOrdinal("datum_dostopa")) ? null : reader.GetString("datum_dostopa");
                         string ime_playlist = reader.GetString("playlist_ime");
                         PlayListItem collab = new PlayListItem(
                             UserCollab = user_id,

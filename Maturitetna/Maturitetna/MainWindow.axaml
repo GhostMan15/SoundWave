@@ -87,10 +87,10 @@
                     <DataTemplate>
                         <StackPanel>
                             <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
-                                <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
+                                <Button x:Name="Play" Click="Play_OnClick" Tag="{Binding}" HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
                                     <PathIcon Data="{StaticResource play}"/>
                                 </Button>
-                                <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
+                                <Button x:Name="Stop" Click="Stop_OnClick" Tag="{Binding}" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="0" Grid.Column="0">
                                 <PathIcon Data="{StaticResource stop}"/>
                                 </Button>
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Naslov}" /> 
@@ -143,7 +143,7 @@
             <Button  CornerRadius="10" Margin="5" Click="Next_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Right">
                 <PathIcon Data="{StaticResource next}"/>
             </Button>
-                    <Button Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Click="Play_OnClick" HorizontalAlignment="Center" CornerRadius="100">
+                    <Button Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Click="Stop_OnClick" HorizontalAlignment="Center" CornerRadius="100">
                         <PathIcon Data="{StaticResource stop}"/>
                     </Button>
             <Button CornerRadius="10" Margin="5" Click="Previous_OnClick" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
@@ -200,10 +200,12 @@
                                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Naslovpesmi}"/>
                                      <Label Grid.Row="2" Grid.Column="0" Content="Dolzina:"/>
                                      <TextBlock Grid.Row="2" Grid.Column="1"   Text="{Binding Dolzinapesmi}"/>
-                                   <Button x:Name="Play" Click="Play_OnClick" HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="3" Grid.Column="0">
+                                   <Button x:Name="Play" Click="Play_OnClick" Tag="{Binding  RelativeSource={RelativeSource AncestorType=local:MusicItem} }" 
+                                           HorizontalAlignment="Left" CornerRadius="100" Margin="3" Grid.Row="3" Grid.Column="0">
                                        <PathIcon Data="{StaticResource play}"/>
                                    </Button>
-                                   <Button x:Name="Stop" Click="Stop_OnClick" HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="3" Grid.Column="0">
+                                   <Button x:Name="Stop" Click="Stop_OnClick"  Tag="{Binding  RelativeSource={RelativeSource AncestorType=local:MusicItem} }"
+                                           HorizontalAlignment="Center"  CornerRadius="100" Margin="3" Grid.Row="3" Grid.Column="0">
                                        <PathIcon Data="{StaticResource stop}"/>
                                    </Button>
                                    <Expander x:Name="playlisti" Expanded="Playlisti_OnExpanded"   Tag="{Binding}" Grid.Row="3" Grid.Column="2" Header="AddToPlaylist" IsExpanded="False" Width="167"  CornerRadius="10" Margin="3">

@@ -27,9 +27,9 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
     
-    private string uploadFolder = "/home/faruk/Documents/GitHub/Maturitetna/Muska";
+    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
     private static  Login _login;
-    public static int userId;
+    public  static int  userId;
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playlist;
     private readonly PlayList _onlyplaylist;
@@ -71,43 +71,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
 //======================================================================================================================
 // My Uploads
-    public class MusicItem 
-    {
-        public int PesmiID { get; set; }
-        public string Naslov { get; set; }
-        public string Dolzina { get; set; }
-        public string Destinacija { get; }
-        public int PlaylistId { get; set; } 
-        public string ImePlaylista { get; set; }
-        public  int UserId
-        {
-            get { return userId;  }
-            set {userId = value; }
-        }
-        
-        public MusicItem(){}
-    
-        public MusicItem(int pesmiId, string naslov, string dolzina, string destinacija, int userId) : this(naslov,
-            dolzina, destinacija, userId)
-        {
-            PesmiID = pesmiId;
-        }
-
-        public MusicItem(string imePlaylista, int playlistId)
-        {
-            ImePlaylista = imePlaylista;
-            PlaylistId = playlistId;
-        }
-        public MusicItem( string naslov, string dolzina, string destinacija, int userId)
-        {
-        
-            Naslov = naslov;
-            Dolzina = dolzina;
-            Destinacija = destinacija;
-            UserId = userId;
-            
-        }
-    }
+  
   //=======================================================================================================================
  //Login/Upload buttons
 
@@ -173,15 +137,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file);
                         var destinacija = Path.Combine(uploadFolder, fileName);
                         File.Copy(file, destinacija, true);
-                    
-                        //================================================================================
-                        UploadFileToFtp(destinacija);
-                        /*var config = new ProducerConfig { BootstrapServers = "213.161.27.37" };
-                        using (var producer = new ProducerBuilder<Null, string>(config).Build())
-                        {
-                            var message = $"File uploaded: {naslov}, Path: {destinacija}";
-                            await producer.ProduceAsync("file-uploads", new Message<Null, string> { Value = message });
-                        }*/
                         //================================================================================
                         var newMusic = new MusicItem(naslov, dolzina, destinacija,userID);
                         myUploads.Add(newMusic);
@@ -315,6 +270,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         ShowProfile();
         PobrisiUplode();
         _addPlaylist.PobrisiPlaylist();
+        Reacently.Clear();
         CreatePlaylistButton.IsVisible = false;
         uploadButton.IsVisible = false;
         
@@ -370,19 +326,42 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 
     private async Task PlayNext()
     {
-        if (_trenutniTrack < myUploads.Count - 1)
+        if (playlist_id != null)
+        {
+           await PlayPlaylistNext();
+        }
+        else
+        {
+            if (_trenutniTrack < myUploads.Count - 1)
+            {
+                if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+                {
+                    outputDevice.Stop();
+                    outputDevice.Dispose();
+                }
+                _trenutniTrack++;
+                await PlaySelectedTrack();
+            
+            }
+        }
+       
+    }
+
+    private async Task PlayPlaylistNext()
+    {
+        if (_trenutniTrack < myPlayListsSongs.Count - 1)
         {
             if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
             {
-               outputDevice.Stop();
-               outputDevice.Dispose();
+                outputDevice.Stop();
+                outputDevice.Dispose();
             }
             _trenutniTrack++;
             await PlaySelectedTrack();
             
         }
     }
-
+    
     private async Task PlayPrevious()
     {
         if (_trenutniTrack > 0)
@@ -412,26 +391,27 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     }
     private async Task PlaySelectedTrack()
     {
-        if (_trenutniTrack >= 0 && _trenutniTrack < myUploads.Count)
-        {
-            var filePath = Path.Combine(uploadFolder, myUploads[_trenutniTrack].Destinacija);
-            if (File.Exists(filePath))
+        
+            if (_trenutniTrack >= 0 && _trenutniTrack < myUploads.Count)
             {
+                var filePath = Path.Combine(uploadFolder, myUploads[_trenutniTrack].Destinacija);
                 if (File.Exists(filePath))
                 {
-                    if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+                    if (File.Exists(filePath))
                     {
-                        outputDevice.Stop();
-                        outputDevice.Dispose();
+                        if (outputDevice != null && outputDevice.PlaybackState == PlaybackState.Playing)
+                        {
+                            outputDevice.Stop();
+                            outputDevice.Dispose();
+                        }
+                        await  PlayAudio(filePath);
                     }
-                    await  PlayAudio(filePath);
+                    else
+                    {
+                        Console.WriteLine("Ne spila");
+                    } 
                 }
-                else
-                {
-                    Console.WriteLine("Ne spila");
-                } 
             }
-        }
     }
 
 
@@ -521,11 +501,13 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
  
     private void Play_OnClick(object? sender, RoutedEventArgs e)
     {
+        Console.WriteLine("hej");
         var button = sender as Button;
-        var musicItem = button?.DataContext as MusicItem;
-        var fileName = musicItem?.Destinacija;
+        var musicItem = button.Tag as MusicItem;
+        var fileName = musicItem.Destinacija;
         if (!string.IsNullOrEmpty(fileName))
         {
+            Console.WriteLine("nu uh");
             var filePath = Path.Combine(uploadFolder, fileName);
             if (File.Exists(filePath))
             {
@@ -537,6 +519,8 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             }
         }
     }
+
+    
     
 //==================================================================================================================================
 //Kreiraj playlisto
@@ -600,13 +584,14 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
 //==================================================================================================================================
 // Dodaj pesm v playlist
    // private MusicItem _selectedMusicItem;
- 
+
+   private int playlist_id;
 
     private void AddToSelectedPlaylist_OnClick(object? sender, RoutedEventArgs e)
     {
            if (sender is Button button &&  button.DataContext is PlayList buttonTag)
            {
-               int? playlist_id = buttonTag.PlayListId;
+               playlist_id = buttonTag.PlayListId;
                Console.WriteLine(playlist_id);
                _playlist.DodajvPlaylisto (playlist_id);
            }
@@ -709,43 +694,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
              DownloadFile(selectedFiles);
         }
     }
-
-    
-  //==============================================================================
-  // Uploadanje songov na server
-  private void UploadFileToFtp(string filePath)
-  {
-      try
-      {
-          string ftpServerUrl = "ftp://213.161.27.37/";
-          string username = "MaturaFTP";
-          string password = "58318Ghost";
-
-          string fileName = Path.GetFileName(filePath);
-          string ftpFullPath = ftpServerUrl + fileName;
-
-          FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(ftpFullPath);
-          ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
-          ftpRequest.Credentials = new NetworkCredential(username, password);
-
-          using (Stream fileStream = File.OpenRead(filePath))
-          using (Stream ftpStream = ftpRequest.GetRequestStream())
-          {
-              byte[] buffer = new byte[10240]; 
-              int bytesRead;
-              while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
-              {
-                  ftpStream.Write(buffer, 0, bytesRead);
-              }
-          }
-
-          Console.WriteLine("Upload successful");
-      }
-      catch (Exception ex)
-      {
-          Console.WriteLine($"Error uploading file: {ex.Message}");
-      }
-  }
+ 
 }
 
 
