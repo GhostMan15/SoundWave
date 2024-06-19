@@ -28,7 +28,7 @@
             <TextBox PasswordChar="*" x:Name="Password" Width="400" CornerRadius="10"/>           
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-            <Button CornerRadius="10" Content="Sign In" Margin="3" Click="SignIn_OnClick"/>
+            <Button CornerRadius="10" Content="Prijavi se" Margin="3" Click="SignIn_OnClick"/>
         </StackPanel>
     <StackPanel Grid.Row="4">
         <TextBlock Text="Niste registrirani?" HorizontalAlignment="Center" Margin="5"/>

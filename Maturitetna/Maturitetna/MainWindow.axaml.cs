@@ -162,7 +162,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", userID);
-                    //command.Parameters.AddWithValue("@pesmi_id",PlayListItem.pesmId);
                      using (MySqlDataReader reader =  command.ExecuteReader())
                     {
                         
@@ -271,6 +270,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         PobrisiUplode();
         _addPlaylist.PobrisiPlaylist();
         Reacently.Clear();
+        Collebanje.Clear();
         CreatePlaylistButton.IsVisible = false;
         uploadButton.IsVisible = false;
         
@@ -501,13 +501,13 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
  
     private void Play_OnClick(object? sender, RoutedEventArgs e)
     {
-        Console.WriteLine("hej");
+        
+        
         var button = sender as Button;
         var musicItem = button.Tag as MusicItem;
         var fileName = musicItem.Destinacija;
         if (!string.IsNullOrEmpty(fileName))
         {
-            Console.WriteLine("nu uh");
             var filePath = Path.Combine(uploadFolder, fileName);
             if (File.Exists(filePath))
             {

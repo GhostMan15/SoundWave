@@ -14,8 +14,6 @@ public partial class Login : Window
     private readonly AddPlaylist _addPlaylist;
     private readonly PlayListItem _playList;
     private readonly string _conn;
-
-    //private readonly ButtonTag _buttonTag;
     public Login(MainWindow mainWindow, AddPlaylist _addPlaylist, PlayListItem playList)
     {
         InitializeComponent();
@@ -24,7 +22,6 @@ public partial class Login : Window
         this._addPlaylist = _addPlaylist;
         var reader = new AppSettingsReader("appsettings.json");
         _conn = reader.GetStringValue("ConnectionStrings:MyConnectionString");
-        Console.WriteLine(_conn);
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
