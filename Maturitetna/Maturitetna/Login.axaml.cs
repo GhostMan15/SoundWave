@@ -67,7 +67,6 @@ public partial class Login : Window
                 _addPlaylist.IzpisiPlayliste();
                 _playList.NaloziCollabanje();
                 _addPlaylist.PrikaziReacent();
-                Console.WriteLine(_mainWindow.Username);
                 
             }
             else

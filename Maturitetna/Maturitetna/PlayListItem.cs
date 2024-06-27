@@ -6,11 +6,8 @@ namespace Maturitetna;
 public class PlayListItem
 {
   
-    private readonly string _conn = "Server=63.135.165.41; Port=3306; Database=nrpaFaruk; Uid=nrpaFaruk; Pwd=nrpaFaruk2024!;";
-    public PlayListItem()
-    {
-        
-    }
+    private readonly string _conn = "ur connection string";
+    public PlayListItem(){}
 
     public static string username;
     public string naslovPesmi;
@@ -257,7 +254,6 @@ public class PlayListItem
                             DatumDostopa = datum_dostopa,
                             SongNameC = ime_playlist
                         );
-                        Console.WriteLine($"{user_id},{playlist_id}");
                         _mainWindow.Collebanje.Add(collab);
                     }
 

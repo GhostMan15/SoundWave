@@ -195,7 +195,6 @@ public partial class AddPlaylist : Window
                         int playlist_fk_user = reader.GetInt32("playlist_fk_user");
                         string? datum = reader.IsDBNull(reader.GetOrdinal("datum_dostopa")) ? null : reader.GetString("datum_dostopa");
                         string? datumC = datum;
-                        // se dokoncat (mnde sm)
                         var collabi = new PlayList(ime_playlista,playlist_id,playlist_fk_user,datum,datumC);
                         _mainWindow.Reacently.Add(collabi);
                     }

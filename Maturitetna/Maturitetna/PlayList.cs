@@ -11,7 +11,6 @@ public class PlayList
 
     public PlayList() { }
 
-    //c.playlist_id p._playlist_id p.playlist_ime c.datum_dostopa p.datum_dostopa
 
     public int? CollabID { get; set; }
     public string? DatumDostopaC { get; set; }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj": {}
+    "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {}
   },
   "projects": {
-    "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj": {
+    "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
+        "projectUniqueName": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
         "projectName": "Maturitetna",
-        "projectPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\Maturitetna.csproj",
-        "packagesPath": "C:\\Users\\faruk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Maturitetna\\Maturitetna\\obj\\",
+        "projectPath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/Maturitetna.csproj",
+        "packagesPath": "/home/faruk/.nuget/packages/",
+        "outputPath": "/home/faruk/Documents/GitHub/Maturitetna/Maturitetna/Maturitetna/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\faruk\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/faruk/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -106,12 +106,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.6, 8.0.6]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\faruk\\.dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.106/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -15,11 +15,6 @@ public partial class Register : Window
         _conn = reader.GetStringValue("ConnectionStrings:MyConnectionString");
     }
 
-   /* public Register(MainWindow mainWindow, AddPlaylist playlist) : this()
-    {
-        _mainWindow = mainWindow;
-        _playList = playlist;
-    }*/
     private void Register_OnClick(object? sender, RoutedEventArgs e)
     {
         string username = Username.Text;

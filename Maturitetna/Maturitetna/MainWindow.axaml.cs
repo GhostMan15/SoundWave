@@ -27,7 +27,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     public ObservableCollection<PlayListItem> Collebanje { get; } = new ObservableCollection<PlayListItem>();
     public ObservableCollection<PlayList> Reacently { get; } = new ObservableCollection<PlayList>();
     
-    private string uploadFolder = "C:\\Users\\faruk\\Documents\\GitHub\\Maturitetna\\Muska";
+    private string uploadFolder = "Paste path to your uploading folder";
     private static  Login _login;
     public  static int  userId;
     private readonly AddPlaylist _addPlaylist;
@@ -35,9 +35,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
     private readonly PlayList _onlyplaylist;
 
     private readonly string _conn;
-    //private  ButtonTag _buttonTag;
     public MusicItem _musicItem;
-    //private PlayList _song;
 
     public string Username
     {
@@ -542,11 +540,10 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         PlayListSongs.ItemsSource = myPlayListsSongs;
         if (sender is Button button && button.Tag is PlayList playList)
         {
-            int? playlist_id = playList.PlayListId; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
+            int playlist_id = playList.PlayListId; 
             _playlist.NaloziPlaylisto(playlist_id);
             _addPlaylist.UpdateTime(playlist_id);
             _addPlaylist.IzpisiPlayliste();
-            Console.WriteLine($"{playlist_id},{_playlist.UserId}");
         }
         else
         {
@@ -563,10 +560,9 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         PlayListSongs.ItemsSource = myPlayListsSongs;
         if (sender is Button button && button.Tag is PlayListItem playList)
         {
-            int playlist_id = playList.PlaylistCollab; //Treba je pridobiti id playliste ki je povezana (taggana) na  button
+            int playlist_id = playList.PlaylistCollab; 
             _playlist.NaloziPlaylisto(playlist_id);
             _addPlaylist.UpdateTimeC(playlist_id);
-            Console.WriteLine($"{playlist_id}");
         }
         else
         {
@@ -592,7 +588,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
            if (sender is Button button &&  button.DataContext is PlayList buttonTag)
            {
                playlist_id = buttonTag.PlayListId;
-               Console.WriteLine(playlist_id);
                _playlist.DodajvPlaylisto (playlist_id);
            }
            else
@@ -607,8 +602,6 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
         if (sender is Expander button && button.Tag is MusicItem musicItem)
         {
             PESMI = musicItem.PesmiID;
-            Console.WriteLine("dela");
-            Console.WriteLine(PESMI);
         }
     }
     //================================================================================================================================
@@ -650,8 +643,7 @@ public partial class  MainWindow:Window,INotifyPropertyChanged
             if(sender is Button button && button.Tag is PlayListItem playListItem )
             {
                 int userID = playListItem.UporabnikID;
-                Console.WriteLine(userID);
-                _playlist.DodajUporabnika(userID); //Uporabi oz. uncommenti ko pogruntas query za collabanje
+                _playlist.DodajUporabnika(userID); 
             }
             else
             {

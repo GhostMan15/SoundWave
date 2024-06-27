@@ -1,6 +1,0 @@
-
-8.Zrihtat Collaboration / napou narjen
-9.Move-at db na server
-10.Connectat server_db z projektom
-11.Nastimat kafka streaming
-12.Omogočit downlodanje songov
